@@ -1,0 +1,53 @@
+id,make,model,year,trim,class,body_style,engine_litres,cylinders,motor_kw,transmission,drivetrain,fuel_type,fuel_city_l100km,fuel_hwy_l100km,fuel_combined_l100km,ev_range_km,ev_range_cold_km,co2_rating,smog_rating,msrp_cad,ground_clearance_mm,data_source,data_url
+1,Honda,Civic Sedan,2026,Base,Compact Car,Car,2.0,4,,CVT,FWD,gasoline,7.4,5.8,6.7,,,6,6,26700,127,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+2,Honda,Civic Sedan Hybrid,2026,Base,Compact Car,Car,2.0,4,,CVT,FWD,hybrid,4.7,5.1,4.9,,,8,6,34990,127,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+3,Toyota,Corolla Hybrid,2026,AWD,Compact Car,Car,1.8,4,,CVT,AWD,hybrid,4.6,5.3,4.9,,,8,6,28400,132,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+4,Toyota,Prius,2026,AWD,Compact Car,Car,2.0,4,,CVT,AWD,hybrid,4.8,4.7,4.8,,,8,6,37990,142,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+5,Toyota,Camry,2026,Hybrid,Mid-size Car,Car,2.5,4,,CVT,FWD,hybrid,5.0,5.0,5.0,,,8,7,35290,140,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+6,Hyundai,Elantra Hybrid,2026,Base,Compact Car,Car,1.6,4,,DCT,FWD,hybrid,4.8,4.5,4.7,,,8,6,28699,140,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+7,Hyundai,Sonata Hybrid,2026,Base,Mid-size Car,Car,2.0,4,,DCT,FWD,hybrid,5.3,4.6,5.0,,,8,6,37399,140,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+8,Toyota,RAV4 Hybrid,2026,AWD XLE,Compact SUV,SUV,2.5,4,,CVT,AWD,hybrid,5.2,6.1,5.7,,,7,6,43450,189,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+9,Honda,CR-V Hybrid,2026,AWD,Compact SUV,SUV,2.0,4,,CVT,AWD,hybrid,6.0,6.9,6.4,,,7,7,44790,204,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+10,Ford,Escape Hybrid,2026,AWD,Compact SUV,SUV,2.5,4,,CVT,AWD,hybrid,5.6,6.5,6.0,,,7,7,38990,192,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+11,Hyundai,Santa Fe Hybrid,2026,AWD,Mid-size SUV,SUV,1.6,4,,DCT,AWD,hybrid,6.9,7.0,6.9,,,6,6,44999,196,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+12,Chevrolet,Equinox,2026,AWD,Compact SUV,SUV,1.5,4,,8-spd Auto,AWD,gasoline,9.6,8.1,8.9,,,5,6,39898,190,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+13,BMW,X3,2026,30 xDrive,Compact SUV,SUV,2.0,4,,8-spd Auto,AWD,gasoline,8.8,7.1,8.1,,,6,7,56900,204,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+14,Ford,Escape PHEV,2026,AWD,Compact SUV,SUV,2.5,4,85,CVT,AWD,PHEV,5.6,6.3,5.9,60,36,9,7,44490,192,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+15,Hyundai,Tucson PHEV,2026,AWD,Compact SUV,SUV,1.6,4,66,DCT,AWD,PHEV,6.7,6.8,6.7,51,31,9,6,52099,181,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+16,Mitsubishi,Outlander PHEV,2026,AWD,Mid-size SUV,SUV,2.4,4,60,1-spd Auto,AWD,PHEV,8.6,8.6,8.6,72,43,9,6,50498,200,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+17,Volvo,XC60 T8,2026,AWD Recharge,Compact SUV,SUV,2.0,4,107,8-spd Auto,AWD,PHEV,8.5,8.5,8.5,58,35,9,6,82500,201,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+18,Ford,F-150,2026,4X4 2.7L EcoBoost,Full-size Pickup,Truck,2.7,6,,10-spd Auto,4WD,gasoline,13.1,10.2,11.8,,,4,5,56900,226,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+19,Ford,F-150 Hybrid,2026,4X4 PowerBoost,Full-size Pickup,Truck,3.5,6,,10-spd Auto,4WD,hybrid,11.3,10.0,10.7,,,4,5,63900,226,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+20,Chevrolet,Silverado 4WD,2026,3.0L Duramax Diesel,Full-size Pickup,Truck,3.0,6,,10-spd Auto,4WD,diesel,10.7,9.3,10.1,,,4,4,60795,224,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+21,Toyota,Tacoma Hybrid,2026,4WD Limited,Mid-size Pickup,Truck,2.4,4,,8-spd Auto,4WD,hybrid,10.5,9.7,10.1,,,5,6,57300,235,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+22,Toyota,Tundra Hybrid,2026,4WD,Full-size Pickup,Truck,3.4,6,,10-spd Auto,4WD,hybrid,12.7,10.5,11.7,,,4,4,64800,254,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+23,Tesla,Model Y,2026,Long Range AWD,Mid-size SUV,SUV,,0,378,1-spd Auto,AWD,BEV,,,, 542,325,10,10,74990,167,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+24,Tesla,Model 3,2026,Performance AWD,Mid-size Car,Car,,0,358,1-spd Auto,AWD,BEV,,,,497,298,10,10,79990,140,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+25,Hyundai,IONIQ 5,2026,Long Range RWD,Mid-size SUV,SUV,,0,160,1-spd Auto,RWD,BEV,,,,504,302,10,10,60999,178,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+26,Chevrolet,Equinox EV,2026,AWD,Compact SUV,SUV,,0,215,1-spd Auto,AWD,BEV,,,,494,296,10,10,54898,190,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+27,Volkswagen,ID.4,2026,AWD Pro S,Mid-size SUV,SUV,,0,210,1-spd Auto,AWD,BEV,,,,423,254,10,10,62995,180,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+28,Kia,EV9,2026,Wind RWD,Mid-size SUV,SUV,,0,160,1-spd Auto,RWD,BEV,,,,491,295,10,10,72995,199,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+29,Nissan,LEAF,2026,SV Plus,Compact Car,Car,,0,160,1-spd Auto,FWD,BEV,,,,463,278,10,10,41498,155,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+30,Toyota,bZ4X,2026,AWD,Compact SUV,SUV,,0,160,1-spd Auto,AWD,BEV,,,,468,281,10,10,55990,177,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+31,Toyota,RAV4,2026,XLE AWD,Compact SUV,SUV,2.5,4,,8-spd Auto,AWD,gasoline,9.5,7.4,8.6,,,7,5,36950,189,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+32,Honda,CR-V,2026,LX AWD,Compact SUV,SUV,1.5,4,,CVT,AWD,gasoline,9.7,8.0,8.9,,,7,5,38590,204,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+33,Mazda,CX-5,2026,GX AWD,Compact SUV,SUV,2.5,4,,6-spd Auto,AWD,gasoline,9.7,8.4,9.1,,,7,5,34450,213,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+34,Nissan,Rogue,2026,S AWD,Compact SUV,SUV,1.5,3,,CVT,AWD,gasoline,8.8,7.6,8.3,,,7,5,33898,210,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+35,Subaru,Outback,2026,Touring XT AWD,Mid-size SUV,SUV,2.4,4,,CVT,AWD,gasoline,9.8,8.5,9.2,,,7,5,47795,213,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+36,Subaru,Forester,2026,Premier AWD,Compact SUV,SUV,2.5,4,,CVT,AWD,gasoline,9.8,8.7,9.3,,,7,5,40495,220,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+37,Kia,Sportage,2026,LX AWD,Compact SUV,SUV,2.5,4,,8-spd Auto,AWD,gasoline,10.0,8.2,9.2,,,7,3,33995,181,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+38,Mazda,CX-50,2026,GS AWD,Compact SUV,SUV,2.5,4,,6-spd Auto,AWD,gasoline,10.2,8.6,9.5,,,7,3,39050,224,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+39,Hyundai,Tucson,2026,Preferred AWD,Compact SUV,SUV,2.5,4,,8-spd Auto,AWD,gasoline,10.2,8.2,9.3,,,7,3,37999,181,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+40,Toyota,4Runner,2026,TRD Off-Road 4WD,Mid-size SUV,SUV,2.4,4,,8-spd Auto,4WD,gasoline,12.4,10.3,11.5,,,6,3,62650,224,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+41,Ram,1500,2026,Classic SLT 4x4,Full-size Pickup,Truck,5.7,8,,8-spd Auto,4WD,gasoline,16.1,12.0,14.3,,,6,3,59595,224,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+42,GMC,Sierra 1500,2026,AT4 4WD,Full-size Pickup,Truck,6.2,8,,10-spd Auto,4WD,gasoline,15.7,11.2,13.7,,,6,3,70195,249,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+43,Kia,Sportage Hybrid,2026,EX AWD,Compact SUV,SUV,1.6,4,66,6-spd Auto,AWD,hybrid,6.8,7.4,7.1,,,7,5,44595,181,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+44,Hyundai,IONIQ 6,2026,Long Range AWD,Mid-size Car,Car,,0,239,1-spd Auto,AWD,BEV,,,,581,349,10,10,64999,145,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+45,Kia,EV6,2026,Long Range AWD,Mid-size Car,Car,,0,239,1-spd Auto,AWD,BEV,,,,499,299,10,10,65995,160,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+46,Tesla,Model Y,2026,RWD,Mid-size SUV,SUV,,0,220,1-spd Auto,RWD,BEV,,,,533,320,10,10,59990,167,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+47,Ford,Mustang Mach-E,2026,Select AWD,Mid-size SUV,SUV,,0,258,1-spd Auto,AWD,BEV,,,,490,294,10,10,66995,148,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+48,Volkswagen,Jetta,2026,Comfortline,Compact Car,Car,1.5,4,,8-spd Auto,FWD,gasoline,7.4,6.5,7.0,,,5,5,27995,127,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+49,Honda,Accord Hybrid,2026,EX-L,Mid-size Car,Car,2.0,4,135,eCVT,FWD,hybrid,5.3,6.2,5.7,,,4,7,42290,140,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+50,Rivian,R1T,2026,Adventure AWD,Full-size Pickup,Truck,,0,522,1-spd Auto,AWD,BEV,,,,563,338,10,10,109900,278,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+51,Jeep,Wrangler 4xe,2026,Rubicon PHEV,Mid-size SUV,SUV,2.0,4,90,8-spd Auto,4WD,PHEV,3.7,10.2,7.1,40,24,4,4,73445,252,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
+52,Ford,Maverick Hybrid,2026,XLT FWD,Mid-size Pickup,Truck,2.5,4,,CVT,FWD,hybrid,7.0,7.8,7.4,,,5,6,37500,202,NRCan 2026 Fuel Consumption Guide,https://vehicles.gc.ca
