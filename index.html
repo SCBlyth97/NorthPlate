@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NorthPlate — Free Canadian vehicle intelligence. Browse, filter and compare 2026 vehicles with fuel economy, winter scores and CAD pricing." />
+  <title>Browse Vehicles — NorthPlate</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand" aria-label="NorthPlate home">
+      <div class="nav__logo" aria-hidden="true">NP</div>
+      <div>
+        <div class="nav__name">NorthPlate</div>
+        <div class="nav__tagline">Canadian Vehicle Intelligence</div>
+      </div>
+    </a>
+    <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">
+      ☰
+    </button>
+    <ul class="nav__links" id="navLinks" role="list">
+      <li><a href="index.html" class="nav__link active" aria-current="page">🔍 Browse</a></li>
+      <li>
+        <a href="compare.html" class="nav__link" id="compareNavLink">
+          ⚖ Compare
+          <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
+        </a>
+      </li>
+      <li><a href="tco.html" class="nav__link">💰 TCO</a></li>
+      <li><a href="about.html" class="nav__link">ℹ About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- Filter Sidebar -->
+  <aside class="sidebar" id="filterSidebar" aria-label="Filters">
+    <div class="flex justify-between items-center" style="margin-bottom:var(--space-4)">
+      <h2 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--navy)">Filters</h2>
+      <button class="btn-reset" id="resetFilters" aria-label="Reset all filters">✕ Reset</button>
+    </div>
+
+    <!-- Make -->
+    <div class="filter-group">
+      <label class="filter-label" for="filterMake">Make</label>
+      <select class="filter-select" id="filterMake" aria-label="Filter by make">
+        <option value="">All Makes</option>
+      </select>
+    </div>
+
+    <!-- Body Style -->
+    <div class="filter-group">
+      <fieldset style="border:none;padding:0">
+        <legend class="filter-label">Body Style</legend>
+        <div class="filter-checkbox-group" id="filterBodyStyle"></div>
+      </fieldset>
+    </div>
+
+    <!-- Fuel Type -->
+    <div class="filter-group">
+      <fieldset style="border:none;padding:0">
+        <legend class="filter-label">Fuel Type</legend>
+        <div class="filter-checkbox-group" id="filterFuelType"></div>
+      </fieldset>
+    </div>
+
+    <!-- Drivetrain -->
+    <div class="filter-group">
+      <fieldset style="border:none;padding:0">
+        <legend class="filter-label">Drivetrain</legend>
+        <div class="filter-checkbox-group" id="filterDrivetrain"></div>
+      </fieldset>
+    </div>
+
+    <!-- MSRP Range -->
+    <div class="filter-group">
+      <label class="filter-label" for="filterMsrp">Max MSRP (CAD)</label>
+      <div class="range-slider-wrap">
+        <input type="range" class="range-slider" id="filterMsrp"
+          min="20000" max="120000" step="1000"
+          aria-label="Maximum MSRP in Canadian dollars"
+          aria-valuemin="20000" aria-valuemax="120000" />
+        <div class="range-labels">
+          <span>$20K</span>
+          <span id="msrpDisplayVal" aria-live="polite">$120K</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Province -->
+    <div class="filter-group">
+      <label class="filter-label" for="filterProvince">Province / Territory</label>
+      <select class="filter-select" id="filterProvince" aria-label="Filter by province or territory">
+        <option value="">All Provinces</option>
+      </select>
+    </div>
+
+    <!-- Download CSV -->
+    <div class="filter-group" style="padding-top:var(--space-3);border-top:1px solid var(--border)">
+      <button class="btn btn--secondary" id="downloadCsvBtn" style="width:100%;justify-content:center">
+        ⬇ Download CSV
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main">
+
+    <!-- Mobile sidebar toggle -->
+    <button class="sidebar-toggle-btn" id="sidebarToggle" aria-expanded="false" aria-controls="filterSidebar" style="margin-bottom:var(--space-4)">
+      ⚙ Filters
+    </button>
+
+    <div class="results-bar">
+      <div class="results-count" aria-live="polite" aria-atomic="true" id="resultsCount">
+        <strong>52</strong> vehicles
+      </div>
+      <div class="flex items-center gap-2" style="gap:var(--space-3)">
+        <label class="filter-label" for="sortSelect" style="margin:0;white-space:nowrap">Sort:</label>
+        <select class="filter-select" id="sortSelect" style="min-width:180px" aria-label="Sort vehicles by">
+          <option value="name_asc">Name A–Z</option>
+          <option value="price_asc">Price: Low to High</option>
+          <option value="price_desc">Price: High to Low</option>
+          <option value="fuel_asc">Best Fuel Economy</option>
+          <option value="winter_desc">Best Winter Score</option>
+          <option value="ev_range_desc">Longest EV Range</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="vehicle-grid" id="vehicleGrid" role="list" aria-label="Vehicle listings"></div>
+
+    <div id="emptyState" class="empty-state" style="display:none" aria-live="polite">
+      <div class="empty-state__icon" aria-hidden="true">🔍</div>
+      <h3>No vehicles match your filters</h3>
+      <p>Try adjusting your filters or <button class="btn btn--secondary btn--sm" id="resetFilters2">reset all filters</button></p>
+    </div>
+
+  </main>
+</div>
+
+<!-- Compare bar (floating) -->
+<div class="compare-bar" id="compareBar" role="region" aria-label="Compare selection" aria-live="polite">
+  <div>
+    <div class="compare-bar__label" style="margin-bottom:var(--space-2)">
+      <strong id="compareCount" style="color:#fff">0</strong> vehicle(s) selected to compare
+    </div>
+    <div class="compare-bar__vehicles" id="compareBarVehicles"></div>
+  </div>
+  <div class="compare-bar__actions">
+    <button class="btn btn--secondary btn--sm" id="clearCompareBtn">✕ Clear</button>
+    <a href="compare.html" class="btn btn--primary" id="goCompareBtn">⚖ Compare Now</a>
+  </div>
+</div>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">NorthPlate</div>
+      <p class="footer__note">Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide. All prices in CAD. Not affiliated with any manufacturer.</p>
+    </div>
+    <div class="footer__links">
+      <a href="index.html">Browse</a>
+      <a href="compare.html">Compare</a>
+      <a href="tco.html">TCO</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/winter.js"></script>
+<script src="js/fuel.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/compare.js"></script>
+<script>
+'use strict';
+
+// ---- State ----
+let state = Filters.defaults();
+state.msrpMax = NorthPlateData.maxMsrp;
+
+// ---- Build filter UI ----
+function buildFilterUI() {
+  // Make dropdown
+  const makeEl = document.getElementById('filterMake');
+  NorthPlateData.makes.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m;
+    opt.textContent = m;
+    makeEl.appendChild(opt);
+  });
+
+  // Body style checkboxes
+  const bodyStyleIcons = { Car: '🚗', SUV: '🚙', Truck: '🛻' };
+  const bodyEl = document.getElementById('filterBodyStyle');
+  NorthPlateData.bodyStyles.forEach(bs => {
+    bodyEl.innerHTML += `
+      <label class="filter-checkbox-item">
+        <input type="checkbox" name="bodyStyle" value="${UI.escapeHTML(bs)}" aria-label="${UI.escapeHTML(bs)}" />
+        <span>${bodyStyleIcons[bs] || '🚘'} ${UI.escapeHTML(bs)}</span>
+      </label>`;
+  });
+
+  // Fuel type checkboxes
+  const fuelIcons = { gasoline:'⛽', diesel:'⛽', hybrid:'⚡', PHEV:'🔌', BEV:'⚡' };
+  const fuelEl = document.getElementById('filterFuelType');
+  NorthPlateData.fuelTypes.forEach(ft => {
+    fuelEl.innerHTML += `
+      <label class="filter-checkbox-item">
+        <input type="checkbox" name="fuelType" value="${UI.escapeHTML(ft)}" aria-label="${UI.escapeHTML(UI.fuelLabel(ft))}" />
+        <span>${fuelIcons[ft] || ''} ${UI.escapeHTML(UI.fuelLabel(ft))}</span>
+      </label>`;
+  });
+
+  // Drivetrain checkboxes
+  const dtEl = document.getElementById('filterDrivetrain');
+  NorthPlateData.drivetrains.forEach(dt => {
+    dtEl.innerHTML += `
+      <label class="filter-checkbox-item">
+        <input type="checkbox" name="drivetrain" value="${UI.escapeHTML(dt)}" aria-label="${UI.escapeHTML(dt)}" />
+        <span>${UI.escapeHTML(dt)}</span>
+      </label>`;
+  });
+
+  // Province dropdown
+  const provEl = document.getElementById('filterProvince');
+  provEl.innerHTML += ProvinceData.list.map(p =>
+    `<option value="${p.abbr}">${UI.escapeHTML(p.name)}</option>`
+  ).join('');
+
+  // MSRP slider
+  const msrpEl = document.getElementById('filterMsrp');
+  msrpEl.min   = NorthPlateData.minMsrp;
+  msrpEl.max   = NorthPlateData.maxMsrp;
+  msrpEl.value = NorthPlateData.maxMsrp;
+  msrpEl.step  = 5000;
+  updateMsrpDisplay(NorthPlateData.maxMsrp);
+}
+
+function updateMsrpDisplay(val) {
+  const dispEl = document.getElementById('msrpDisplayVal');
+  if (dispEl) dispEl.textContent = UI.formatCAD(val);
+}
+
+// ---- Event listeners ----
+function bindEvents() {
+  document.getElementById('filterMake').addEventListener('change', e => {
+    state.make = e.target.value;
+    render();
+  });
+
+  document.querySelectorAll('input[name="bodyStyle"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      state.bodyStyles = [...document.querySelectorAll('input[name="bodyStyle"]:checked')].map(i => i.value);
+      render();
+    });
+  });
+
+  document.querySelectorAll('input[name="fuelType"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      state.fuelTypes = [...document.querySelectorAll('input[name="fuelType"]:checked')].map(i => i.value);
+      render();
+    });
+  });
+
+  document.querySelectorAll('input[name="drivetrain"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      state.drivetrains = [...document.querySelectorAll('input[name="drivetrain"]:checked')].map(i => i.value);
+      render();
+    });
+  });
+
+  document.getElementById('filterMsrp').addEventListener('input', e => {
+    state.msrpMax = parseInt(e.target.value);
+    updateMsrpDisplay(state.msrpMax);
+    renderDebounced();
+  });
+
+  document.getElementById('filterProvince').addEventListener('change', e => {
+    state.province = e.target.value;
+    render();
+  });
+
+  document.getElementById('sortSelect').addEventListener('change', e => {
+    state.sortBy = e.target.value;
+    render();
+  });
+
+  // Reset buttons
+  ['resetFilters', 'resetFilters2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', resetFilters);
+  });
+
+  // Download CSV
+  document.getElementById('downloadCsvBtn').addEventListener('click', () => {
+    const filtered = Filters.apply(NorthPlateData.vehicles, state);
+    UI.downloadCSV(filtered);
+  });
+
+  // Mobile nav toggle
+  document.getElementById('navToggle').addEventListener('click', function() {
+    const links = document.getElementById('navLinks');
+    const open = links.classList.toggle('open');
+    this.setAttribute('aria-expanded', open);
+  });
+
+  // Mobile sidebar toggle
+  document.getElementById('sidebarToggle').addEventListener('click', function() {
+    const sidebar = document.getElementById('filterSidebar');
+    const open = sidebar.classList.toggle('open');
+    this.setAttribute('aria-expanded', open);
+    this.textContent = open ? '✕ Close Filters' : '⚙ Filters';
+  });
+
+  // Clear compare
+  document.getElementById('clearCompareBtn').addEventListener('click', () => {
+    Compare.clearAll();
+    render();
+    updateCompareBar();
+  });
+
+  // Compare card clicks (delegated)
+  document.getElementById('vehicleGrid').addEventListener('change', e => {
+    if (e.target.classList.contains('compare-toggle')) {
+      const id = parseInt(e.target.dataset.id);
+      const added = Compare.toggle(id);
+      if (!added && Compare.getIds().includes(id) === false) {
+        // Was removed — checkbox should already be unchecked
+      } else if (e.target.checked && !added) {
+        // Couldn't add (max reached)
+        e.target.checked = false;
+        showToast(`Maximum ${Compare.MAX_COMPARE} vehicles can be compared at once.`);
+      }
+      updateCompareBar();
+      updateCardSelection();
+    }
+  });
+}
+
+function resetFilters() {
+  state = Filters.defaults();
+  state.msrpMax = NorthPlateData.maxMsrp;
+
+  document.getElementById('filterMake').value = '';
+  document.querySelectorAll('input[name="bodyStyle"]').forEach(cb => cb.checked = false);
+  document.querySelectorAll('input[name="fuelType"]').forEach(cb => cb.checked = false);
+  document.querySelectorAll('input[name="drivetrain"]').forEach(cb => cb.checked = false);
+  document.getElementById('filterMsrp').value = NorthPlateData.maxMsrp;
+  updateMsrpDisplay(NorthPlateData.maxMsrp);
+  document.getElementById('filterProvince').value = '';
+  document.getElementById('sortSelect').value = 'name_asc';
+  render();
+}
+
+// ---- Render ----
+const renderDebounced = UI.debounce(() => render(), 80);
+
+function render() {
+  const filtered = Filters.apply(NorthPlateData.vehicles, state);
+  const selectedIds = new Set(Compare.getIds());
+  const grid = document.getElementById('vehicleGrid');
+  const countEl = document.getElementById('resultsCount');
+  const emptyEl = document.getElementById('emptyState');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    grid.style.display = 'none';
+    emptyEl.style.display = '';
+  } else {
+    grid.style.display = '';
+    emptyEl.style.display = 'none';
+    grid.innerHTML = filtered.map(v =>
+      `<div role="listitem">${UI.vehicleCardHTML(v, selectedIds.has(v.id))}</div>`
+    ).join('');
+  }
+
+  countEl.innerHTML = `<strong>${filtered.length}</strong> vehicle${filtered.length !== 1 ? 's' : ''}`;
+  updateCompareBar();
+}
+
+function updateCardSelection() {
+  const selectedIds = new Set(Compare.getIds());
+  document.querySelectorAll('.compare-toggle').forEach(cb => {
+    const id = parseInt(cb.dataset.id);
+    cb.checked = selectedIds.has(id);
+    const card = cb.closest('.vehicle-card');
+    if (card) card.classList.toggle('vehicle-card--selected', selectedIds.has(id));
+  });
+}
+
+// ---- Compare bar ----
+function updateCompareBar() {
+  const bar      = document.getElementById('compareBar');
+  const badge    = document.getElementById('compareBadge');
+  const countEl  = document.getElementById('compareCount');
+  const vehicles = Compare.getVehicles();
+  const n = vehicles.length;
+
+  // Nav badge
+  if (n > 0) {
+    badge.textContent = n;
+    badge.style.display = '';
+  } else {
+    badge.style.display = 'none';
+  }
+
+  countEl.textContent = n;
+
+  if (n >= 2) {
+    bar.classList.add('visible');
+  } else {
+    bar.classList.remove('visible');
+  }
+
+  const vDiv = document.getElementById('compareBarVehicles');
+  vDiv.innerHTML = vehicles.map(v => `
+    <div class="compare-bar__item">
+      <span>${UI.escapeHTML(v.make)} ${UI.escapeHTML(v.model)}</span>
+      <button class="compare-bar__remove" data-remove="${v.id}" aria-label="Remove ${v.make} ${v.model}">✕</button>
+    </div>
+  `).join('');
+
+  vDiv.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      Compare.removeId(parseInt(btn.dataset.remove));
+      updateCompareBar();
+      updateCardSelection();
+    });
+  });
+}
+
+// ---- Toast ----
+function showToast(msg) {
+  let toast = document.getElementById('np-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'np-toast';
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.style.cssText = `
+      position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+      background:var(--navy);color:#fff;padding:10px 20px;border-radius:6px;
+      font-size:14px;opacity:0;transition:opacity .2s,transform .2s;z-index:300;
+      pointer-events:none;white-space:nowrap;
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(20px)';
+  }, 3000);
+}
+
+// ---- Init ----
+buildFilterUI();
+bindEvents();
+render();
+</script>
+</body>
+</html>
