@@ -61,8 +61,9 @@ const Filters = (() => {
         return arr.sort((a, b) => b.msrp_cad - a.msrp_cad);
       case 'fuel_asc':
         return arr.sort((a, b) => {
-          const fa = a.fuel_combined_l100km || 99;
-          const fb = b.fuel_combined_l100km || 99;
+          // BEVs use ~2.0 Le/100km equivalent — more efficient than any ICE/hybrid
+          const fa = a.fuel_combined_l100km || (a.fuel_type === 'BEV' ? 2.0 : 99);
+          const fb = b.fuel_combined_l100km || (b.fuel_type === 'BEV' ? 2.0 : 99);
           return fa - fb;
         });
       case 'winter_desc':

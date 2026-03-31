@@ -102,8 +102,9 @@ const TCO = (() => {
         return Math.round(evCost + gasCost);
       }
       case 'BEV': {
-        // Estimate kWh/100km from range (typical 20 kWh/100km average)
-        const kwhPer100 = vehicle.ev_range_km ? Math.round(20000 / vehicle.ev_range_km * 10) / 10 : 20;
+        // NRCan 2026 average: ~17–24 kWh/100km depending on vehicle size.
+        // Use vehicle-specific value when available, otherwise 20 kWh/100km.
+        const kwhPer100 = vehicle.kwh_per_100km || 20;
         return Math.round((annualKm / 100) * kwhPer100 * electricityRate);
       }
       default:

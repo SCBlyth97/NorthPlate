@@ -84,12 +84,12 @@
       <label class="filter-label" for="filterMsrp">Max MSRP (CAD)</label>
       <div class="range-slider-wrap">
         <input type="range" class="range-slider" id="filterMsrp"
-          min="20000" max="120000" step="1000"
+          min="20000" max="120000" step="500"
           aria-label="Maximum MSRP in Canadian dollars"
           aria-valuemin="20000" aria-valuemax="120000" />
         <div class="range-labels">
-          <span>$20K</span>
-          <span id="msrpDisplayVal" aria-live="polite">$120K</span>
+          <span id="msrpMinLabel">Min</span>
+          <span id="msrpDisplayVal" aria-live="polite">Max</span>
         </div>
       </div>
     </div>
@@ -237,12 +237,17 @@ function buildFilterUI() {
     `<option value="${p.abbr}">${UI.escapeHTML(p.name)}</option>`
   ).join('');
 
-  // MSRP slider
+  // MSRP slider — set all attributes before value to avoid clamping issues
   const msrpEl = document.getElementById('filterMsrp');
   msrpEl.min   = NorthPlateData.minMsrp;
   msrpEl.max   = NorthPlateData.maxMsrp;
+  msrpEl.step  = 500;
   msrpEl.value = NorthPlateData.maxMsrp;
-  msrpEl.step  = 5000;
+  msrpEl.setAttribute('aria-valuemin', NorthPlateData.minMsrp);
+  msrpEl.setAttribute('aria-valuemax', NorthPlateData.maxMsrp);
+  // Update both labels
+  const minLabel = document.getElementById('msrpMinLabel');
+  if (minLabel) minLabel.textContent = UI.formatCAD(NorthPlateData.minMsrp);
   updateMsrpDisplay(NorthPlateData.maxMsrp);
 }
 

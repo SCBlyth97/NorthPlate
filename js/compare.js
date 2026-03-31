@@ -174,7 +174,9 @@ const Compare = (() => {
     // Raw values per dimension
     const raw = {
       price:   vehicles.map(v => v.msrp_cad),
-      fuel:    vehicles.map(v => v.fuel_combined_l100km || v.ev_range_km || null),
+      // Use L/100km for ICE/hybrid/diesel; litre-equivalent (~2.0 Le/100km) for BEV
+      // so all vehicles are on a comparable scale (lower = more efficient).
+      fuel:    vehicles.map(v => v.fuel_combined_l100km || (v.fuel_type === 'BEV' ? 2.0 : null)),
       winter:  vehicles.map(v => WinterScore.calculate(v).score),
       evRange: vehicles.map(v => v.ev_range_km || 0),
       enviro:  vehicles.map(v => v.co2_rating || 0),
