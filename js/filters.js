@@ -35,12 +35,12 @@ const Filters = (() => {
       result = result.filter(v => state.drivetrains.includes(v.drivetrain));
     }
 
-    // MSRP range
+    // MSRP range (vehicles without MSRP data pass through)
     if (state.msrpMin != null) {
-      result = result.filter(v => v.msrp_cad >= state.msrpMin);
+      result = result.filter(v => v.msrp_cad == null || v.msrp_cad >= state.msrpMin);
     }
     if (state.msrpMax != null) {
-      result = result.filter(v => v.msrp_cad <= state.msrpMax);
+      result = result.filter(v => v.msrp_cad == null || v.msrp_cad <= state.msrpMax);
     }
 
     // Sort
