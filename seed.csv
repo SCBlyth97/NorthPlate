@@ -1,0 +1,31 @@
+make,model,year,trim,category,fuel_type,drivetrain,engine_L,cylinders,transmission,city_L100km,hwy_L100km,comb_L100km,kwh_per_100km,range_km,ev_electric_range_km,co2_gkm,co2_rating_1to10,smog_rating_1to10,nrcan_annual_fuel_cost_cad,recharge_time_h,source_notes
+Honda,Civic Sedan,2026,Base,Car,Gasoline Regular,FWD,2,4,CVT,7.4,5.8,6.7,,,,156,6,6,2010,,NRCan 2026 p.10
+Honda,Civic Sedan Hybrid,2026,Base,Car,Gasoline Regular (Hybrid),FWD,2,4,CVT,4.7,5.1,4.9,,,,114,8,6,1470,,NRCan 2026 p.10
+Toyota,Corolla Hybrid,2026,AWD,Car,Gasoline Regular (Hybrid),AWD,1.8,4,CVT,4.6,5.3,4.9,,,,115,8,6,1470,,NRCan 2026 p.13
+Toyota,Prius,2026,AWD,Car,Gasoline Regular (Hybrid),AWD,2,4,CVT,4.8,4.7,4.8,,,,111,8,6,1440,,NRCan 2026 p.14
+Toyota,Camry,2026,Hybrid,Car,Gasoline Regular (Hybrid),FWD,2.5,4,CVT,5,5,5,,,,117,8,7,1500,,NRCan 2026 p.13
+Hyundai,Elantra Hybrid,2026,Base,Car,Gasoline Regular (Hybrid),FWD,1.6,4,DCT,4.8,4.5,4.7,,,,110,8,6,1410,,NRCan 2026 p.11
+Hyundai,Sonata Hybrid,2026,Base,Car,Gasoline Regular (Hybrid),FWD,2,4,DCT,5.3,4.6,5,,,,117,8,6,1500,,NRCan 2026 p.11
+Toyota,RAV4 Hybrid,2026,AWD XLE,SUV,Gasoline Regular (Hybrid),AWD,2.5,4,CVT,5.2,6.1,5.7,,,,132,7,6,1710,,NRCan 2026 p.29
+Honda,CR-V Hybrid,2026,AWD,SUV,Gasoline Regular (Hybrid),AWD,2,4,CVT,6,6.9,6.4,,,,151,7,7,1920,,NRCan 2026 p.21
+Ford,Escape Hybrid,2026,AWD,SUV,Gasoline Regular (Hybrid),AWD,2.5,4,CVT,5.6,6.5,6,,,,140,7,7,1800,,NRCan 2026 p.20
+Hyundai,Santa Fe Hybrid,2026,AWD,SUV,Gasoline Regular (Hybrid),AWD,1.6,4,DCT,6.9,7,6.9,,,,163,6,6,2070,,NRCan 2026 p.21
+Chevrolet,Equinox,2026,AWD,SUV,Gasoline Regular,AWD,1.5,4,8-spd Auto,9.6,8.1,8.9,,,,209,5,6,2670,,NRCan 2026 p.19
+BMW,X3,2026,30 xDrive,SUV,Gasoline Premium,AWD,2,4,8-spd Auto,8.8,7.1,8.1,,,,186,6,7,2835,,NRCan 2026 p.18
+Ford,Escape PHEV,2026,AWD,SUV,PHEV,AWD,2.5,4,CVT,5.6,6.3,5.9,20.6,771,60,49,9,7,1106,3.4,NRCan 2026 p.29; Le/100km 2.3; EV range 60km
+Hyundai,Tucson PHEV,2026,AWD,SUV,PHEV,AWD,1.6,4,DCT,6.7,6.8,6.7,27.2,623,51,64,9,6,1392,2,NRCan 2026 p.29; Le/100km 3.1; EV range 51km
+Mitsubishi,Outlander PHEV,2026,AWD,SUV,PHEV,AWD,2.4,4,1-spd Auto,8.6,8.6,8.6,28.8,618,72,58,9,6,1473,6.5,NRCan 2026 p.30; Le/100km 3.2; EV range 72km
+Volvo,XC60 T8,2026,AWD Recharge,SUV,PHEV,AWD,2,4,8-spd Auto,8.5,8.5,8.5,31.2,838,58,72,9,6,1790,5,NRCan 2026 p.30; Le/100km 3.5; EV range 58km
+Ford,F-150,2026,4X4 2.7L EcoBoost,Truck,Gasoline Regular,4WD,2.7,6,10-spd Auto,13.1,10.2,11.8,,,,277,4,5,3540,,NRCan 2026 p.15
+Ford,F-150 Hybrid,2026,4X4 PowerBoost,Truck,Gasoline Regular (Hybrid),4WD,3.5,6,10-spd Auto,11.3,10,10.7,,,,251,4,5,3210,,NRCan 2026 p.15
+Chevrolet,Silverado 4WD,2026,3.0L Duramax Diesel,Truck,Diesel,4WD,3,6,10-spd Auto,10.7,9.3,10.1,,,,270,4,4,2929,,NRCan 2026 p.15; diesel $1.45/L basis
+Toyota,Tacoma Hybrid,2026,4WD Limited,Truck,Gasoline Regular (Hybrid),4WD,2.4,4,8-spd Auto,10.5,9.7,10.1,,,,236,5,6,3030,,NRCan 2026 p.17
+Toyota,Tundra Hybrid,2026,4WD,Truck,Gasoline Regular (Hybrid),4WD,3.4,6,10-spd Auto,12.7,10.5,11.7,,,,274,4,4,3510,,NRCan 2026 p.17
+Tesla,Model Y,2026,Long Range AWD,SUV,Battery Electric,AWD,,,1-spd Auto,16.7,18.2,17.3,17.3,542,542,0,10,10,623,8,NRCan 2026 p.41; kWh/100km 17.3; Le/100km 1.9
+Tesla,Model 3,2026,Performance AWD,Car,Battery Electric,AWD,,,1-spd Auto,17.4,19.5,18.4,18.4,497,497,0,10,10,662,8,NRCan 2026 p.30; kWh/100km 18.4; Le/100km 2.1
+Hyundai,IONIQ 5 Long Range,2026,RWD,SUV,Battery Electric,RWD,,,1-spd Auto,15.2,18.9,16.9,16.9,504,504,0,10,10,608,8.2,NRCan 2026 p.38; kWh/100km 16.9; Le/100km 1.9
+Chevrolet,Equinox EV,2026,AWD,SUV,Battery Electric,AWD,,,1-spd Auto,18.8,22.1,20.3,20.3,494,494,0,10,10,731,9.5,NRCan 2026 p.35; kWh/100km 20.3; Le/100km 2.3
+Volkswagen,ID.4,2026,AWD Pro S,SUV,Battery Electric,AWD,,,1-spd Auto,19.4,21.9,20.5,20.5,423,423,0,10,10,738,8,NRCan 2026 p.42; kWh/100km 20.5; Le/100km 2.3
+Kia,EV9 Wind,2026,RWD,SUV,Battery Electric,RWD,,,1-spd Auto,21.1,26.7,23.6,23.6,491,491,0,10,10,850,10.7,NRCan 2026 p.36; kWh/100km 23.6; Le/100km 2.6
+Nissan,LEAF SV PLUS,2026,SV PLUS,Car,Battery Electric,FWD,,,1-spd Auto,17.1,19.9,18.4,18.4,463,463,0,10,10,662,12,NRCan 2026 p.30; kWh/100km 18.4; Le/100km 2.1
+Toyota,bZ AWD,2026,AWD,SUV,Battery Electric,AWD,,,1-spd Auto,15.8,19.1,17.3,17.3,468,468,0,10,10,623,8,NRCan 2026 p.42; kWh/100km 17.3; Le/100km 1.9
