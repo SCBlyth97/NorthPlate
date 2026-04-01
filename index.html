@@ -185,8 +185,7 @@
 'use strict';
 
 // ---- State ----
-let state = Filters.defaults();
-state.msrpMax = NorthPlateData.maxMsrp;
+let state;
 
 // ---- Build filter UI ----
 function buildFilterUI() {
@@ -471,9 +470,13 @@ function showToast(msg) {
 }
 
 // ---- Init ----
-buildFilterUI();
-bindEvents();
-render();
+document.addEventListener('northplate:ready', function () {
+  state = Filters.defaults();
+  state.msrpMax = NorthPlateData.maxMsrp;
+  buildFilterUI();
+  bindEvents();
+  render();
+});
 </script>
 </body>
 </html>

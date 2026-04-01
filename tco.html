@@ -338,8 +338,10 @@ if (compareCount > 0) {
 }
 
 // ---- Init ----
-buildProvinceSelect();
-buildPickers();
+document.addEventListener('northplate:ready', function () {
+  buildProvinceSelect();
+  buildPickers();
+});
 </script>
 </body>
 </html>

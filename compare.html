@@ -245,9 +245,11 @@ document.getElementById('navToggle').addEventListener('click', function() {
 });
 
 // ---- Init ----
-buildVehiclePicker();
-buildWeightSliders();
-render();
+document.addEventListener('northplate:ready', function () {
+  buildVehiclePicker();
+  buildWeightSliders();
+  render();
+});
 </script>
 </body>
 </html>
