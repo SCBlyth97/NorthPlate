@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vehicle details — NorthPlate Canadian Vehicle Intelligence" />
+  <title>Vehicle Details — NorthPlate</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand" aria-label="NorthPlate home">
+      <div class="nav__logo" aria-hidden="true">NP</div>
+      <div>
+        <div class="nav__name">NorthPlate</div>
+        <div class="nav__tagline">Canadian Vehicle Intelligence</div>
+      </div>
+    </a>
+    <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false"
+      aria-controls="navLinks" aria-label="Toggle navigation menu">☰</button>
+    <ul class="nav__links" id="navLinks" role="list">
+      <li><a href="index.html" class="nav__link">🔍 Browse</a></li>
+      <li>
+        <a href="compare.html" class="nav__link" id="compareNavLink">
+          ⚖ Compare
+          <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
+        </a>
+      </li>
+      <li><a href="tco.html" class="nav__link">💰 TCO</a></li>
+      <li><a href="about.html" class="nav__link">ℹ About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-full">
+
+  <!-- Loading state -->
+  <div id="vd-loading" class="vd-loading">
+    <span class="vd-loading__spinner" aria-hidden="true">⏳</span>
+    <p>Loading vehicle data…</p>
+  </div>
+
+  <!-- Error state -->
+  <div id="vd-error" style="display:none">
+    <div class="empty-state">
+      <div class="empty-state__icon" aria-hidden="true">🚫</div>
+      <h3>Vehicle not found</h3>
+      <p style="margin-bottom:var(--space-5)">
+        The requested vehicle ID doesn't exist in the 2026 dataset.
+      </p>
+      <a href="index.html" class="btn btn--primary">← Back to Browse</a>
+    </div>
+  </div>
+
+  <!-- Vehicle detail — populated by JS -->
+  <div id="vd-content" style="display:none"></div>
+
+</div><!-- .page-full -->
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">NorthPlate</div>
+      <p class="footer__note">Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide.
+        All prices in CAD. Not affiliated with any manufacturer.</p>
+    </div>
+    <div class="footer__links">
+      <a href="index.html">Browse</a>
+      <a href="compare.html">Compare</a>
+      <a href="tco.html">TCO</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/winter.js"></script>
+<script src="js/fuel.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/tco.js"></script>
+<script>
+'use strict';
+
+// ── Nav mobile toggle ──────────────────────────────────────────────────────
+document.getElementById('navToggle').addEventListener('click', function () {
+  const links = document.getElementById('navLinks');
+  const open = links.classList.toggle('open');
+  this.setAttribute('aria-expanded', open);
+});
+
+// ── Enriched spec data for the 2 featured vehicles ────────────────────────
+// All other vehicles use only the fields present in data/vehicles.csv.
+const ENRICHED = {
+  // Ford F-150 4X4 (XLT trim) — ID 188
+  188: {
+    display_model:    'F-150 XLT',
+    featured_rank:    '#1 Truck in Canada',
+    msrp_from:        56469,
+    engine_desc:      '2.7L EcoBoost V6',
+    hp:               325,
+    torque_lbft:      400,
+    transmission_desc:'10-speed automatic',
+    ground_clearance_mm: 208,
+    towing_lbs:       13500,
+    payload_lbs:      2440,
+    seating:          6,
+    fuel_tank_l:      98,
+    length_mm:        5891,
+    width_mm:         2029,
+    wheelbase_mm:     3683,
+    source:           'ford.ca · NRCan 2026 Fuel Consumption Guide',
+  },
+  // Honda Civic Sedan (Sport trim) — ID 256
+  256: {
+    display_model:    'Civic Sedan Sport',
+    featured_rank:    '#1 Car in Canada',
+    msrp_from:        31490,
+    engine_desc:      '2.0L inline 4-cylinder',
+    hp:               150,
+    torque_lbft:      133,
+    transmission_desc:'CVT',
+    ground_clearance_mm: 134,
+    seating:          5,
+    cargo_l:          419,
+    fuel_tank_l:      46.9,
+    length_mm:        4694,
+    width_mm:         1800,
+    wheelbase_mm:     2735,
+    source:           'honda.ca · NRCan 2026 Fuel Consumption Guide',
+  },
+};
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+
+const esc = UI.escapeHTML;
+const fmt = UI.formatCAD;
+
+/**
+ * Render one specification row.
+ * Returns '' if value is null/undefined/'', so callers never need null guards.
+ */
+function specRow(label, value, note) {
+  if (value == null || value === '' || value === '—') return '';
+  const noteHtml = note ? `<span class="spec-note">${esc(String(note))}</span>` : '';
+  return `
+    <div class="spec-row">
+      <span class="spec-label">${label}</span>
+      <span class="spec-value">${value}${noteHtml}</span>
+    </div>`;
+}
+
+/**
+ * Wrap rows in a collapsible <details> section.
+ * Returns '' if body is empty (all rows were null).
+ */
+function specSection(icon, title, bodyHtml) {
+  const trimmed = bodyHtml.replace(/\s/g, '');
+  if (!trimmed) return '';
+  return `
+    <details class="spec-section" open>
+      <summary>
+        <span>${icon} ${esc(title)}</span>
+        <i class="spec-chevron" aria-hidden="true">▾</i>
+      </summary>
+      <div class="spec-body">${bodyHtml}</div>
+    </details>`;
+}
+
+/**
+ * Replicate the WinterScore formula to expose the per-dimension breakdown.
+ * Must stay in sync with js/winter.js.
+ */
+function winterBreakdown(v, gc) {
+  const dt = (v.drivetrain || '').toUpperCase();
+  const drivetrainPts = (dt === 'AWD' || dt === '4WD') ? 40 : dt === 'FWD' ? 20 : 5;
+
+  const gcVal = gc || 0;
+  const gcPts = gcVal >= 200 ? 30 : gcVal >= 170 ? 20 : 10;
+
+  let evPts = 20;
+  if (v.fuel_type === 'BEV') {
+    const cold = v.ev_range_cold_km || 0;
+    evPts = cold >= 300 ? 20 : cold >= 200 ? 15 : cold >= 100 ? 8 : 0;
+  }
+
+  const body = (v.body_style || '').toLowerCase();
+  const bodyPts = (body === 'truck' || body === 'suv') ? 10 : 5;
+
+  return { drivetrainPts, gcPts, evPts, bodyPts };
+}
+
+// ── Page renderer ──────────────────────────────────────────────────────────
+
+function renderVehiclePage(v, enriched) {
+  // Merge enriched overrides on top of CSV data
+  const gc      = enriched.ground_clearance_mm ?? v.ground_clearance_mm;
+  const msrp    = enriched.msrp_from ?? v.msrp_cad;
+  const vModel  = enriched.display_model || v.model;
+  const vMerged = Object.assign({}, v, { ground_clearance_mm: gc });
+
+  // Winter score uses the merged ground clearance
+  const ws        = WinterScore.calculate(vMerged);
+  const breakdown = winterBreakdown(vMerged, gc);
+
+  // Annual fuel cost — Ontario, 20 000 km/yr (best-effort; skip if MSRP missing)
+  let annualFuel = null;
+  if (v.fuel_combined_l100km || v.fuel_type === 'BEV') {
+    try {
+      const tco = TCO.calculate(
+        Object.assign({}, vMerged, { msrp_cad: msrp || 0 }),
+        { province: 'ON', annualKm: 20000, years: 1, financeRate: 0, downPayment: 0 }
+      );
+      annualFuel = tco.annualFuel;
+    } catch (e) { /* graceful skip */ }
+  }
+
+  // ── Breadcrumb ──
+  const breadcrumb = `
+    <nav class="vd-breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Browse</a>
+      <span class="vd-breadcrumb__sep" aria-hidden="true">›</span>
+      <span>${esc(v.make)}</span>
+      <span class="vd-breadcrumb__sep" aria-hidden="true">›</span>
+      <span aria-current="page">${esc(vModel)}</span>
+    </nav>`;
+
+  // ── Header ──
+  const featuredBadge = enriched.featured_rank
+    ? `<div class="hero-card__rank" style="margin-bottom:var(--space-3)">★ ${esc(enriched.featured_rank)}</div>`
+    : '';
+
+  const header = `
+    <div class="vd-header">
+      ${featuredBadge}
+      <div class="vd-header__top">
+        <div class="vd-header__meta">
+          <div class="vd-year">${v.year}</div>
+          <h1 class="vd-name">${esc(v.make)} ${esc(vModel)}</h1>
+          ${v.trim ? `<div class="vd-trim">${esc(v.trim)}</div>` : ''}
+        </div>
+        <div class="vd-header__badges">
+          <span class="badge ${ws.cssClass} badge--ws-large"
+            aria-label="Winter score: ${ws.score} out of 100 — ${ws.label}">
+            <span aria-hidden="true">${ws.icon}</span> ${ws.score}/100 — ${ws.label}
+          </span>
+          ${UI.bodyBadgeHTML(v.body_style)}
+          ${UI.fuelBadgeHTML(v.fuel_type)}
+        </div>
+      </div>
+      <div class="vd-header__price-row">
+        <div>
+          <div class="vd-msrp-label">MSRP from (CAD)</div>
+          <div class="vd-msrp">${msrp ? fmt(msrp) : '—'}</div>
+        </div>
+        <button class="btn btn--primary" id="vd-compare-btn" data-id="${v.id}"
+          aria-pressed="false">+ Add to Compare</button>
+      </div>
+    </div>`;
+
+  // ── PERFORMANCE ──
+  const engineLabel = enriched.engine_desc
+    || (v.engine_litres
+        ? `${v.engine_litres}L` + (v.cylinders ? ` · ${v.cylinders}-cylinder` : '')
+        : null);
+
+  const perfBody = [
+    specRow('Engine',       engineLabel),
+    specRow('Horsepower',   enriched.hp        ? `${enriched.hp} hp`          : null),
+    specRow('Torque',       enriched.torque_lbft ? `${enriched.torque_lbft} lb-ft` : null),
+    specRow('Transmission', enriched.transmission_desc || v.transmission || null),
+    specRow('Drivetrain',   v.drivetrain || null),
+    v.motor_kw ? specRow('Electric Motor', `${v.motor_kw} kW`) : '',
+  ].join('');
+
+  // ── EFFICIENCY ──
+  const effBody = [
+    v.fuel_city_l100km    ? specRow('City',     `${v.fuel_city_l100km} L/100km`)    : '',
+    v.fuel_hwy_l100km     ? specRow('Highway',  `${v.fuel_hwy_l100km} L/100km`)     : '',
+    v.fuel_combined_l100km? specRow('Combined', `${v.fuel_combined_l100km} L/100km`): '',
+    specRow('Fuel Type',    UI.fuelLabel(v.fuel_type)),
+    annualFuel != null
+      ? specRow('Est. Annual Fuel Cost', fmt(annualFuel),
+          ' (ON avg, 20,000 km/yr)')
+      : '',
+    v.co2_rating  ? specRow('CO₂ Rating',  `${v.co2_rating}/10`)  : '',
+    v.smog_rating ? specRow('Smog Rating', `${v.smog_rating}/10`) : '',
+    (v.fuel_type === 'BEV' || v.fuel_type === 'PHEV') && v.ev_range_km
+      ? specRow('Rated EV Range',      `${v.ev_range_km} km`) : '',
+    (v.fuel_type === 'BEV' || v.fuel_type === 'PHEV') && v.ev_range_cold_km
+      ? specRow('Cold Range (−20°C)', `${v.ev_range_cold_km} km`) : '',
+  ].join('');
+
+  // ── PRACTICALITY ──
+  const practBody = [
+    enriched.seating    ? specRow('Seating',      `${enriched.seating} passengers`) : '',
+    enriched.cargo_l    ? specRow('Cargo Volume',  `${enriched.cargo_l} L`)          : '',
+    enriched.fuel_tank_l? specRow('Fuel Tank',     `${enriched.fuel_tank_l} L`)      : '',
+    enriched.towing_lbs
+      ? specRow('Max Towing',   `${enriched.towing_lbs.toLocaleString('en-CA')} lbs`) : '',
+    enriched.payload_lbs
+      ? specRow('Max Payload',  `${enriched.payload_lbs.toLocaleString('en-CA')} lbs`) : '',
+  ].join('');
+
+  // ── WINTER CAPABILITY ──
+  const scoreBar = `
+    <div class="vd-score-bar-wrap"
+      role="progressbar"
+      aria-valuenow="${ws.score}"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-label="Winter score ${ws.score} out of 100">
+      <div class="vd-score-bar vd-score-bar--${ws.tier}" style="width:${ws.score}%"></div>
+    </div>`;
+
+  const isBEV = v.fuel_type === 'BEV';
+  const winterBody =
+    specRow('Winter Score',
+      `<span class="badge ${ws.cssClass}">${ws.icon} ${ws.score}/100 — ${ws.label}</span>`) +
+    scoreBar +
+    `<div class="vd-score-breakdown">` +
+    specRow('Drivetrain',      `${breakdown.drivetrainPts}/40 pts`, ` (${v.drivetrain})`) +
+    specRow('Ground Clearance',`${breakdown.gcPts}/30 pts`,         gc ? ` (${gc} mm)` : '') +
+    specRow('Body Style',      `${breakdown.bodyPts}/10 pts`,       ` (${v.body_style})`) +
+    (isBEV
+      ? specRow('Cold EV Range',
+          `${breakdown.evPts}/20 pts`,
+          v.ev_range_cold_km ? ` (${v.ev_range_cold_km} km at −20°C)` : ' (no cold range data)')
+      : '') +
+    `</div>` +
+    (gc ? specRow('Ground Clearance', `${gc} mm`) : '');
+
+  // ── DIMENSIONS ──
+  const dimsBody = [
+    enriched.length_mm    ? specRow('Length',          `${enriched.length_mm.toLocaleString('en-CA')} mm`)    : '',
+    enriched.width_mm     ? specRow('Width',           `${enriched.width_mm.toLocaleString('en-CA')} mm`)     : '',
+    enriched.wheelbase_mm ? specRow('Wheelbase',       `${enriched.wheelbase_mm.toLocaleString('en-CA')} mm`) : '',
+    gc                    ? specRow('Ground Clearance',`${gc} mm`) : '',
+  ].join('');
+
+  // ── DATA CITATIONS ──
+  const sourceText = esc(enriched.source || v.data_source || 'NRCan 2026 Fuel Consumption Guide');
+  const citations = `
+    <div class="vd-citations">
+      <span class="vd-citations__label">Data sources:</span>
+      <span>${sourceText}</span>
+      <a href="about.html">Methodology →</a>
+    </div>`;
+
+  const backLink = `<a href="index.html" class="vd-back">← Back to Browse</a>`;
+
+  return `
+    ${breadcrumb}
+    ${header}
+    <div class="vd-sections">
+      ${specSection('⚡', 'Performance',       perfBody)}
+      ${specSection('⛽', 'Efficiency',         effBody)}
+      ${specSection('🪑', 'Practicality',       practBody)}
+      ${specSection('❄',  'Winter Capability',  winterBody)}
+      ${specSection('📐', 'Dimensions',         dimsBody)}
+    </div>
+    ${citations}
+    ${backLink}`;
+}
+
+// ── Bootstrap on data ready ────────────────────────────────────────────────
+
+document.addEventListener('northplate:ready', function () {
+  const params  = new URLSearchParams(window.location.search);
+  const id      = parseInt(params.get('id'), 10);
+
+  document.getElementById('vd-loading').style.display = 'none';
+
+  if (!id || isNaN(id)) {
+    document.getElementById('vd-error').style.display = '';
+    return;
+  }
+
+  const vehicle = NorthPlateData.vehicles.find(v => v.id === id);
+  if (!vehicle) {
+    document.getElementById('vd-error').style.display = '';
+    return;
+  }
+
+  const enriched = ENRICHED[id] || {};
+  const content  = document.getElementById('vd-content');
+  content.innerHTML = renderVehiclePage(vehicle, enriched);
+  content.style.display = '';
+
+  // Update <title> and meta description
+  const vModel = enriched.display_model || vehicle.model;
+  document.title = `${vehicle.year} ${vehicle.make} ${vModel} — NorthPlate`;
+  document.querySelector('meta[name="description"]').setAttribute(
+    'content',
+    `${vehicle.year} ${vehicle.make} ${vModel}: specs, MSRP, winter score, fuel economy — NorthPlate Canadian Vehicle Intelligence`
+  );
+
+  // ── Compare button ──
+  const compareBtn = document.getElementById('vd-compare-btn');
+  if (compareBtn) {
+    function syncCompareBtn() {
+      const inList = Compare.getIds().includes(vehicle.id);
+      compareBtn.textContent    = inList ? '✓ In Compare List' : '+ Add to Compare';
+      compareBtn.setAttribute('aria-pressed', String(inList));
+      compareBtn.className      = 'btn ' + (inList ? 'btn--secondary' : 'btn--primary');
+    }
+    syncCompareBtn();
+
+    compareBtn.addEventListener('click', function () {
+      const inList = Compare.getIds().includes(vehicle.id);
+      if (inList) {
+        Compare.removeId(vehicle.id);
+      } else {
+        const added = Compare.addId(vehicle.id);
+        if (!added) {
+          alert(`Maximum ${Compare.MAX_COMPARE} vehicles can be compared at once.`);
+          return;
+        }
+      }
+      syncCompareBtn();
+      // Update nav badge
+      const badge = document.getElementById('compareBadge');
+      if (badge) {
+        const n = Compare.count();
+        badge.textContent    = n;
+        badge.style.display  = n > 0 ? '' : 'none';
+      }
+    });
+  }
+
+  // Initialise nav compare badge from persisted state
+  const badge = document.getElementById('compareBadge');
+  if (badge) {
+    const n = Compare.count();
+    badge.textContent   = n;
+    badge.style.display = n > 0 ? '' : 'none';
+  }
+});
+</script>
+</body>
+</html>

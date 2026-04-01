@@ -118,6 +118,126 @@
       ⚙ Filters
     </button>
 
+    <!-- ====================================================
+         Canada's Most Popular — Featured / Hero Cards
+         Static hardcoded HTML. Data: ford.ca · honda.ca · NRCan 2026
+         ==================================================== -->
+    <section class="featured-section" aria-label="Canada's Most Popular Vehicles">
+      <div class="featured-section-header">
+        <h2 class="featured-section-title">Canada's Most Popular</h2>
+        <span class="featured-section-sub">Top-selling 2026 vehicles</span>
+      </div>
+      <div class="featured-grid" id="featuredGrid">
+
+        <!-- ── #1 Truck: Ford F-150 XLT 4WD ── -->
+        <article class="hero-card" data-id="188">
+          <div class="hero-card__rank">★ #1 Truck in Canada</div>
+          <div class="hero-card__header">
+            <div class="hero-card__title">
+              <div class="hero-card__year">2026</div>
+              <div class="hero-card__name">Ford F-150 XLT</div>
+              <div class="hero-card__trim">2.7L EcoBoost V6 · 4WD · 10-speed auto</div>
+            </div>
+            <label class="compare-checkbox-wrap" title="Add to compare">
+              <input type="checkbox" class="compare-toggle" data-id="188"
+                aria-label="Compare Ford F-150 XLT" />
+              <span>Compare</span>
+            </label>
+          </div>
+          <div class="card__badges">
+            <span class="badge badge--body"><span aria-hidden="true">🛻</span> Truck</span>
+            <span class="badge badge--gasoline"><span aria-hidden="true">⛽</span> Gasoline</span>
+          </div>
+          <div class="hero-card__stats">
+            <div class="card__stat">
+              <span class="card__stat-label">Combined</span>
+              <span class="card__stat-value">13.4 L/100km</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Drivetrain</span>
+              <span class="card__stat-value">4WD</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Max Towing</span>
+              <span class="card__stat-value">13,500 lbs</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Ground Clearance</span>
+              <span class="card__stat-value">208 mm</span>
+            </div>
+          </div>
+          <div class="hero-card__footer">
+            <div>
+              <div class="hero-card__msrp-label">MSRP from (CAD)</div>
+              <div class="hero-card__msrp">$56,469</div>
+            </div>
+            <span class="badge badge--excellent" aria-label="Winter score: 100 — Excellent">
+              <span aria-hidden="true">❄</span> 100 — Excellent
+            </span>
+          </div>
+          <div class="hero-card__actions">
+            <a href="vehicle.html?id=188" class="btn btn--primary" style="flex:1;justify-content:center">
+              View Details →
+            </a>
+          </div>
+        </article>
+
+        <!-- ── #1 Car: Honda Civic Sedan Sport ── -->
+        <article class="hero-card" data-id="256">
+          <div class="hero-card__rank">★ #1 Car in Canada</div>
+          <div class="hero-card__header">
+            <div class="hero-card__title">
+              <div class="hero-card__year">2026</div>
+              <div class="hero-card__name">Honda Civic Sedan Sport</div>
+              <div class="hero-card__trim">2.0L i-VTEC · FWD · CVT</div>
+            </div>
+            <label class="compare-checkbox-wrap" title="Add to compare">
+              <input type="checkbox" class="compare-toggle" data-id="256"
+                aria-label="Compare Honda Civic Sedan Sport" />
+              <span>Compare</span>
+            </label>
+          </div>
+          <div class="card__badges">
+            <span class="badge badge--body"><span aria-hidden="true">🚗</span> Car</span>
+            <span class="badge badge--gasoline"><span aria-hidden="true">⛽</span> Gasoline</span>
+          </div>
+          <div class="hero-card__stats">
+            <div class="card__stat">
+              <span class="card__stat-label">Combined</span>
+              <span class="card__stat-value">6.8 L/100km</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Drivetrain</span>
+              <span class="card__stat-value">FWD</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Cargo Volume</span>
+              <span class="card__stat-value">419 L</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Ground Clearance</span>
+              <span class="card__stat-value">134 mm</span>
+            </div>
+          </div>
+          <div class="hero-card__footer">
+            <div>
+              <div class="hero-card__msrp-label">MSRP from (CAD)</div>
+              <div class="hero-card__msrp">$31,490</div>
+            </div>
+            <span class="badge badge--fair" aria-label="Winter score: 55 — Fair">
+              <span aria-hidden="true">⚠</span> 55 — Fair
+            </span>
+          </div>
+          <div class="hero-card__actions">
+            <a href="vehicle.html?id=256" class="btn btn--primary" style="flex:1;justify-content:center">
+              View Details →
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
     <div class="results-bar">
       <div class="results-count" aria-live="polite" aria-atomic="true" id="resultsCount">
         <strong>52</strong> vehicles
@@ -305,6 +425,20 @@ function bindEvents() {
     if (el) el.addEventListener('click', resetFilters);
   });
 
+  // Featured grid compare toggles
+  document.getElementById('featuredGrid').addEventListener('change', e => {
+    if (e.target.classList.contains('compare-toggle')) {
+      const id = parseInt(e.target.dataset.id);
+      const added = Compare.toggle(id);
+      if (e.target.checked && !added) {
+        e.target.checked = false;
+        showToast(`Maximum ${Compare.MAX_COMPARE} vehicles can be compared at once.`);
+      }
+      updateCompareBar();
+      updateCardSelection();
+    }
+  });
+
   // Download CSV
   document.getElementById('downloadCsvBtn').addEventListener('click', () => {
     const filtered = Filters.apply(NorthPlateData.vehicles, state);
@@ -399,6 +533,8 @@ function updateCardSelection() {
     cb.checked = selectedIds.has(id);
     const card = cb.closest('.vehicle-card');
     if (card) card.classList.toggle('vehicle-card--selected', selectedIds.has(id));
+    const heroCard = cb.closest('.hero-card');
+    if (heroCard) heroCard.classList.toggle('hero-card--selected', selectedIds.has(id));
   });
 }
 
@@ -476,6 +612,7 @@ document.addEventListener('northplate:ready', function () {
   buildFilterUI();
   bindEvents();
   render();
+  updateCardSelection(); // sync hero card checkboxes with persisted compare state
 });
 </script>
 </body>
