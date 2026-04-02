@@ -32,7 +32,8 @@
           <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
         </a>
       </li>
-      <li><a href="tco.html" class="nav__link">💰 TCO</a></li>
+      <li><a href="cost.html" class="nav__link">💰 Cost Analysis</a></li>
+      <li><a href="tires.html" class="nav__link">🔧 Tires</a></li>
       <li><a href="about.html" class="nav__link">ℹ About</a></li>
     </ul>
   </div>
@@ -79,17 +80,34 @@
       </fieldset>
     </div>
 
-    <!-- MSRP Range -->
+    <!-- Price Range -->
     <div class="filter-group">
-      <label class="filter-label" for="filterMsrp">Max MSRP (CAD)</label>
-      <div class="range-slider-wrap">
-        <input type="range" class="range-slider" id="filterMsrp"
-          min="20000" max="120000" step="500"
-          aria-label="Maximum MSRP in Canadian dollars"
-          aria-valuemin="20000" aria-valuemax="120000" />
-        <div class="range-labels">
-          <span id="msrpMinLabel">Min</span>
-          <span id="msrpDisplayVal" aria-live="polite">Max</span>
+      <label class="filter-label">Price Range (CAD)</label>
+      <div class="price-range-inputs">
+        <div class="price-range-inputs__row">
+          <div class="price-range-inputs__field">
+            <span class="price-range-inputs__prefix">Min</span>
+            <input type="number" class="price-input" id="filterMsrpMin"
+              min="0" max="200000" step="500"
+              aria-label="Minimum price in Canadian dollars" />
+          </div>
+          <span class="price-range-inputs__sep">—</span>
+          <div class="price-range-inputs__field">
+            <span class="price-range-inputs__prefix">Max</span>
+            <input type="number" class="price-input" id="filterMsrpMax"
+              min="0" max="200000" step="500"
+              aria-label="Maximum price in Canadian dollars" />
+          </div>
+        </div>
+        <div class="range-slider-wrap" style="margin-top:var(--space-2)">
+          <input type="range" class="range-slider" id="filterMsrp"
+            min="20000" max="120000" step="500"
+            aria-label="Maximum price in Canadian dollars"
+            aria-valuemin="20000" aria-valuemax="120000" />
+          <div class="range-labels">
+            <span id="msrpMinLabel" style="color:var(--text-muted);font-size:var(--text-xs)">—</span>
+            <span id="msrpDisplayVal" aria-live="polite" style="color:var(--text-muted);font-size:var(--text-xs)">—</span>
+          </div>
         </div>
       </div>
     </div>
@@ -168,7 +186,7 @@
           </div>
           <div class="hero-card__footer">
             <div>
-              <div class="hero-card__msrp-label">MSRP from (CAD)</div>
+              <div class="hero-card__msrp-label">Price (CAD)</div>
               <div class="hero-card__msrp">$56,469</div>
             </div>
             <span class="badge badge--excellent" aria-label="Winter score: 100 — Excellent">
@@ -221,7 +239,7 @@
           </div>
           <div class="hero-card__footer">
             <div>
-              <div class="hero-card__msrp-label">MSRP from (CAD)</div>
+              <div class="hero-card__msrp-label">Price (CAD)</div>
               <div class="hero-card__msrp">$31,490</div>
             </div>
             <span class="badge badge--fair" aria-label="Winter score: 55 — Fair">
@@ -238,9 +256,182 @@
       </div>
     </section>
 
+    <!-- ====================================================
+         2026 Highlights — Featured Picks
+         Notable 2026 model year releases and efficiency leaders
+         ==================================================== -->
+    <section class="featured-section" aria-label="2026 Highlights" style="margin-top:var(--space-8)">
+      <div class="featured-section-header">
+        <h2 class="featured-section-title">2026 Highlights</h2>
+        <span class="featured-section-sub">Notable releases and standout models</span>
+      </div>
+      <div class="featured-grid featured-grid--3">
+
+        <!-- Honda CR-V Hybrid AWD — Best-in-Class SUV Efficiency -->
+        <article class="hero-card" data-id="262">
+          <div class="hero-card__rank" style="background:var(--teal);color:#fff">⚡ Top Efficiency SUV</div>
+          <div class="hero-card__header">
+            <div class="hero-card__title">
+              <div class="hero-card__year">2026</div>
+              <div class="hero-card__name">Honda CR-V Hybrid AWD</div>
+              <div class="hero-card__trim">2.0L i-MMD · AWD · e-CVT</div>
+            </div>
+            <label class="compare-checkbox-wrap" title="Add to compare">
+              <input type="checkbox" class="compare-toggle" data-id="262"
+                aria-label="Compare Honda CR-V Hybrid AWD" />
+              <span>Compare</span>
+            </label>
+          </div>
+          <div class="card__badges">
+            <span class="badge badge--body"><span aria-hidden="true">🚙</span> SUV</span>
+            <span class="badge badge--hybrid"><span aria-hidden="true">⚡</span> Hybrid</span>
+          </div>
+          <div class="hero-card__stats">
+            <div class="card__stat">
+              <span class="card__stat-label">Combined</span>
+              <span class="card__stat-value">6.4 L/100km</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Drivetrain</span>
+              <span class="card__stat-value">AWD</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Ground Clearance</span>
+              <span class="card__stat-value">198 mm</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">CO₂ (est.)</span>
+              <span class="card__stat-value">~146 g/km</span>
+            </div>
+          </div>
+          <div class="hero-card__footer">
+            <div>
+              <div class="hero-card__msrp-label">Price (CAD)</div>
+              <div class="hero-card__msrp">$44,600</div>
+            </div>
+            <span class="badge badge--good" aria-label="Winter capability: Good">
+              <span aria-hidden="true">❄</span> Good
+            </span>
+          </div>
+          <div class="hero-card__actions">
+            <a href="vehicle.html?id=262" class="btn btn--primary" style="flex:1;justify-content:center">
+              View Details →
+            </a>
+          </div>
+        </article>
+
+        <!-- Tesla Model Y Long Range AWD — Canada's Best-Selling EV -->
+        <article class="hero-card" data-id="802">
+          <div class="hero-card__rank" style="background:#5B21B6;color:#fff">⚡ Canada's Best-Selling EV</div>
+          <div class="hero-card__header">
+            <div class="hero-card__title">
+              <div class="hero-card__year">2026</div>
+              <div class="hero-card__name">Tesla Model Y Long Range AWD</div>
+              <div class="hero-card__trim">Dual Motor · AWD</div>
+            </div>
+            <label class="compare-checkbox-wrap" title="Add to compare">
+              <input type="checkbox" class="compare-toggle" data-id="802"
+                aria-label="Compare Tesla Model Y Long Range AWD" />
+              <span>Compare</span>
+            </label>
+          </div>
+          <div class="card__badges">
+            <span class="badge badge--body"><span aria-hidden="true">🚙</span> SUV</span>
+            <span class="badge badge--bev"><span aria-hidden="true">⚡</span> Electric</span>
+          </div>
+          <div class="hero-card__stats">
+            <div class="card__stat">
+              <span class="card__stat-label">Rated Range</span>
+              <span class="card__stat-value">526 km</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Cold Range (−20°C)</span>
+              <span class="card__stat-value">316 km</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Drivetrain</span>
+              <span class="card__stat-value">AWD</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">CO₂ (tailpipe)</span>
+              <span class="card__stat-value">0 g/km</span>
+            </div>
+          </div>
+          <div class="hero-card__footer">
+            <div>
+              <div class="hero-card__msrp-label">Price (CAD)</div>
+              <div class="hero-card__msrp">$65,990</div>
+            </div>
+            <span class="badge badge--excellent" aria-label="Winter capability: Excellent">
+              <span aria-hidden="true">❄</span> Excellent
+            </span>
+          </div>
+          <div class="hero-card__actions">
+            <a href="vehicle.html?id=802" class="btn btn--primary" style="flex:1;justify-content:center">
+              View Details →
+            </a>
+          </div>
+        </article>
+
+        <!-- Honda Prelude Hybrid — New for 2026 -->
+        <article class="hero-card" data-id="269">
+          <div class="hero-card__rank" style="background:#D4820A;color:#fff">✨ New for 2026</div>
+          <div class="hero-card__header">
+            <div class="hero-card__title">
+              <div class="hero-card__year">2026</div>
+              <div class="hero-card__name">Honda Prelude Hybrid</div>
+              <div class="hero-card__trim">2.0L i-MMD · FWD · e-CVT</div>
+            </div>
+            <label class="compare-checkbox-wrap" title="Add to compare">
+              <input type="checkbox" class="compare-toggle" data-id="269"
+                aria-label="Compare Honda Prelude Hybrid" />
+              <span>Compare</span>
+            </label>
+          </div>
+          <div class="card__badges">
+            <span class="badge badge--body"><span aria-hidden="true">🚗</span> Car</span>
+            <span class="badge badge--hybrid"><span aria-hidden="true">⚡</span> Hybrid</span>
+          </div>
+          <div class="hero-card__stats">
+            <div class="card__stat">
+              <span class="card__stat-label">Combined</span>
+              <span class="card__stat-value">5.4 L/100km</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Drivetrain</span>
+              <span class="card__stat-value">FWD</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">CO₂ (est.)</span>
+              <span class="card__stat-value">~124 g/km</span>
+            </div>
+            <div class="card__stat">
+              <span class="card__stat-label">Smog Rating</span>
+              <span class="card__stat-value">6/10</span>
+            </div>
+          </div>
+          <div class="hero-card__footer">
+            <div>
+              <div class="hero-card__msrp-label">Price (CAD)</div>
+              <div class="hero-card__msrp">TBD</div>
+            </div>
+            <span class="badge badge--good" aria-label="Winter capability: Good">
+              <span aria-hidden="true">❄</span> Good
+            </span>
+          </div>
+          <div class="hero-card__actions">
+            <a href="vehicle.html?id=269" class="btn btn--primary" style="flex:1;justify-content:center">
+              View Details →
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
     <div class="results-bar">
       <div class="results-count" aria-live="polite" aria-atomic="true" id="resultsCount">
-        <strong>52</strong> vehicles
+        Loading…
       </div>
       <div class="flex items-center gap-2" style="gap:var(--space-3)">
         <label class="filter-label" for="sortSelect" style="margin:0;white-space:nowrap">Sort:</label>
@@ -253,6 +444,16 @@
           <option value="ev_range_desc">Longest EV Range</option>
         </select>
       </div>
+    </div>
+
+    <!-- Browse prompt (shown before any filter/show-all action) -->
+    <div id="browsePrompt" class="browse-prompt" style="display:none" aria-live="polite">
+      <div class="browse-prompt__icon" aria-hidden="true">🚗</div>
+      <h3>Ready to Browse</h3>
+      <p>Apply filters to narrow your results, or load the full catalogue.</p>
+      <button class="btn btn--primary" id="showAllBtn" style="margin-top:var(--space-4)">
+        Show All Vehicles
+      </button>
     </div>
 
     <div class="vehicle-grid" id="vehicleGrid" role="list" aria-label="Vehicle listings"></div>
@@ -289,7 +490,8 @@
     <div class="footer__links">
       <a href="index.html">Browse</a>
       <a href="compare.html">Compare</a>
-      <a href="tco.html">TCO</a>
+      <a href="cost.html">Cost Analysis</a>
+      <a href="tires.html">Tires</a>
       <a href="about.html">About</a>
     </div>
   </div>
@@ -306,6 +508,7 @@
 
 // ---- State ----
 let state;
+let browsing = false; // true once user applies a filter or clicks "Show All"
 
 // ---- Build filter UI ----
 function buildFilterUI() {
@@ -356,7 +559,7 @@ function buildFilterUI() {
     `<option value="${p.abbr}">${UI.escapeHTML(p.name)}</option>`
   ).join('');
 
-  // MSRP slider — set all attributes before value to avoid clamping issues
+  // Price slider
   const msrpEl = document.getElementById('filterMsrp');
   msrpEl.min   = NorthPlateData.minMsrp;
   msrpEl.max   = NorthPlateData.maxMsrp;
@@ -364,26 +567,50 @@ function buildFilterUI() {
   msrpEl.value = NorthPlateData.maxMsrp;
   msrpEl.setAttribute('aria-valuemin', NorthPlateData.minMsrp);
   msrpEl.setAttribute('aria-valuemax', NorthPlateData.maxMsrp);
-  // Update both labels
+  // Min/max number inputs
+  const minNumEl = document.getElementById('filterMsrpMin');
+  const maxNumEl = document.getElementById('filterMsrpMax');
+  if (minNumEl) { minNumEl.min = NorthPlateData.minMsrp; minNumEl.max = NorthPlateData.maxMsrp; minNumEl.value = NorthPlateData.minMsrp; }
+  if (maxNumEl) { maxNumEl.min = NorthPlateData.minMsrp; maxNumEl.max = NorthPlateData.maxMsrp; maxNumEl.value = NorthPlateData.maxMsrp; }
+  // Slider end-labels (dataset bounds)
   const minLabel = document.getElementById('msrpMinLabel');
+  const maxLabel = document.getElementById('msrpDisplayVal');
   if (minLabel) minLabel.textContent = UI.formatCAD(NorthPlateData.minMsrp);
-  updateMsrpDisplay(NorthPlateData.maxMsrp);
+  if (maxLabel) maxLabel.textContent = UI.formatCAD(NorthPlateData.maxMsrp);
 }
 
-function updateMsrpDisplay(val) {
-  const dispEl = document.getElementById('msrpDisplayVal');
-  if (dispEl) dispEl.textContent = UI.formatCAD(val);
+function updateMsrpDisplay(min, max) {
+  const minLabel = document.getElementById('msrpMinLabel');
+  const maxLabel = document.getElementById('msrpDisplayVal');
+  if (minLabel) minLabel.textContent = UI.formatCAD(min);
+  if (maxLabel) maxLabel.textContent = UI.formatCAD(max);
+}
+
+// Activate browsing mode (called by any filter interaction or Show All button)
+function activateBrowsing() {
+  browsing = true;
 }
 
 // ---- Event listeners ----
 function bindEvents() {
+  // "Show All" button
+  const showAllBtn = document.getElementById('showAllBtn');
+  if (showAllBtn) {
+    showAllBtn.addEventListener('click', () => {
+      activateBrowsing();
+      render();
+    });
+  }
+
   document.getElementById('filterMake').addEventListener('change', e => {
+    activateBrowsing();
     state.make = e.target.value;
     render();
   });
 
   document.querySelectorAll('input[name="bodyStyle"]').forEach(cb => {
     cb.addEventListener('change', () => {
+      activateBrowsing();
       state.bodyStyles = [...document.querySelectorAll('input[name="bodyStyle"]:checked')].map(i => i.value);
       render();
     });
@@ -391,6 +618,7 @@ function bindEvents() {
 
   document.querySelectorAll('input[name="fuelType"]').forEach(cb => {
     cb.addEventListener('change', () => {
+      activateBrowsing();
       state.fuelTypes = [...document.querySelectorAll('input[name="fuelType"]:checked')].map(i => i.value);
       render();
     });
@@ -398,23 +626,53 @@ function bindEvents() {
 
   document.querySelectorAll('input[name="drivetrain"]').forEach(cb => {
     cb.addEventListener('change', () => {
+      activateBrowsing();
       state.drivetrains = [...document.querySelectorAll('input[name="drivetrain"]:checked')].map(i => i.value);
       render();
     });
   });
 
   document.getElementById('filterMsrp').addEventListener('input', e => {
-    state.msrpMax = parseInt(e.target.value);
-    updateMsrpDisplay(state.msrpMax);
+    activateBrowsing();
+    const val = parseInt(e.target.value);
+    state.msrpMax = val;
+    const maxEl = document.getElementById('filterMsrpMax');
+    if (maxEl) maxEl.value = val;
+    updateMsrpDisplay(state.msrpMin || NorthPlateData.minMsrp, val);
     renderDebounced();
   });
 
+  const msrpMinInput = document.getElementById('filterMsrpMin');
+  const msrpMaxInput = document.getElementById('filterMsrpMax');
+  if (msrpMinInput) {
+    msrpMinInput.addEventListener('change', e => {
+      activateBrowsing();
+      const val = parseInt(e.target.value) || NorthPlateData.minMsrp;
+      state.msrpMin = val;
+      updateMsrpDisplay(val, state.msrpMax || NorthPlateData.maxMsrp);
+      renderDebounced();
+    });
+  }
+  if (msrpMaxInput) {
+    msrpMaxInput.addEventListener('change', e => {
+      activateBrowsing();
+      const val = parseInt(e.target.value) || NorthPlateData.maxMsrp;
+      state.msrpMax = val;
+      const sliderEl = document.getElementById('filterMsrp');
+      if (sliderEl) sliderEl.value = Math.min(val, NorthPlateData.maxMsrp);
+      updateMsrpDisplay(state.msrpMin || NorthPlateData.minMsrp, val);
+      renderDebounced();
+    });
+  }
+
   document.getElementById('filterProvince').addEventListener('change', e => {
+    activateBrowsing();
     state.province = e.target.value;
     render();
   });
 
   document.getElementById('sortSelect').addEventListener('change', e => {
+    activateBrowsing();
     state.sortBy = e.target.value;
     render();
   });
@@ -487,6 +745,7 @@ function bindEvents() {
 
 function resetFilters() {
   state = Filters.defaults();
+  state.msrpMin = NorthPlateData.minMsrp;
   state.msrpMax = NorthPlateData.maxMsrp;
 
   document.getElementById('filterMake').value = '';
@@ -494,7 +753,11 @@ function resetFilters() {
   document.querySelectorAll('input[name="fuelType"]').forEach(cb => cb.checked = false);
   document.querySelectorAll('input[name="drivetrain"]').forEach(cb => cb.checked = false);
   document.getElementById('filterMsrp').value = NorthPlateData.maxMsrp;
-  updateMsrpDisplay(NorthPlateData.maxMsrp);
+  const minNumEl = document.getElementById('filterMsrpMin');
+  const maxNumEl = document.getElementById('filterMsrpMax');
+  if (minNumEl) minNumEl.value = NorthPlateData.minMsrp;
+  if (maxNumEl) maxNumEl.value = NorthPlateData.maxMsrp;
+  updateMsrpDisplay(NorthPlateData.minMsrp, NorthPlateData.maxMsrp);
   document.getElementById('filterProvince').value = '';
   document.getElementById('sortSelect').value = 'name_asc';
   render();
@@ -504,11 +767,27 @@ function resetFilters() {
 const renderDebounced = UI.debounce(() => render(), 80);
 
 function render() {
-  const filtered = Filters.apply(NorthPlateData.vehicles, state);
+  const grid     = document.getElementById('vehicleGrid');
+  const countEl  = document.getElementById('resultsCount');
+  const emptyEl  = document.getElementById('emptyState');
+  const promptEl = document.getElementById('browsePrompt');
+
+  if (!browsing) {
+    // Show browse prompt, hide grid
+    grid.innerHTML = '';
+    grid.style.display = 'none';
+    emptyEl.style.display = 'none';
+    if (promptEl) promptEl.style.display = '';
+    const total = NorthPlateData.vehicles.length;
+    countEl.innerHTML = `<strong>${total.toLocaleString('en-CA')}</strong> vehicle${total !== 1 ? 's' : ''} available`;
+    updateCompareBar();
+    return;
+  }
+
+  if (promptEl) promptEl.style.display = 'none';
+
+  const filtered    = Filters.apply(NorthPlateData.vehicles, state);
   const selectedIds = new Set(Compare.getIds());
-  const grid = document.getElementById('vehicleGrid');
-  const countEl = document.getElementById('resultsCount');
-  const emptyEl = document.getElementById('emptyState');
 
   if (filtered.length === 0) {
     grid.innerHTML = '';
@@ -608,6 +887,7 @@ function showToast(msg) {
 // ---- Init ----
 document.addEventListener('northplate:ready', function () {
   state = Filters.defaults();
+  state.msrpMin = NorthPlateData.minMsrp;
   state.msrpMax = NorthPlateData.maxMsrp;
   buildFilterUI();
   bindEvents();

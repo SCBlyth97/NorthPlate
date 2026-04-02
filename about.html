@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="NorthPlate methodology, data sources, and project roadmap. Learn how Winter Scores, TCO calculations, and EV cold-range estimates are calculated." />
-  <title>About & Methodology — NorthPlate</title>
+  <meta name="description" content="NorthPlate methodology, data sources, scoring systems, and project roadmap. Free Canadian vehicle intelligence updated for 2026." />
+  <title>About &amp; Methodology — NorthPlate</title>
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -30,7 +30,8 @@
           <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
         </a>
       </li>
-      <li><a href="tco.html" class="nav__link">💰 TCO</a></li>
+      <li><a href="cost.html" class="nav__link">💰 Cost Analysis</a></li>
+      <li><a href="tires.html" class="nav__link">🔧 Tires</a></li>
       <li><a href="about.html" class="nav__link active" aria-current="page">ℹ About</a></li>
     </ul>
   </div>
@@ -40,36 +41,29 @@
 
   <div class="page-header">
     <h1>About NorthPlate</h1>
-    <p>Free, open-source Canadian vehicle intelligence — no login, no ads, no paywalls. Last updated: March 2026.</p>
+    <p>Free, open-source Canadian vehicle intelligence — no login, no ads, no paywalls. Data current as of 2026.</p>
   </div>
 
   <div class="about-grid">
 
-    <!-- What NorthPlate is -->
-    <section class="about-section" aria-labelledby="what-heading">
-      <h2 id="what-heading">📋 What NorthPlate Is</h2>
-      <p>NorthPlate is a free, browser-based tool for Canadians researching their next vehicle purchase. It aggregates publicly available data from government and industry sources into a single, easy-to-use interface.</p>
-      <p>Every number is traceable to an official source. No affiliate links. No dealer referrals. No advertising.</p>
+    <!-- What NorthPlate Is -->
+    <section class="about-section about-section--full" aria-labelledby="about-heading">
+      <h2 id="about-heading">What NorthPlate Is</h2>
+      <p>NorthPlate is a free, browser-based tool for Canadians researching their next vehicle purchase. It aggregates publicly available data from government and industry sources into a single, easy-to-use interface — with no login, no ads, and no affiliate links.</p>
+      <p>Every number is traceable to an official source. The goal is straightforward: give Canadian drivers the context they need to make informed decisions, without the noise.</p>
       <ul>
-        <li>Browse and filter 52+ Canadian 2026 model vehicles</li>
-        <li>Compare up to 4 vehicles side-by-side with a full spec table</li>
-        <li>Estimate total cost of ownership for all 13 provinces and territories</li>
-        <li>Winter Scores that quantify cold-weather capability objectively</li>
-        <li>Cold EV range estimates based on the CAA −20°C study</li>
-        <li>Export filtered results to CSV</li>
+        <li>Browse and filter <strong>870+ 2026 Canadian vehicles</strong> from the NRCan Fuel Consumption Guide</li>
+        <li>Compare up to 4 vehicles side-by-side with a full specification table</li>
+        <li>Estimate running costs including fuel, insurance, maintenance, and depreciation</li>
+        <li>Winter Readiness ratings that explain cold-weather capability clearly and transparently</li>
+        <li>Cold EV range estimates for all battery-electric vehicles at −20°C</li>
+        <li>CO₂ emissions in g/km (calculated from fuel consumption data)</li>
+        <li>Specs displayed in both metric and imperial units</li>
+        <li>Cost Analysis page including fuel cost modelling and tire cost calculator</li>
+        <li>Tire catalogue with size and brand options across all categories</li>
+        <li>Export any filtered vehicle list to CSV</li>
       </ul>
-    </section>
-
-    <!-- What it's not -->
-    <section class="about-section" aria-labelledby="whatnot-heading">
-      <h2 id="whatnot-heading">🚫 What NorthPlate Is Not</h2>
-      <ul>
-        <li><strong>Not financial advice.</strong> TCO estimates are models, not guarantees. Consult a financial advisor for major purchase decisions.</li>
-        <li><strong>Not a dealership tool.</strong> MSRPs shown are base MSRP. Actual transaction prices vary by dealer, region, and negotiation.</li>
-        <li><strong>Not real-time.</strong> Data reflects NRCan's 2026 Fuel Consumption Guide published in early 2026. Prices may have changed.</li>
-        <li><strong>Not affiliated.</strong> NorthPlate has no relationship with any automaker, dealer, insurer, or government agency.</li>
-        <li><strong>Not exhastive.</strong> Stage 1 covers approximately 52 popular 2026 Canadian models. More will be added in later stages.</li>
-      </ul>
+      <p style="margin-top:var(--space-4)"><strong>Scope:</strong> NorthPlate covers 2026 Canadian market vehicles sourced from NRCan's annual Fuel Consumption Guide. MSRP data is base manufacturer suggested retail price and varies by trim, dealer, and region. Not affiliated with any manufacturer, dealer, insurer, or government agency.</p>
     </section>
 
     <!-- Data Sources -->
@@ -79,149 +73,202 @@
         <div class="source-link__icon" aria-hidden="true">⛽</div>
         <div class="source-link__text">
           <strong>NRCan 2026 Fuel Consumption Guide</strong>
-          <span>vehicles.gc.ca — All fuel economy ratings, CO₂/smog ratings, and fuel type data</span>
+          <span>vehicles.gc.ca — All fuel economy ratings, CO₂/smog ratings, fuel type, EV range, and vehicle classification data</span>
         </div>
       </a>
       <a href="https://tc.gc.ca" class="source-link" target="_blank" rel="noopener noreferrer">
         <div class="source-link__icon" aria-hidden="true">🚗</div>
         <div class="source-link__text">
           <strong>Transport Canada</strong>
-          <span>tc.gc.ca — Vehicle safety classifications, ground clearance reference data</span>
+          <span>tc.gc.ca — Vehicle safety classifications and ground clearance reference data</span>
         </div>
       </a>
       <a href="https://ibc.ca" class="source-link" target="_blank" rel="noopener noreferrer">
         <div class="source-link__icon" aria-hidden="true">🛡</div>
         <div class="source-link__text">
           <strong>Insurance Bureau of Canada (IBC)</strong>
-          <span>ibc.ca — Provincial average auto insurance cost benchmarks</span>
+          <span>ibc.ca — Provincial average auto insurance cost benchmarks (2024–2025 data)</span>
         </div>
       </a>
       <a href="https://nrcan.gc.ca" class="source-link" target="_blank" rel="noopener noreferrer">
         <div class="source-link__icon" aria-hidden="true">💵</div>
         <div class="source-link__text">
           <strong>NRCan Fuel Price Monitor</strong>
-          <span>nrcan.gc.ca — Provincial average gasoline and diesel pump prices</span>
+          <span>nrcan.gc.ca — Provincial average gasoline and diesel pump prices used in fuel cost estimates</span>
         </div>
       </a>
       <a href="https://caa.ca" class="source-link" target="_blank" rel="noopener noreferrer">
         <div class="source-link__icon" aria-hidden="true">❄</div>
         <div class="source-link__text">
           <strong>CAA EV Cold-Weather Range Study</strong>
-          <span>caa.ca — −20°C range reduction formula: cold range = rated range × 0.60</span>
+          <span>caa.ca — −20°C EV range reduction formula: cold range = rated range × 0.60</span>
+        </div>
+      </a>
+      <a href="https://tc.gc.ca/en/services/road/innovative-technologies/zero-emission-vehicles.html" class="source-link" target="_blank" rel="noopener noreferrer">
+        <div class="source-link__icon" aria-hidden="true">🔋</div>
+        <div class="source-link__text">
+          <strong>Transport Canada — iZEV Program</strong>
+          <span>Federal zero-emission vehicle rebate amounts used in cost calculations</span>
         </div>
       </a>
     </section>
 
-    <!-- Winter Score Methodology -->
+    <!-- Winter Readiness Methodology -->
     <section class="about-section about-section--full" aria-labelledby="winter-heading">
-      <h2 id="winter-heading">❄ Winter Score Methodology</h2>
-      <p>The Winter Score (0–100) quantifies a vehicle's suitability for Canadian winter driving across four objective dimensions:</p>
+      <h2 id="winter-heading">❄ Winter Readiness Methodology</h2>
+      <p>Winter Readiness rates a vehicle's suitability for Canadian winter driving across three objective, clearly-explained dimensions. Rather than a single opaque score, each factor is explained in plain language on the vehicle detail page.</p>
 
-      <div class="formula-block" role="region" aria-label="Winter Score formula">
-Winter Score = Drivetrain (40) + Ground Clearance (30) + Cold EV Range (20) + Body Style (10)
+      <h3 style="margin:var(--space-5) 0 var(--space-3);font-size:var(--text-base);color:var(--navy)">Drivetrain</h3>
+      <div class="formula-block" role="region" aria-label="Drivetrain rating criteria">
+AWD / 4WD  →  Excellent
+  All four wheels receive engine power. Traction is distributed dynamically,
+  significantly reducing wheelspin on snow and ice. Best for winter driving.
 
-Drivetrain (max 40 pts):
-  AWD or 4WD  → 40 pts   (best traction control in snow)
-  FWD         → 20 pts   (adequate, front weight over drive wheels)
-  RWD         → 5 pts    (most challenging in snow, no front-engine weight benefit)
+FWD        →  Good
+  Engine weight sits over the drive wheels. Adequate for most urban and
+  suburban Canadian winter conditions. Winter tires improve performance markedly.
 
-Ground Clearance (max 30 pts):
-  ≥ 200 mm    → 30 pts   (clears typical Canadian snow drifts)
-  170–199 mm  → 20 pts   (marginal in deep snow)
-  &lt; 170 mm    → 10 pts   (risks high-centering in unplowed conditions)
-
-Cold EV Range at −20°C (max 20 pts) — BEV only:
-  ≥ 300 km    → 20 pts   (comfortable margin for most Canadian routes)
-  200–299 km  → 15 pts   (adequate for urban/suburban use)
-  100–199 km  → 8 pts    (limited — rural Canada may be challenging)
-  &lt; 100 km    → 0 pts    (range anxiety concern in cold climates)
-  ICE / Hybrid / PHEV → 20 pts automatically (no range penalty)
-
-Body Style (max 10 pts):
-  Truck or SUV → 10 pts  (higher ground clearance, more mass)
-  Car          → 5 pts   (lower clearance, lighter)
-
-Tiers:
-  80–100 → Excellent ❄  (navy badge)
-  65–79  → Good      ❄  (teal badge)
-  40–64  → Fair      ⚠  (amber badge)
-  0–39   → Poor      ✕  (red badge)
+RWD        →  Poor
+  Engine weight is over the non-driven wheels. Most demanding in winter;
+  requires greater driver skill and winter tires are especially critical.
       </div>
 
-      <p style="margin-top:var(--space-4)"><strong>Limitations:</strong> The Winter Score does not account for winter tire selection (the single biggest winter safety factor), driver experience, or specific regional conditions. Always install proper winter tires regardless of drivetrain.</p>
+      <h3 style="margin:var(--space-5) 0 var(--space-3);font-size:var(--text-base);color:var(--navy)">Ground Clearance</h3>
+      <div class="formula-block" role="region" aria-label="Ground clearance rating criteria">
+≥ 200 mm   →  High
+  Clears deep snowdrifts and unplowed roads without risk of high-centering.
+  Well-suited to rural, cottage-country, and severe winter conditions.
+
+170–199 mm →  Adequate
+  Handles maintained winter roads reliably. Use caution in deep,
+  unplowed snow or when crossing high snowbanks.
+
+140–169 mm →  Moderate
+  Suitable for regularly plowed urban roads. Avoid deep snow accumulations.
+
+&lt; 140 mm   →  Low
+  Best confined to cleared urban roads. Not recommended for unplowed
+  conditions or heavy snowfall.
+      </div>
+
+      <h3 style="margin:var(--space-5) 0 var(--space-3);font-size:var(--text-base);color:var(--navy)">Cold EV Range — Battery-Electric Vehicles Only</h3>
+      <div class="formula-block" role="region" aria-label="Cold EV range criteria">
+≥ 300 km   →  Comfortable
+  Suitable for most Canadian inter-city winter routes,
+  including cross-regional drives in most provinces.
+
+200–299 km →  Adequate
+  Good for urban and suburban use. Plan charging stops
+  for longer winter inter-city trips.
+
+100–199 km →  Limited
+  Urban commutes with reliable charging access.
+  Pre-conditioning the battery before departure is strongly recommended.
+
+&lt; 100 km   →  Very Limited
+  Short urban trips only, with guaranteed charging access.
+      </div>
+
+      <h3 style="margin:var(--space-5) 0 var(--space-3);font-size:var(--text-base);color:var(--navy)">Overall Winter Capability</h3>
+      <div class="formula-block" role="region" aria-label="Overall winter capability tiers">
+Excellent  — AWD/4WD + High clearance
+Good       — AWD/4WD with moderate clearance, OR FWD with high clearance
+Fair       — FWD with moderate clearance, or RWD with high clearance
+Poor       — RWD with low clearance
+      </div>
+
+      <p style="margin-top:var(--space-4)"><strong>Important note:</strong> Winter tires are the single most impactful factor in winter safety — more than drivetrain type. The Winter Readiness rating does not account for tire selection, driver experience, or specific regional conditions. Winter tires are legally required in British Columbia and strongly recommended everywhere in Canada.</p>
     </section>
 
-    <!-- Cold EV Range Methodology -->
+    <!-- Cold EV Range -->
     <section class="about-section" aria-labelledby="coldrange-heading">
       <h2 id="coldrange-heading">🔋 Cold EV Range</h2>
-      <p>EV batteries lose significant capacity in cold weather due to chemical slowdown and cabin heating loads.</p>
+      <p>EV batteries lose significant capacity in cold weather due to electrochemical slowdown and the energy load of cabin heating.</p>
       <div class="formula-block" aria-label="Cold range formula">
 Cold Range = Rated Range × 0.60
 
-Source: CAA EV Cold-Weather Study (−20°C)
+Source: CAA EV Cold-Weather Study (tested at −20°C)
       </div>
-      <p>The CAA study found that at −20°C, EVs lose approximately 40% of their rated range on average. This varies by model, driving style, and pre-conditioning, but 0.60 is the consensus conservative estimate used here.</p>
-      <p>PHEV vehicles have a rated EV range but fall back to gasoline, so range anxiety is less critical. PHEVs show their EV range for reference.</p>
+      <p>The CAA study found an average 40% range loss at −20°C. This varies by model, speed, cabin heating use, and whether the battery was pre-conditioned, but 0.60 is the conservative consensus estimate used here.</p>
+      <p>PHEV vehicles show their electric range for reference but fall back to gasoline, so cold-weather range anxiety is less of a concern for PHEVs.</p>
     </section>
 
-    <!-- TCO Methodology -->
-    <section class="about-section" aria-labelledby="tco-heading">
-      <h2 id="tco-heading">💰 TCO Model</h2>
-      <div class="formula-block" aria-label="TCO model components">
-Total Cost = Net Purchase + Running Costs + Finance Cost
+    <!-- CO₂ Emissions -->
+    <section class="about-section" aria-labelledby="co2-heading">
+      <h2 id="co2-heading">🌿 CO₂ Emissions</h2>
+      <p>CO₂ emissions are displayed in grams per kilometre (g/km), estimated from the vehicle's combined fuel consumption using NRCan's standard emission factors:</p>
+      <div class="formula-block" aria-label="CO2 calculation">
+CO₂ (g/km) = Combined L/100km × Emission Factor
 
-Net Purchase = MSRP − EV Rebate (provincial + federal iZEV)
+Emission factors (NRCan standard):
+  Gasoline:  22.89 g CO₂ per unit (L/100km)
+  Diesel:    26.41 g CO₂ per unit (L/100km)
+  BEV:       0 g/km tailpipe emissions
 
-Running Costs (per year, × ownership period):
-  Fuel / Energy Cost
-  + Insurance (IBC provincial benchmark)
-  + Maintenance (fuel-type estimate)
-  + Registration (MSRP-scaled estimate)
-
-Maintenance annual estimates:
-  Gasoline → $1,800/yr
-  Diesel   → $2,000/yr
-  Hybrid   → $1,400/yr
-  PHEV     → $1,200/yr
-  BEV      →   $900/yr  (no oil, fewer brake services, fewer parts)
-
-Depreciation model:
-  Year 1:    20% of MSRP
-  Years 2–3: 15% of remaining value/year
-  Years 4+:  10% of remaining value/year
-
-Finance cost (simple interest estimate):
-  Interest ≈ (Principal ÷ 2) × Rate × Years
-  (Average outstanding balance method — conservative)
-
-Fuel cost:
-  Gasoline/Diesel: (km/100) × L/100km × provincial $/L
-  Hybrid:          (km/100) × L/100km × provincial $/L
-  PHEV:            60% electric + 40% gasoline (real-world split)
-  BEV:             (km/100) × ~20 kWh/100km × $0.14/kWh (national avg)
+Note: These are estimated tailpipe emissions only.
+Lifecycle emissions (manufacturing, electricity generation) are not included.
       </div>
     </section>
 
-    <!-- Personal Scoring Methodology -->
+    <!-- Cost Analysis Methodology -->
+    <section class="about-section about-section--full" aria-labelledby="cost-heading">
+      <h2 id="cost-heading">💰 Cost Analysis Model</h2>
+      <div class="formula-block" aria-label="Cost analysis model components">
+Annual Running Cost = Fuel + Insurance + Maintenance + Registration
+
+Fuel cost (annual):
+  Gasoline/Diesel/Hybrid: (km/100) × L/100km × provincial $/L
+  PHEV:  60% electric + 40% gasoline (typical real-world split)
+  BEV:   (km/100) × ~20 kWh/100km × $0.14/kWh (national avg)
+
+Maintenance estimates (annual):
+  Gasoline → $1,800   Diesel   → $2,000
+  Hybrid   → $1,400   PHEV     → $1,200
+  BEV      →   $900   (no oil changes, fewer brake services)
+
+Depreciation:
+  Year 1:    20% of purchase price
+  Years 2–3: 15% of remaining value per year
+  Years 4+:  10% of remaining value per year
+
+Insurance: IBC provincial benchmark averages (2024–2025)
+Registration: MSRP-scaled estimate ($150–$350/yr depending on vehicle value)
+
+EV rebates applied where eligible:
+  Federal iZEV: up to $5,000 (BEV/PHEV)
+  Provincial programs vary — see fuel.js for current values by province
+      </div>
+    </section>
+
+    <!-- Tire Cost Methodology -->
+    <section class="about-section" aria-labelledby="tires-heading">
+      <h2 id="tires-heading">🔧 Tire Costs</h2>
+      <p>Tire cost estimates in the Cost Analysis page are based on the Tires catalogue, which lists current representative retail prices for popular Canadian tire models across all categories (winter, all-season, all-weather, summer).</p>
+      <p>Replacement intervals are estimates based on manufacturer treadwear ratings and typical Canadian driving conditions. Actual longevity depends on driving style, road conditions, and seasonal rotation practice.</p>
+      <p>Prices are in Canadian dollars and are updated quarterly. Always confirm current pricing with a local retailer.</p>
+    </section>
+
+    <!-- Weighted Scoring -->
     <section class="about-section" aria-labelledby="scoring-heading">
-      <h2 id="scoring-heading">⚖ Weighted Scoring</h2>
-      <p>The personal scoring tool on the Compare page lets you assign importance weights (0–10) to five dimensions:</p>
+      <h2 id="scoring-heading">⚖ Personal Scoring (Compare Page)</h2>
+      <p>The Compare page allows you to assign personal importance weights (0–10) to five dimensions and calculates a weighted score across the vehicles you are comparing:</p>
       <ul>
-        <li><strong>Purchase Price</strong> — normalised MSRP (lower is better)</li>
-        <li><strong>Fuel Economy</strong> — normalised combined L/100km or EV range (lower consumption is better)</li>
-        <li><strong>Winter Capability</strong> — Winter Score (higher is better)</li>
-        <li><strong>EV Range</strong> — normalised rated range in km (higher is better)</li>
+        <li><strong>Purchase Price</strong> — normalised MSRP across compared vehicles (lower is better)</li>
+        <li><strong>Fuel Economy</strong> — combined L/100km or EV range (lower consumption is better)</li>
+        <li><strong>Winter Capability</strong> — overall Winter Readiness tier (higher is better)</li>
+        <li><strong>EV Range</strong> — rated range in km (higher is better)</li>
         <li><strong>Environmental Rating</strong> — NRCan CO₂ rating out of 10 (higher is better)</li>
       </ul>
       <div class="formula-block" aria-label="Weighted scoring formula">
-For each dimension d:
-  normalisedScore_d = (value − min) / (max − min) × 100
+For each dimension:
+  normalisedScore = (value − min) / (max − min) × 100
   (inverted for "lower is better" dimensions)
 
-weightedSum = Σ(normalisedScore_d × weight_d)
-finalScore  = weightedSum / totalWeight   (rounded to integer)
+finalScore = Σ(normalisedScore × weight) / totalWeight
+
+A score of 50 means the vehicle is exactly average on that dimension
+relative to the set of vehicles you are comparing.
       </div>
-      <p>Scores of 50 mean the vehicle is average on that dimension relative to the compared set.</p>
     </section>
 
     <!-- Roadmap -->
@@ -242,32 +289,32 @@ finalScore  = weightedSum / totalWeight   (rounded to integer)
               <td><span class="stage-badge stage-badge--current">Stage 1</span></td>
               <td><strong>MVP</strong></td>
               <td>✅ Live</td>
-              <td>Browse &amp; filter 52 vehicles · Compare up to 4 · TCO for all 13 provinces · Winter Score · Cold EV range · Personal scoring · CSV export</td>
+              <td>Browse &amp; filter 870 vehicles · Compare up to 4 · Cost Analysis for all 13 provinces · Winter Readiness ratings · Cold EV range · CO₂ in g/km · Dual metric/imperial specs · Tire catalogue · CSV export</td>
             </tr>
             <tr>
               <td><span class="stage-badge stage-badge--future">Stage 2</span></td>
               <td>Expanded Data</td>
               <td>Planned</td>
-              <td>200+ vehicles (2024–2026) · Manufacturer-reported reliability data · Cargo volume &amp; towing capacity · NHTSA/ANCAP safety ratings · Real user MPG data from Natural Resources Canada</td>
+              <td>2024–2026 model year history · Manufacturer reliability data · Cargo volume &amp; towing for all vehicles · NHTSA/ANCAP safety ratings · Real-world fuel data from NRCan</td>
             </tr>
             <tr>
               <td><span class="stage-badge stage-badge--future">Stage 3</span></td>
               <td>Advanced Tools</td>
               <td>Planned</td>
-              <td>EV charging network overlay map · Provincial incentive calculator (updated quarterly) · Resale value tracker · Winter tire compatibility guide · Fleet comparison mode</td>
+              <td>EV charging network overlay · Provincial incentive calculator (quarterly updates) · Resale value tracker · Live fuel price API integration · Fleet comparison mode</td>
             </tr>
             <tr>
               <td><span class="stage-badge stage-badge--future">Stage 4</span></td>
               <td>Community</td>
               <td>Planned</td>
-              <td>User-submitted real-world fuel/range data · Community error reporting · Saved comparisons (no login required — URL-shareable) · RSS feed for new model additions · API for developers</td>
+              <td>User-submitted real-world fuel/range data · Saved comparisons (URL-shareable) · Community error reporting · RSS feed for new model additions · Developer API</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- Reporting errors -->
+    <!-- Error Reporting -->
     <section class="about-section about-section--full" aria-labelledby="errors-heading">
       <h2 id="errors-heading">🐛 Found an Error?</h2>
       <p>NorthPlate is open source and community-maintained. If you notice incorrect data, a calculation error, or a missing vehicle, please open a GitHub Issue:</p>
@@ -289,7 +336,8 @@ finalScore  = weightedSum / totalWeight   (rounded to integer)
     <div class="footer__links">
       <a href="index.html">Browse</a>
       <a href="compare.html">Compare</a>
-      <a href="tco.html">TCO</a>
+      <a href="cost.html">Cost Analysis</a>
+      <a href="tires.html">Tires</a>
       <a href="https://github.com/SCBlyth97/NorthPlate" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
   </div>
@@ -300,14 +348,12 @@ finalScore  = weightedSum / totalWeight   (rounded to integer)
 <script>
 'use strict';
 
-// Nav mobile toggle
 document.getElementById('navToggle').addEventListener('click', function() {
   const links = document.getElementById('navLinks');
   const open = links.classList.toggle('open');
   this.setAttribute('aria-expanded', open);
 });
 
-// Update compare badge
 const compareCount = Compare.count();
 const badge = document.getElementById('compareBadge');
 if (compareCount > 0) {

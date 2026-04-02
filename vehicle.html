@@ -31,7 +31,8 @@
           <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
         </a>
       </li>
-      <li><a href="tco.html" class="nav__link">💰 TCO</a></li>
+      <li><a href="cost.html" class="nav__link">💰 Cost Analysis</a></li>
+      <li><a href="tires.html" class="nav__link">🔧 Tires</a></li>
       <li><a href="about.html" class="nav__link">ℹ About</a></li>
     </ul>
   </div>
@@ -72,7 +73,8 @@
     <div class="footer__links">
       <a href="index.html">Browse</a>
       <a href="compare.html">Compare</a>
-      <a href="tco.html">TCO</a>
+      <a href="cost.html">Cost Analysis</a>
+      <a href="tires.html">Tires</a>
       <a href="about.html">About</a>
     </div>
   </div>
@@ -141,6 +143,105 @@ const ENRICHED = {
 const esc = UI.escapeHTML;
 const fmt = UI.formatCAD;
 
+// Unit conversions (metric ↔ imperial)
+function mmToIn(mm)    { return mm != null ? (mm / 25.4).toFixed(1) : '—'; }
+function mmToFt(mm)    { return mm != null ? (mm / 304.8).toFixed(1) : '—'; }
+function lbftToNm(lbft){ return lbft != null ? Math.round(lbft * 1.35582) : null; }
+function lbsToKg(lbs)  { return lbs  != null ? Math.round(lbs  * 0.453592) : null; }
+// Imperial (Canadian) MPG from L/100km: 282.48 ÷ L/100km
+function l100ToMpg(l)  { return (l != null && l > 0) ? Math.round(282.48 / l) : null; }
+
+// Estimated CO₂ in g/km from combined fuel consumption (NRCan emission factors)
+function calcCO2gkm(v) {
+  if (v.fuel_type === 'BEV') return null;
+  if (!v.fuel_combined_l100km) return null;
+  // NRCan standard: gasoline 2289 g/L, diesel 2641 g/L
+  const factor = v.fuel_type === 'diesel' ? 26.41 : 22.89;
+  return Math.round(v.fuel_combined_l100km * factor);
+}
+
+// Build the winter capability profile (replaces numeric score breakdown)
+function winterProfileHTML(v, gc, ws) {
+  const dt = (v.drivetrain || '').toUpperCase();
+
+  // ── Drivetrain ──
+  const dtTier  = (dt === 'AWD' || dt === '4WD') ? 'excellent' : dt === 'FWD' ? 'good' : 'poor';
+  const dtBadge = { excellent: 'badge--excellent', good: 'badge--good', poor: 'badge--poor' }[dtTier];
+  const dtLabel = { excellent: 'Excellent', good: 'Good', poor: 'Poor' }[dtTier];
+  const dtDesc  =
+    (dt === 'AWD' || dt === '4WD')
+      ? 'Drives all four wheels — best traction on snow and ice. Engine power is distributed where grip is greatest, significantly reducing wheelspin and improving directional control.'
+    : dt === 'FWD'
+      ? 'Engine weight sits over the drive wheels, providing adequate traction for most urban and suburban winter driving. Performance improves significantly with quality winter tires.'
+      : 'Engine weight is over the non-driven wheels, making winter traction the most demanding of all layouts. Winter tires are especially critical; extra caution is required in snow and ice.';
+
+  // ── Ground Clearance ──
+  let gcHtml = '';
+  if (gc) {
+    const gcTier  = gc >= 200 ? 'excellent' : gc >= 170 ? 'good' : gc >= 140 ? 'fair' : 'poor';
+    const gcBadge = { excellent:'badge--excellent', good:'badge--good', fair:'badge--fair', poor:'badge--poor' }[gcTier];
+    const gcLabel = { excellent:'High', good:'Adequate', fair:'Moderate', poor:'Low' }[gcTier];
+    const gcDesc  =
+      gc >= 200 ? 'Clears deep snowdrifts and unplowed roads without risk of high-centering — well suited to Canadian winter conditions including rural and cottage-country routes.'
+      : gc >= 170 ? 'Handles maintained winter roads reliably. Exercise extra caution in deep, unplowed snow or across high snowbanks.'
+      : gc >= 140 ? 'Suitable for regularly plowed urban roads. Avoid deep snow accumulations and steep, icy inclines.'
+                  : 'Low clearance — best confined to cleared urban roads. Not recommended for unplowed conditions or significant snowfall.';
+    gcHtml = `
+      <div class="winter-factor">
+        <div class="winter-factor__row">
+          <span class="winter-factor__name">Ground Clearance</span>
+          <span class="winter-factor__value">${gc} mm (${mmToIn(gc)} in)</span>
+          <span class="badge ${gcBadge}">${gcLabel}</span>
+        </div>
+        <div class="winter-factor__desc">${gcDesc}</div>
+      </div>`;
+  }
+
+  // ── Cold EV Range (BEV only) ──
+  let evHtml = '';
+  if (v.fuel_type === 'BEV' && v.ev_range_cold_km) {
+    const cold    = v.ev_range_cold_km;
+    const evTier  = cold >= 300 ? 'excellent' : cold >= 200 ? 'good' : cold >= 100 ? 'fair' : 'poor';
+    const evBadge = { excellent:'badge--excellent', good:'badge--good', fair:'badge--fair', poor:'badge--poor' }[evTier];
+    const evLabel = { excellent:'Comfortable', good:'Adequate', fair:'Limited', poor:'Very Limited' }[evTier];
+    const evDesc  =
+      cold >= 300 ? 'Comfortable cold-weather range — suitable for most Canadian inter-city winter routes, including cross-regional drives in most provinces.'
+      : cold >= 200 ? 'Adequate for urban and suburban use. Plan charging stops for longer inter-city winter journeys.'
+      : cold >= 100 ? 'Limited range at −20°C. Best for urban commutes with reliable, accessible charging infrastructure.'
+                    : 'Significantly reduced cold-weather range. Suitable mainly for short urban trips with guaranteed charging. Pre-conditioning the battery before departure is strongly recommended.';
+    evHtml = `
+      <div class="winter-factor">
+        <div class="winter-factor__row">
+          <span class="winter-factor__name">Cold EV Range (−20°C)</span>
+          <span class="winter-factor__value">${cold} km</span>
+          <span class="badge ${evBadge}">${evLabel}</span>
+        </div>
+        <div class="winter-factor__desc">${evDesc}</div>
+      </div>`;
+  }
+
+  return `
+    <div class="winter-profile">
+      <div class="winter-factor">
+        <div class="winter-factor__row">
+          <span class="winter-factor__name">Drivetrain</span>
+          <span class="winter-factor__value">${esc(v.drivetrain)}</span>
+          <span class="badge ${dtBadge}">${dtLabel}</span>
+        </div>
+        <div class="winter-factor__desc">${dtDesc}</div>
+      </div>
+      ${gcHtml}
+      ${evHtml}
+      <div class="winter-tip">
+        <strong>Reminder:</strong> Proper winter tires are the single most effective winter safety upgrade — more impactful than drivetrain alone. They are legally required in BC and strongly recommended across Canada.
+      </div>
+      <div class="winter-overall">
+        <span class="winter-overall__label">Overall Winter Capability</span>
+        <span class="badge ${ws.cssClass} badge--ws-large">${ws.icon} ${ws.label}</span>
+      </div>
+    </div>`;
+}
+
 /**
  * Render one specification row.
  * Returns '' if value is null/undefined/'', so callers never need null guards.
@@ -172,28 +273,6 @@ function specSection(icon, title, bodyHtml) {
     </details>`;
 }
 
-/**
- * Replicate the WinterScore formula to expose the per-dimension breakdown.
- * Must stay in sync with js/winter.js.
- */
-function winterBreakdown(v, gc) {
-  const dt = (v.drivetrain || '').toUpperCase();
-  const drivetrainPts = (dt === 'AWD' || dt === '4WD') ? 40 : dt === 'FWD' ? 20 : 5;
-
-  const gcVal = gc || 0;
-  const gcPts = gcVal >= 200 ? 30 : gcVal >= 170 ? 20 : 10;
-
-  let evPts = 20;
-  if (v.fuel_type === 'BEV') {
-    const cold = v.ev_range_cold_km || 0;
-    evPts = cold >= 300 ? 20 : cold >= 200 ? 15 : cold >= 100 ? 8 : 0;
-  }
-
-  const body = (v.body_style || '').toLowerCase();
-  const bodyPts = (body === 'truck' || body === 'suv') ? 10 : 5;
-
-  return { drivetrainPts, gcPts, evPts, bodyPts };
-}
 
 // ── Page renderer ──────────────────────────────────────────────────────────
 
@@ -205,8 +284,7 @@ function renderVehiclePage(v, enriched) {
   const vMerged = Object.assign({}, v, { ground_clearance_mm: gc });
 
   // Winter score uses the merged ground clearance
-  const ws        = WinterScore.calculate(vMerged);
-  const breakdown = winterBreakdown(vMerged, gc);
+  const ws = WinterScore.calculate(vMerged);
 
   // Annual fuel cost — Ontario, 20 000 km/yr (best-effort; skip if MSRP missing)
   let annualFuel = null;
@@ -255,7 +333,7 @@ function renderVehiclePage(v, enriched) {
       </div>
       <div class="vd-header__price-row">
         <div>
-          <div class="vd-msrp-label">MSRP from (CAD)</div>
+          <div class="vd-msrp-label">Price (CAD)</div>
           <div class="vd-msrp">${msrp ? fmt(msrp) : '—'}</div>
         </div>
         <button class="btn btn--primary" id="vd-compare-btn" data-id="${v.id}"
@@ -271,76 +349,64 @@ function renderVehiclePage(v, enriched) {
 
   const perfBody = [
     specRow('Engine',       engineLabel),
-    specRow('Horsepower',   enriched.hp        ? `${enriched.hp} hp`          : null),
-    specRow('Torque',       enriched.torque_lbft ? `${enriched.torque_lbft} lb-ft` : null),
+    specRow('Horsepower',   enriched.hp ? `${enriched.hp} hp` : null),
+    specRow('Torque',       enriched.torque_lbft
+      ? `${enriched.torque_lbft} lb-ft (${lbftToNm(enriched.torque_lbft)} Nm)` : null),
     specRow('Transmission', enriched.transmission_desc || v.transmission || null),
     specRow('Drivetrain',   v.drivetrain || null),
     v.motor_kw ? specRow('Electric Motor', `${v.motor_kw} kW`) : '',
   ].join('');
 
   // ── EFFICIENCY ──
+  const co2gkm = calcCO2gkm(v);
   const effBody = [
-    v.fuel_city_l100km    ? specRow('City',     `${v.fuel_city_l100km} L/100km`)    : '',
-    v.fuel_hwy_l100km     ? specRow('Highway',  `${v.fuel_hwy_l100km} L/100km`)     : '',
-    v.fuel_combined_l100km? specRow('Combined', `${v.fuel_combined_l100km} L/100km`): '',
+    v.fuel_city_l100km
+      ? specRow('City',    `${v.fuel_city_l100km} L/100km`
+          + (l100ToMpg(v.fuel_city_l100km) ? ` (${l100ToMpg(v.fuel_city_l100km)} mpg)` : '')) : '',
+    v.fuel_hwy_l100km
+      ? specRow('Highway', `${v.fuel_hwy_l100km} L/100km`
+          + (l100ToMpg(v.fuel_hwy_l100km) ? ` (${l100ToMpg(v.fuel_hwy_l100km)} mpg)` : '')) : '',
+    v.fuel_combined_l100km
+      ? specRow('Combined', `${v.fuel_combined_l100km} L/100km`
+          + (l100ToMpg(v.fuel_combined_l100km) ? ` (${l100ToMpg(v.fuel_combined_l100km)} mpg)` : '')) : '',
     specRow('Fuel Type',    UI.fuelLabel(v.fuel_type)),
     annualFuel != null
-      ? specRow('Est. Annual Fuel Cost', fmt(annualFuel),
-          ' (ON avg, 20,000 km/yr)')
-      : '',
-    v.co2_rating  ? specRow('CO₂ Rating',  `${v.co2_rating}/10`)  : '',
+      ? specRow('Est. Annual Fuel Cost', fmt(annualFuel), ' (ON avg, 20,000 km/yr)') : '',
+    co2gkm
+      ? specRow('CO₂ Emissions', `${co2gkm} g/km`, ' (est. from combined fuel consumption)')
+      : (v.fuel_type === 'BEV' ? specRow('CO₂ Emissions', '0 g/km', ' (zero tailpipe emissions)') : ''),
     v.smog_rating ? specRow('Smog Rating', `${v.smog_rating}/10`) : '',
     (v.fuel_type === 'BEV' || v.fuel_type === 'PHEV') && v.ev_range_km
-      ? specRow('Rated EV Range',      `${v.ev_range_km} km`) : '',
+      ? specRow('Rated EV Range',  `${v.ev_range_km} km`) : '',
     (v.fuel_type === 'BEV' || v.fuel_type === 'PHEV') && v.ev_range_cold_km
       ? specRow('Cold Range (−20°C)', `${v.ev_range_cold_km} km`) : '',
   ].join('');
 
   // ── PRACTICALITY ──
   const practBody = [
-    enriched.seating    ? specRow('Seating',      `${enriched.seating} passengers`) : '',
-    enriched.cargo_l    ? specRow('Cargo Volume',  `${enriched.cargo_l} L`)          : '',
-    enriched.fuel_tank_l? specRow('Fuel Tank',     `${enriched.fuel_tank_l} L`)      : '',
+    enriched.seating     ? specRow('Seating',      `${enriched.seating} passengers`) : '',
+    enriched.cargo_l     ? specRow('Cargo Volume',  `${enriched.cargo_l} L`) : '',
+    enriched.fuel_tank_l ? specRow('Fuel Tank',     `${enriched.fuel_tank_l} L`) : '',
     enriched.towing_lbs
-      ? specRow('Max Towing',   `${enriched.towing_lbs.toLocaleString('en-CA')} lbs`) : '',
+      ? specRow('Max Towing',
+          `${enriched.towing_lbs.toLocaleString('en-CA')} lbs (${lbsToKg(enriched.towing_lbs).toLocaleString('en-CA')} kg)`) : '',
     enriched.payload_lbs
-      ? specRow('Max Payload',  `${enriched.payload_lbs.toLocaleString('en-CA')} lbs`) : '',
+      ? specRow('Max Payload',
+          `${enriched.payload_lbs.toLocaleString('en-CA')} lbs (${lbsToKg(enriched.payload_lbs).toLocaleString('en-CA')} kg)`) : '',
   ].join('');
 
   // ── WINTER CAPABILITY ──
-  const scoreBar = `
-    <div class="vd-score-bar-wrap"
-      role="progressbar"
-      aria-valuenow="${ws.score}"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-label="Winter score ${ws.score} out of 100">
-      <div class="vd-score-bar vd-score-bar--${ws.tier}" style="width:${ws.score}%"></div>
-    </div>`;
-
-  const isBEV = v.fuel_type === 'BEV';
-  const winterBody =
-    specRow('Winter Score',
-      `<span class="badge ${ws.cssClass}">${ws.icon} ${ws.score}/100 — ${ws.label}</span>`) +
-    scoreBar +
-    `<div class="vd-score-breakdown">` +
-    specRow('Drivetrain',      `${breakdown.drivetrainPts}/40 pts`, ` (${v.drivetrain})`) +
-    specRow('Ground Clearance',`${breakdown.gcPts}/30 pts`,         gc ? ` (${gc} mm)` : '') +
-    specRow('Body Style',      `${breakdown.bodyPts}/10 pts`,       ` (${v.body_style})`) +
-    (isBEV
-      ? specRow('Cold EV Range',
-          `${breakdown.evPts}/20 pts`,
-          v.ev_range_cold_km ? ` (${v.ev_range_cold_km} km at −20°C)` : ' (no cold range data)')
-      : '') +
-    `</div>` +
-    (gc ? specRow('Ground Clearance', `${gc} mm`) : '');
+  const winterBody = winterProfileHTML(vMerged, gc, ws);
 
   // ── DIMENSIONS ──
   const dimsBody = [
-    enriched.length_mm    ? specRow('Length',          `${enriched.length_mm.toLocaleString('en-CA')} mm`)    : '',
-    enriched.width_mm     ? specRow('Width',           `${enriched.width_mm.toLocaleString('en-CA')} mm`)     : '',
-    enriched.wheelbase_mm ? specRow('Wheelbase',       `${enriched.wheelbase_mm.toLocaleString('en-CA')} mm`) : '',
-    gc                    ? specRow('Ground Clearance',`${gc} mm`) : '',
+    enriched.length_mm    ? specRow('Length',
+        `${enriched.length_mm.toLocaleString('en-CA')} mm (${mmToFt(enriched.length_mm)} ft)`) : '',
+    enriched.width_mm     ? specRow('Width',
+        `${enriched.width_mm.toLocaleString('en-CA')} mm (${mmToIn(enriched.width_mm)} in)`)   : '',
+    enriched.wheelbase_mm ? specRow('Wheelbase',
+        `${enriched.wheelbase_mm.toLocaleString('en-CA')} mm (${mmToFt(enriched.wheelbase_mm)} ft)`) : '',
+    gc ? specRow('Ground Clearance', `${gc} mm (${mmToIn(gc)} in)`) : '',
   ].join('');
 
   // ── DATA CITATIONS ──
