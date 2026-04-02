@@ -119,12 +119,11 @@ const UI = (() => {
 
         <div class="card__footer">
           <div>
-            <div class="card__msrp-label">MSRP (CAD)</div>
+            <div class="card__msrp-label">Price (CAD)</div>
             <div class="card__msrp">${formatCAD(v.msrp_cad)}</div>
           </div>
-          <span class="badge ${ws.cssClass}" aria-label="Winter score ${ws.score} — ${ws.label}">
-            <span aria-hidden="true">${ws.icon}</span> ${ws.score}
-            <span class="sr-only">— ${ws.label}</span>
+          <span class="badge ${ws.cssClass}" aria-label="Winter capability: ${ws.label}">
+            <span aria-hidden="true">${ws.icon}</span> ${ws.label}
           </span>
         </div>
       </article>
