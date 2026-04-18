@@ -68,39 +68,41 @@ const UI = (() => {
 
   /** Inline SVG body silhouettes (~80×36px, fill="currentColor") */
   function bodySilhouette(body_style) {
+    // Inner wheel circles use class="body-silhouette-hole" — CSS sets fill: var(--bg-card)
+    // because SVG fill attributes cannot reference CSS variables directly
     const svgs = {
       Car: `<svg class="body-silhouette" width="80" height="36" viewBox="0 0 80 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M8 26 C8 26 10 14 22 12 L32 9 C35 8 42 8 48 9 L58 12 C70 14 72 26 72 26 L8 26Z"/>
         <circle cx="20" cy="26" r="5"/>
-        <circle cx="20" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="20" cy="26" r="2.5" class="body-silhouette-hole"/>
         <circle cx="60" cy="26" r="5"/>
-        <circle cx="60" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="60" cy="26" r="2.5" class="body-silhouette-hole"/>
       </svg>`,
 
       SUV: `<svg class="body-silhouette" width="80" height="36" viewBox="0 0 80 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M8 26 L8 13 C8 13 10 9 22 9 L58 9 C70 9 72 13 72 13 L72 26 L8 26Z"/>
         <rect x="10" y="9" width="60" height="2" rx="1"/>
         <circle cx="20" cy="26" r="5"/>
-        <circle cx="20" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="20" cy="26" r="2.5" class="body-silhouette-hole"/>
         <circle cx="60" cy="26" r="5"/>
-        <circle cx="60" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="60" cy="26" r="2.5" class="body-silhouette-hole"/>
       </svg>`,
 
       Truck: `<svg class="body-silhouette" width="80" height="36" viewBox="0 0 80 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="40" y="12" width="30" height="14" rx="1"/>
         <path d="M8 26 L8 14 C8 14 10 10 28 10 L40 10 L40 26 L8 26Z"/>
         <circle cx="18" cy="26" r="5"/>
-        <circle cx="18" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="18" cy="26" r="2.5" class="body-silhouette-hole"/>
         <circle cx="62" cy="26" r="5"/>
-        <circle cx="62" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="62" cy="26" r="2.5" class="body-silhouette-hole"/>
       </svg>`,
 
       Van: `<svg class="body-silhouette" width="80" height="36" viewBox="0 0 80 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M8 26 L8 10 L64 10 C70 10 72 14 72 20 L72 26 L8 26Z"/>
         <circle cx="20" cy="26" r="5"/>
-        <circle cx="20" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="20" cy="26" r="2.5" class="body-silhouette-hole"/>
         <circle cx="62" cy="26" r="5"/>
-        <circle cx="62" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="62" cy="26" r="2.5" class="body-silhouette-hole"/>
       </svg>`,
     };
     return svgs[body_style] || svgs.Car;
@@ -123,7 +125,11 @@ const UI = (() => {
 
     const fuelStat = v.fuel_type === 'BEV'
       ? { label: 'Range', value: formatRange(v.ev_range_km) }
-      : { label: 'Combined', value: formatFuel(v.fuel_combined_l100km) };
+      : { label: 'Avg. Fuel Use', value: formatFuel(v.fuel_combined_l100km) };
+
+    const bottomLeftStat = v.body_style === 'Truck'
+      ? { label: 'Max Towing', value: v.max_towing_lbs ? `${formatNumber(v.max_towing_lbs)} lbs` : '—' }
+      : { label: 'Cargo', value: v.cargo_volume_l ? `${formatNumber(v.cargo_volume_l)} L` : '—' };
 
     const specSubtitle = [
       v.engine_litres ? `${v.engine_litres}L` : null,
@@ -179,8 +185,8 @@ const UI = (() => {
             <span class="card__stat-value">${escapeHTML(v.drivetrain)}</span>
           </div>
           <div class="card__stat">
-            <span class="card__stat-label">CO₂ Rating</span>
-            <span class="card__stat-value">${v.co2_rating != null ? `${v.co2_rating}/10` : '—'}</span>
+            <span class="card__stat-label">${bottomLeftStat.label}</span>
+            <span class="card__stat-value">${bottomLeftStat.value}</span>
           </div>
           <div class="card__stat">
             <span class="card__stat-label">Clearance</span>
@@ -197,14 +203,14 @@ const UI = (() => {
             <div class="card__msrp-label">Price (CAD)</div>
             <div class="card__msrp">${formatCAD(v.msrp_cad)}</div>
           </div>
-          <span class="badge ${ws.cssClass}" aria-label="Winter capability: ${ws.label}">
-            <i data-lucide="${_winterIconName(ws.tier)}" width="12" height="12" aria-hidden="true"></i> ${ws.label.toUpperCase()}
+          <span class="badge ${ws.cssClass}" aria-label="Winter score: ${ws.score} — ${ws.label}">
+            <i data-lucide="${_winterIconName(ws.tier)}" width="12" height="12" aria-hidden="true"></i> ${ws.score} — ${ws.label.toUpperCase()}
           </span>
         </div>
 
         <!-- 9. View Details button -->
         <a href="vehicle.html?id=${v.id}" class="card__view-btn">
-          View Details <i data-lucide="arrow-right" width="14" height="14" aria-hidden="true"></i>
+          View Details →
         </a>
 
       </article>

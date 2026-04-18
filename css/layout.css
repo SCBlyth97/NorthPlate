@@ -249,6 +249,7 @@ html.dark .theme-icon--dark  { display: inline-block; }
   flex: 1;
   min-width: 0;
   padding: var(--space-5) var(--space-6);
+  background: var(--bg-primary);
 }
 
 /* Full-width page (no sidebar) */
