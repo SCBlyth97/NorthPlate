@@ -13,6 +13,9 @@
       }
     })();
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -53,11 +56,26 @@
       </a></li>
     </ul>
     <button class="nav__theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-      <i data-lucide="sun"  width="18" height="18" class="theme-icon--light" aria-hidden="true"></i>
-      <i data-lucide="moon" width="18" height="18" class="theme-icon--dark"  aria-hidden="true"></i>
+      <i data-lucide="moon" width="18" height="18" class="theme-icon--light" aria-hidden="true"></i>
+      <i data-lucide="sun"  width="18" height="18" class="theme-icon--dark"  aria-hidden="true"></i>
     </button>
   </div>
 </nav>
+
+<!-- Hero strip -->
+<div class="hero-strip">
+  <div class="hero-strip__inner">
+    <div>
+      <p class="hero-strip__headline">870 Vehicles. Canadian Pricing. No Ads.</p>
+      <p class="hero-strip__sub">All data from NRCan 2026 Fuel Consumption Guide</p>
+    </div>
+    <div class="hero-strip__pills">
+      <span class="hero-strip__pill" id="heroVehicleCount">870 Vehicles</span>
+      <span class="hero-strip__pill">13 Provinces</span>
+      <span class="hero-strip__pill">Free Forever</span>
+    </div>
+  </div>
+</div>
 
 <div class="page-wrapper">
 
@@ -490,6 +508,11 @@
       <p>Try adjusting your filters or <button class="btn btn--secondary btn--sm" id="resetFilters2">reset all filters</button></p>
     </div>
 
+    <div class="content-footer">
+      <span class="content-footer__note">Data sourced from NRCan 2026 Fuel Consumption Guide · Open Government Licence – Canada</span>
+      <span class="content-footer__date">Last updated April 2026</span>
+    </div>
+
   </main>
 </div>
 
@@ -505,8 +528,8 @@
     <button class="btn btn--secondary btn--sm" id="clearCompareBtn">
       <i data-lucide="x" width="14" height="14" aria-hidden="true"></i> Clear
     </button>
-    <a href="compare.html" class="btn btn--primary" id="goCompareBtn">
-      <i data-lucide="scale" width="14" height="14" aria-hidden="true"></i> Compare Now
+    <a href="compare.html" class="btn btn--primary" id="goCompareBtn" disabled>
+      <i data-lucide="scale" width="14" height="14" aria-hidden="true"></i> Compare Vehicles
     </a>
   </div>
 </div>
@@ -841,15 +864,24 @@ function render() {
   const selectedIds = new Set(Compare.getIds());
 
   if (filtered.length === 0) {
+    grid.classList.remove('grid-fading');
     grid.innerHTML = '';
     grid.style.display = 'none';
     emptyEl.style.display = '';
   } else {
-    grid.style.display = '';
-    emptyEl.style.display = 'none';
-    grid.innerHTML = filtered.map(v =>
-      `<div role="listitem">${UI.vehicleCardHTML(v, selectedIds.has(v.id))}</div>`
-    ).join('');
+    grid.classList.add('grid-fading');
+    setTimeout(() => {
+      grid.style.display = '';
+      emptyEl.style.display = 'none';
+      grid.innerHTML = filtered.map((v, i) =>
+        `<div role="listitem">${UI.vehicleCardHTML(v, selectedIds.has(v.id), i)}</div>`
+      ).join('');
+      grid.classList.remove('grid-fading');
+      countEl.innerHTML = `<strong>${filtered.length}</strong> vehicle${filtered.length !== 1 ? 's' : ''}`;
+      updateCompareBar();
+      lucide.createIcons();
+    }, 80);
+    return;
   }
 
   countEl.innerHTML = `<strong>${filtered.length}</strong> vehicle${filtered.length !== 1 ? 's' : ''}`;
@@ -887,10 +919,19 @@ function updateCompareBar() {
 
   countEl.textContent = n;
 
-  if (n >= 2) {
+  if (n >= 1) {
     bar.classList.add('visible');
   } else {
     bar.classList.remove('visible');
+  }
+
+  const goBtn = document.getElementById('goCompareBtn');
+  if (goBtn) {
+    if (n >= 2) {
+      goBtn.removeAttribute('disabled');
+    } else {
+      goBtn.setAttribute('disabled', '');
+    }
   }
 
   const vDiv = document.getElementById('compareBarVehicles');
@@ -949,6 +990,9 @@ document.addEventListener('northplate:ready', function () {
   bindEvents();
   render();
   updateCardSelection(); // sync hero card checkboxes with persisted compare state
+  // Update hero strip vehicle count with real data
+  const heroCount = document.getElementById('heroVehicleCount');
+  if (heroCount) heroCount.textContent = `${NorthPlateData.vehicles.length.toLocaleString('en-CA')} Vehicles`;
   lucide.createIcons();  // process all static icons on page
 });
 </script>
