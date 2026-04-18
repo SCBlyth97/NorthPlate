@@ -54,17 +54,22 @@ const UI = (() => {
   /** Fuel type badge HTML */
   function fuelBadgeHTML(fuel_type) {
     const cls = `badge--${fuel_type.toLowerCase()}`;
-    const label = fuelLabel(fuel_type);
-    const icons = { gasoline: '⛽', diesel: '⛽', hybrid: '⚡', PHEV: '🔌', BEV: '⚡' };
-    const icon = icons[fuel_type] || '';
-    return `<span class="badge ${cls}"><span aria-hidden="true">${icon}</span> ${label}</span>`;
+    const label = fuelLabel(fuel_type).toUpperCase();
+    const iconNames = { gasoline: 'fuel', diesel: 'fuel', hybrid: 'zap', PHEV: 'plug', BEV: 'zap' };
+    const iconName = iconNames[fuel_type] || 'fuel';
+    return `<span class="badge ${cls}"><i data-lucide="${iconName}" width="12" height="12" aria-hidden="true"></i> ${label}</span>`;
   }
 
   /** Body style badge HTML */
   function bodyBadgeHTML(body_style) {
-    const icons = { Car: '🚗', SUV: '🚙', Truck: '🛻' };
-    const icon = icons[body_style] || '🚘';
-    return `<span class="badge badge--body"><span aria-hidden="true">${icon}</span> ${body_style}</span>`;
+    const iconNames = { Car: 'car', SUV: 'car', Truck: 'truck' };
+    const iconName = iconNames[body_style] || 'car';
+    return `<span class="badge badge--body"><i data-lucide="${iconName}" width="12" height="12" aria-hidden="true"></i> ${body_style.toUpperCase()}</span>`;
+  }
+
+  function _winterIconName(tier) {
+    return (tier === 'excellent' || tier === 'good') ? 'snowflake'
+         : tier === 'fair' ? 'alert-triangle' : 'x-circle';
   }
 
   /** Build a vehicle card HTML string */
@@ -123,7 +128,7 @@ const UI = (() => {
             <div class="card__msrp">${formatCAD(v.msrp_cad)}</div>
           </div>
           <span class="badge ${ws.cssClass}" aria-label="Winter capability: ${ws.label}">
-            <span aria-hidden="true">${ws.icon}</span> ${ws.label}
+            <i data-lucide="${_winterIconName(ws.tier)}" width="12" height="12" aria-hidden="true"></i> ${ws.label.toUpperCase()}
           </span>
         </div>
       </article>
