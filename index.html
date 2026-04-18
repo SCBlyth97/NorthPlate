@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="NorthPlate — Free Canadian vehicle intelligence. Browse, filter and compare 2026 vehicles with fuel economy, winter scores and CAD pricing." />
   <title>Browse Vehicles — NorthPlate</title>
+  <!-- Dark mode: apply class before first paint to avoid flash -->
+  <script>
+    (function () {
+      if (localStorage.getItem('np-theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
@@ -22,20 +30,32 @@
       </div>
     </a>
     <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">
-      ☰
+      <i data-lucide="menu" width="22" height="22" aria-hidden="true"></i>
     </button>
     <ul class="nav__links" id="navLinks" role="list">
-      <li><a href="index.html" class="nav__link active" aria-current="page">🔍 Browse</a></li>
+      <li><a href="index.html" class="nav__link active" aria-current="page">
+        <i data-lucide="search" width="18" height="18" aria-hidden="true"></i> Browse
+      </a></li>
       <li>
         <a href="compare.html" class="nav__link" id="compareNavLink">
-          ⚖ Compare
+          <i data-lucide="scale" width="18" height="18" aria-hidden="true"></i> Compare
           <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
         </a>
       </li>
-      <li><a href="cost.html" class="nav__link">💰 Cost Analysis</a></li>
-      <li><a href="tires.html" class="nav__link">🔧 Tires</a></li>
-      <li><a href="about.html" class="nav__link">ℹ About</a></li>
+      <li><a href="cost.html" class="nav__link">
+        <i data-lucide="calculator" width="18" height="18" aria-hidden="true"></i> Cost Analysis
+      </a></li>
+      <li><a href="tires.html" class="nav__link">
+        <i data-lucide="disc" width="18" height="18" aria-hidden="true"></i> Tires
+      </a></li>
+      <li><a href="about.html" class="nav__link">
+        <i data-lucide="info" width="18" height="18" aria-hidden="true"></i> About
+      </a></li>
     </ul>
+    <button class="nav__theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <i data-lucide="sun"  width="18" height="18" class="theme-icon--light" aria-hidden="true"></i>
+      <i data-lucide="moon" width="18" height="18" class="theme-icon--dark"  aria-hidden="true"></i>
+    </button>
   </div>
 </nav>
 
@@ -44,8 +64,10 @@
   <!-- Filter Sidebar -->
   <aside class="sidebar" id="filterSidebar" aria-label="Filters">
     <div class="flex justify-between items-center" style="margin-bottom:var(--space-4)">
-      <h2 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--navy)">Filters</h2>
-      <button class="btn-reset" id="resetFilters" aria-label="Reset all filters">✕ Reset</button>
+      <h2 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary)">Filters</h2>
+      <button class="btn-reset" id="resetFilters" aria-label="Reset all filters">
+        <i data-lucide="x" width="13" height="13" aria-hidden="true"></i> Reset
+      </button>
     </div>
 
     <!-- Make -->
@@ -105,8 +127,8 @@
             aria-label="Maximum price in Canadian dollars"
             aria-valuemin="20000" aria-valuemax="120000" />
           <div class="range-labels">
-            <span id="msrpMinLabel" style="color:var(--text-muted);font-size:var(--text-xs)">—</span>
-            <span id="msrpDisplayVal" aria-live="polite" style="color:var(--text-muted);font-size:var(--text-xs)">—</span>
+            <span id="msrpMinLabel" style="color:var(--text-secondary);font-size:var(--text-xs)">—</span>
+            <span id="msrpDisplayVal" aria-live="polite" style="color:var(--text-secondary);font-size:var(--text-xs)">—</span>
           </div>
         </div>
       </div>
@@ -123,7 +145,7 @@
     <!-- Download CSV -->
     <div class="filter-group" style="padding-top:var(--space-3);border-top:1px solid var(--border)">
       <button class="btn btn--secondary" id="downloadCsvBtn" style="width:100%;justify-content:center">
-        ⬇ Download CSV
+        <i data-lucide="download" width="16" height="16" aria-hidden="true"></i> Download CSV
       </button>
     </div>
   </aside>
@@ -133,7 +155,7 @@
 
     <!-- Mobile sidebar toggle -->
     <button class="sidebar-toggle-btn" id="sidebarToggle" aria-expanded="false" aria-controls="filterSidebar" style="margin-bottom:var(--space-4)">
-      ⚙ Filters
+      <i data-lucide="sliders-horizontal" width="16" height="16" aria-hidden="true"></i> Filters
     </button>
 
     <!-- ====================================================
@@ -149,7 +171,7 @@
 
         <!-- ── #1 Truck: Ford F-150 XLT 4WD ── -->
         <article class="hero-card" data-id="188">
-          <div class="hero-card__rank">★ #1 Truck in Canada</div>
+          <div class="hero-card__rank">#1 Truck in Canada</div>
           <div class="hero-card__header">
             <div class="hero-card__title">
               <div class="hero-card__year">2026</div>
@@ -163,8 +185,8 @@
             </label>
           </div>
           <div class="card__badges">
-            <span class="badge badge--body"><span aria-hidden="true">🛻</span> Truck</span>
-            <span class="badge badge--gasoline"><span aria-hidden="true">⛽</span> Gasoline</span>
+            <span class="badge badge--body"><i data-lucide="truck" width="12" height="12" aria-hidden="true"></i> TRUCK</span>
+            <span class="badge badge--gasoline"><i data-lucide="fuel" width="12" height="12" aria-hidden="true"></i> GASOLINE</span>
           </div>
           <div class="hero-card__stats">
             <div class="card__stat">
@@ -190,19 +212,19 @@
               <div class="hero-card__msrp">$56,469</div>
             </div>
             <span class="badge badge--excellent" aria-label="Winter score: 100 — Excellent">
-              <span aria-hidden="true">❄</span> 100 — Excellent
+              <i data-lucide="snowflake" width="12" height="12" aria-hidden="true"></i> 100 — EXCELLENT
             </span>
           </div>
           <div class="hero-card__actions">
             <a href="vehicle.html?id=188" class="btn btn--primary" style="flex:1;justify-content:center">
-              View Details →
+              View Details <i data-lucide="arrow-right" width="14" height="14" aria-hidden="true"></i>
             </a>
           </div>
         </article>
 
         <!-- ── #1 Car: Honda Civic Sedan Sport ── -->
         <article class="hero-card" data-id="256">
-          <div class="hero-card__rank">★ #1 Car in Canada</div>
+          <div class="hero-card__rank">#1 Car in Canada</div>
           <div class="hero-card__header">
             <div class="hero-card__title">
               <div class="hero-card__year">2026</div>
@@ -216,8 +238,8 @@
             </label>
           </div>
           <div class="card__badges">
-            <span class="badge badge--body"><span aria-hidden="true">🚗</span> Car</span>
-            <span class="badge badge--gasoline"><span aria-hidden="true">⛽</span> Gasoline</span>
+            <span class="badge badge--body"><i data-lucide="car" width="12" height="12" aria-hidden="true"></i> CAR</span>
+            <span class="badge badge--gasoline"><i data-lucide="fuel" width="12" height="12" aria-hidden="true"></i> GASOLINE</span>
           </div>
           <div class="hero-card__stats">
             <div class="card__stat">
@@ -243,12 +265,12 @@
               <div class="hero-card__msrp">$31,490</div>
             </div>
             <span class="badge badge--fair" aria-label="Winter score: 55 — Fair">
-              <span aria-hidden="true">⚠</span> 55 — Fair
+              <i data-lucide="alert-triangle" width="12" height="12" aria-hidden="true"></i> 55 — FAIR
             </span>
           </div>
           <div class="hero-card__actions">
             <a href="vehicle.html?id=256" class="btn btn--primary" style="flex:1;justify-content:center">
-              View Details →
+              View Details <i data-lucide="arrow-right" width="14" height="14" aria-hidden="true"></i>
             </a>
           </div>
         </article>
@@ -269,7 +291,7 @@
 
         <!-- Honda CR-V Hybrid AWD — Best-in-Class SUV Efficiency -->
         <article class="hero-card" data-id="262">
-          <div class="hero-card__rank" style="background:var(--teal);color:#fff">⚡ Top Efficiency SUV</div>
+          <div class="hero-card__rank" style="background:rgba(26,122,110,0.12);color:var(--accent-teal);border-color:rgba(26,122,110,0.2)">Top Efficiency SUV</div>
           <div class="hero-card__header">
             <div class="hero-card__title">
               <div class="hero-card__year">2026</div>
@@ -283,8 +305,8 @@
             </label>
           </div>
           <div class="card__badges">
-            <span class="badge badge--body"><span aria-hidden="true">🚙</span> SUV</span>
-            <span class="badge badge--hybrid"><span aria-hidden="true">⚡</span> Hybrid</span>
+            <span class="badge badge--body"><i data-lucide="car" width="12" height="12" aria-hidden="true"></i> SUV</span>
+            <span class="badge badge--hybrid"><i data-lucide="zap" width="12" height="12" aria-hidden="true"></i> HYBRID</span>
           </div>
           <div class="hero-card__stats">
             <div class="card__stat">
@@ -310,19 +332,19 @@
               <div class="hero-card__msrp">$44,600</div>
             </div>
             <span class="badge badge--good" aria-label="Winter capability: Good">
-              <span aria-hidden="true">❄</span> Good
+              <i data-lucide="snowflake" width="12" height="12" aria-hidden="true"></i> GOOD
             </span>
           </div>
           <div class="hero-card__actions">
             <a href="vehicle.html?id=262" class="btn btn--primary" style="flex:1;justify-content:center">
-              View Details →
+              View Details <i data-lucide="arrow-right" width="14" height="14" aria-hidden="true"></i>
             </a>
           </div>
         </article>
 
         <!-- Tesla Model Y Long Range AWD — Canada's Best-Selling EV -->
         <article class="hero-card" data-id="802">
-          <div class="hero-card__rank" style="background:#5B21B6;color:#fff">⚡ Canada's Best-Selling EV</div>
+          <div class="hero-card__rank" style="background:rgba(91,33,182,0.1);color:#5B21B6;border-color:rgba(91,33,182,0.2)">Canada's Best-Selling EV</div>
           <div class="hero-card__header">
             <div class="hero-card__title">
               <div class="hero-card__year">2026</div>
@@ -336,8 +358,8 @@
             </label>
           </div>
           <div class="card__badges">
-            <span class="badge badge--body"><span aria-hidden="true">🚙</span> SUV</span>
-            <span class="badge badge--bev"><span aria-hidden="true">⚡</span> Electric</span>
+            <span class="badge badge--body"><i data-lucide="car" width="12" height="12" aria-hidden="true"></i> SUV</span>
+            <span class="badge badge--bev"><i data-lucide="zap" width="12" height="12" aria-hidden="true"></i> ELECTRIC</span>
           </div>
           <div class="hero-card__stats">
             <div class="card__stat">
@@ -363,19 +385,19 @@
               <div class="hero-card__msrp">$65,990</div>
             </div>
             <span class="badge badge--excellent" aria-label="Winter capability: Excellent">
-              <span aria-hidden="true">❄</span> Excellent
+              <i data-lucide="snowflake" width="12" height="12" aria-hidden="true"></i> EXCELLENT
             </span>
           </div>
           <div class="hero-card__actions">
             <a href="vehicle.html?id=802" class="btn btn--primary" style="flex:1;justify-content:center">
-              View Details →
+              View Details <i data-lucide="arrow-right" width="14" height="14" aria-hidden="true"></i>
             </a>
           </div>
         </article>
 
         <!-- Honda Prelude Hybrid — New for 2026 -->
         <article class="hero-card" data-id="269">
-          <div class="hero-card__rank" style="background:#D4820A;color:#fff">✨ New for 2026</div>
+          <div class="hero-card__rank" style="background:rgba(212,130,10,0.1);color:var(--accent-amber);border-color:rgba(212,130,10,0.2)">New for 2026</div>
           <div class="hero-card__header">
             <div class="hero-card__title">
               <div class="hero-card__year">2026</div>
@@ -389,8 +411,8 @@
             </label>
           </div>
           <div class="card__badges">
-            <span class="badge badge--body"><span aria-hidden="true">🚗</span> Car</span>
-            <span class="badge badge--hybrid"><span aria-hidden="true">⚡</span> Hybrid</span>
+            <span class="badge badge--body"><i data-lucide="car" width="12" height="12" aria-hidden="true"></i> CAR</span>
+            <span class="badge badge--hybrid"><i data-lucide="zap" width="12" height="12" aria-hidden="true"></i> HYBRID</span>
           </div>
           <div class="hero-card__stats">
             <div class="card__stat">
@@ -416,12 +438,12 @@
               <div class="hero-card__msrp">TBD</div>
             </div>
             <span class="badge badge--good" aria-label="Winter capability: Good">
-              <span aria-hidden="true">❄</span> Good
+              <i data-lucide="snowflake" width="12" height="12" aria-hidden="true"></i> GOOD
             </span>
           </div>
           <div class="hero-card__actions">
             <a href="vehicle.html?id=269" class="btn btn--primary" style="flex:1;justify-content:center">
-              View Details →
+              View Details <i data-lucide="arrow-right" width="14" height="14" aria-hidden="true"></i>
             </a>
           </div>
         </article>
@@ -448,7 +470,9 @@
 
     <!-- Browse prompt (shown before any filter/show-all action) -->
     <div id="browsePrompt" class="browse-prompt" style="display:none" aria-live="polite">
-      <div class="browse-prompt__icon" aria-hidden="true">🚗</div>
+      <div class="browse-prompt__icon" aria-hidden="true">
+        <i data-lucide="car" width="52" height="52"></i>
+      </div>
       <h3>Ready to Browse</h3>
       <p>Apply filters to narrow your results, or load the full catalogue.</p>
       <button class="btn btn--primary" id="showAllBtn" style="margin-top:var(--space-4)">
@@ -459,7 +483,9 @@
     <div class="vehicle-grid" id="vehicleGrid" role="list" aria-label="Vehicle listings"></div>
 
     <div id="emptyState" class="empty-state" style="display:none" aria-live="polite">
-      <div class="empty-state__icon" aria-hidden="true">🔍</div>
+      <div class="empty-state__icon" aria-hidden="true">
+        <i data-lucide="search" width="48" height="48"></i>
+      </div>
       <h3>No vehicles match your filters</h3>
       <p>Try adjusting your filters or <button class="btn btn--secondary btn--sm" id="resetFilters2">reset all filters</button></p>
     </div>
@@ -476,8 +502,12 @@
     <div class="compare-bar__vehicles" id="compareBarVehicles"></div>
   </div>
   <div class="compare-bar__actions">
-    <button class="btn btn--secondary btn--sm" id="clearCompareBtn">✕ Clear</button>
-    <a href="compare.html" class="btn btn--primary" id="goCompareBtn">⚖ Compare Now</a>
+    <button class="btn btn--secondary btn--sm" id="clearCompareBtn">
+      <i data-lucide="x" width="14" height="14" aria-hidden="true"></i> Clear
+    </button>
+    <a href="compare.html" class="btn btn--primary" id="goCompareBtn">
+      <i data-lucide="scale" width="14" height="14" aria-hidden="true"></i> Compare Now
+    </a>
   </div>
 </div>
 
@@ -497,6 +527,7 @@
   </div>
 </footer>
 
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="js/data.js"></script>
 <script src="js/winter.js"></script>
 <script src="js/fuel.js"></script>
@@ -522,18 +553,28 @@ function buildFilterUI() {
   });
 
   // Body style checkboxes
-  const bodyStyleIcons = { Car: '🚗', SUV: '🚙', Truck: '🛻' };
+  const bodyStyleIcons = {
+    Car:   '<i data-lucide="car"   width="14" height="14" aria-hidden="true"></i>',
+    SUV:   '<i data-lucide="car"   width="14" height="14" aria-hidden="true"></i>',
+    Truck: '<i data-lucide="truck" width="14" height="14" aria-hidden="true"></i>'
+  };
   const bodyEl = document.getElementById('filterBodyStyle');
   NorthPlateData.bodyStyles.forEach(bs => {
     bodyEl.innerHTML += `
       <label class="filter-checkbox-item">
         <input type="checkbox" name="bodyStyle" value="${UI.escapeHTML(bs)}" aria-label="${UI.escapeHTML(bs)}" />
-        <span>${bodyStyleIcons[bs] || '🚘'} ${UI.escapeHTML(bs)}</span>
+        <span>${bodyStyleIcons[bs] || '<i data-lucide="car" width="14" height="14" aria-hidden="true"></i>'} ${UI.escapeHTML(bs)}</span>
       </label>`;
   });
 
   // Fuel type checkboxes
-  const fuelIcons = { gasoline:'⛽', diesel:'⛽', hybrid:'⚡', PHEV:'🔌', BEV:'⚡' };
+  const fuelIcons = {
+    gasoline: '<i data-lucide="fuel" width="14" height="14" aria-hidden="true"></i>',
+    diesel:   '<i data-lucide="fuel" width="14" height="14" aria-hidden="true"></i>',
+    hybrid:   '<i data-lucide="zap"  width="14" height="14" aria-hidden="true"></i>',
+    PHEV:     '<i data-lucide="plug" width="14" height="14" aria-hidden="true"></i>',
+    BEV:      '<i data-lucide="zap"  width="14" height="14" aria-hidden="true"></i>'
+  };
   const fuelEl = document.getElementById('filterFuelType');
   NorthPlateData.fuelTypes.forEach(ft => {
     fuelEl.innerHTML += `
@@ -715,7 +756,16 @@ function bindEvents() {
     const sidebar = document.getElementById('filterSidebar');
     const open = sidebar.classList.toggle('open');
     this.setAttribute('aria-expanded', open);
-    this.textContent = open ? '✕ Close Filters' : '⚙ Filters';
+    this.innerHTML = open
+      ? '<i data-lucide="x" width="16" height="16" aria-hidden="true"></i> Close Filters'
+      : '<i data-lucide="sliders-horizontal" width="16" height="16" aria-hidden="true"></i> Filters';
+    lucide.createIcons();
+  });
+
+  // Dark mode toggle
+  document.getElementById('themeToggle').addEventListener('click', function() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('np-theme', isDark ? 'dark' : 'light');
   });
 
   // Clear compare
@@ -781,6 +831,7 @@ function render() {
     const total = NorthPlateData.vehicles.length;
     countEl.innerHTML = `<strong>${total.toLocaleString('en-CA')}</strong> vehicle${total !== 1 ? 's' : ''} available`;
     updateCompareBar();
+    lucide.createIcons();
     return;
   }
 
@@ -803,6 +854,7 @@ function render() {
 
   countEl.innerHTML = `<strong>${filtered.length}</strong> vehicle${filtered.length !== 1 ? 's' : ''}`;
   updateCompareBar();
+  lucide.createIcons();
 }
 
 function updateCardSelection() {
@@ -845,7 +897,9 @@ function updateCompareBar() {
   vDiv.innerHTML = vehicles.map(v => `
     <div class="compare-bar__item">
       <span>${UI.escapeHTML(v.make)} ${UI.escapeHTML(v.model)}</span>
-      <button class="compare-bar__remove" data-remove="${v.id}" aria-label="Remove ${v.make} ${v.model}">✕</button>
+      <button class="compare-bar__remove" data-remove="${v.id}" aria-label="Remove ${v.make} ${v.model}">
+        <i data-lucide="x" width="14" height="14" aria-hidden="true"></i>
+      </button>
     </div>
   `).join('');
 
@@ -856,6 +910,8 @@ function updateCompareBar() {
       updateCardSelection();
     });
   });
+
+  lucide.createIcons();
 }
 
 // ---- Toast ----
@@ -868,7 +924,7 @@ function showToast(msg) {
     toast.setAttribute('aria-live', 'assertive');
     toast.style.cssText = `
       position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
-      background:var(--navy);color:#fff;padding:10px 20px;border-radius:6px;
+      background:var(--nav-bg);color:#fff;padding:10px 20px;border-radius:6px;
       font-size:14px;opacity:0;transition:opacity .2s,transform .2s;z-index:300;
       pointer-events:none;white-space:nowrap;
     `;
@@ -893,6 +949,7 @@ document.addEventListener('northplate:ready', function () {
   bindEvents();
   render();
   updateCardSelection(); // sync hero card checkboxes with persisted compare state
+  lucide.createIcons();  // process all static icons on page
 });
 </script>
 </body>

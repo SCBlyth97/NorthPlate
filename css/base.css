@@ -1,38 +1,47 @@
 /* NorthPlate — Base CSS: Design Tokens & Reset */
 
 :root {
-  /* Brand colours */
-  --navy:   #0D1F3C;
-  --red:    #C8312A;
-  --teal:   #1A7A6E;
-  --amber:  #D4820A;
+  /* ── Design System — Light Mode ─────────────────────────────────────── */
+  --bg-primary:     #EEEEF0;
+  --bg-surface:     #F5F5F7;
+  --bg-card:        #FFFFFF;
+  --text-primary:   #1A1A1A;
+  --text-secondary: #5A5A5F;
+  --text-muted:     #8A8A8F;
+  --border:         #D8D8DC;
+  --nav-bg:         #0D1F3C;
+  --accent-teal:    #1A7A6E;
+  --accent-red:     #C8312A;
+  --accent-amber:   #D4820A;
 
-  /* UI colours */
-  --bg:          #F7F8FA;
-  --surface:     #FFFFFF;
-  --border:      #D0D5DD;
-  --text:        #1A1A2E;
-  --text-muted:  #5A6478;
-  --text-light:  #8A93A6;
+  /* ── Brand / Legacy aliases (keep existing code working) ─────────────── */
+  --navy:       #0D1F3C;
+  --red:        var(--accent-red);
+  --teal:       var(--accent-teal);
+  --amber:      var(--accent-amber);
+  --bg:         var(--bg-primary);
+  --surface:    var(--bg-card);
+  --text:       var(--text-primary);
+  --text-light: var(--text-muted);
 
-  /* Score tier colours */
-  --score-poor:      #C8312A;
-  --score-poor-bg:   #FDECEA;
-  --score-fair:      #D4820A;
-  --score-fair-bg:   #FEF3E2;
-  --score-good:      #1A7A6E;
-  --score-good-bg:   #E8F5F3;
-  --score-excellent: #0D1F3C;
+  /* ── Score tier colours ──────────────────────────────────────────────── */
+  --score-poor:         #C8312A;
+  --score-poor-bg:      #FDECEA;
+  --score-fair:         #D4820A;
+  --score-fair-bg:      #FEF3E2;
+  --score-good:         #1A7A6E;
+  --score-good-bg:      #E8F5F3;
+  --score-excellent:    #0D1F3C;
   --score-excellent-bg: #E5EAF2;
 
-  /* Fuel type colours */
+  /* ── Fuel type colours ───────────────────────────────────────────────── */
   --fuel-gasoline: #6B7280;
   --fuel-diesel:   #374151;
   --fuel-hybrid:   #059669;
   --fuel-phev:     #0284C7;
   --fuel-bev:      #7C3AED;
 
-  /* Spacing scale */
+  /* ── Spacing scale ───────────────────────────────────────────────────── */
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
@@ -42,9 +51,10 @@
   --space-8:  32px;
   --space-10: 40px;
   --space-12: 48px;
+  --space-16: 64px;
 
-  /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  /* ── Typography ──────────────────────────────────────────────────────── */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono:   'Cascadia Code', 'Fira Code', 'Courier New', monospace;
 
   --text-xs:   11px;
@@ -60,34 +70,62 @@
   --font-semibold: 600;
   --font-bold:     700;
 
-  --leading-tight:  1.25;
-  --leading-snug:   1.375;
-  --leading-normal: 1.5;
+  --leading-tight:   1.25;
+  --leading-snug:    1.375;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.625;
 
-  /* Borders */
-  --radius-sm: 4px;
-  --radius:    6px;
-  --radius-lg: 10px;
-  --radius-xl: 16px;
+  /* ── Borders ─────────────────────────────────────────────────────────── */
+  --radius-sm:   4px;
+  --radius:      6px;
+  --radius-lg:   10px;
+  --radius-xl:   16px;
+  --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
-  --shadow:    0 2px 6px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
+  /* ── Shadows ─────────────────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.03);
+  --shadow:    0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.09), 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.11), 0 3px 6px rgba(0,0,0,0.05);
 
-  /* Transitions */
+  /* ── Transitions ─────────────────────────────────────────────────────── */
   --transition-fast: 120ms ease;
   --transition:      200ms ease;
   --transition-slow: 300ms ease;
 
-  /* Layout */
-  --nav-height: 60px;
+  /* ── Layout ──────────────────────────────────────────────────────────── */
+  --nav-height:    60px;
   --sidebar-width: 260px;
-  --max-content: 1280px;
+  --max-content:   1280px;
 }
 
-/* ---- Reset ---- */
+/* ── Dark Mode ───────────────────────────────────────────────────────────── */
+html.dark {
+  --bg-primary:     #2C2C2E;
+  --bg-surface:     #3A3A3C;
+  --bg-card:        #3A3A3C;
+  --text-primary:   #F2F2F7;
+  --text-secondary: #AEAEB2;
+  --text-muted:     #6C6C70;
+  --border:         #4A4A4F;
+  --nav-bg:         #1C1C1E;
+  --accent-teal:    #2DC4B2;
+  --accent-red:     #FF453A;
+  --accent-amber:   #FFD60A;
+
+  --navy:    #1C1C1E;
+  --teal:    var(--accent-teal);
+  --red:     var(--accent-red);
+  --amber:   var(--accent-amber);
+
+  --score-excellent:    #A0AEC0;
+  --score-excellent-bg: rgba(255,255,255,0.08);
+  --score-good-bg:      rgba(45,196,178,0.15);
+  --score-fair-bg:      rgba(255,214,10,0.15);
+  --score-poor-bg:      rgba(255,69,58,0.15);
+}
+
+/* ── Reset ───────────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -101,8 +139,8 @@ html {
 
 body {
   font-family: var(--font-family);
-  background: var(--bg);
-  color: var(--text);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -114,7 +152,7 @@ img, svg {
 }
 
 a {
-  color: var(--teal);
+  color: var(--accent-teal);
   text-decoration: none;
 }
 
@@ -123,7 +161,7 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: 2px solid var(--teal);
+  outline: 2px solid var(--accent-teal);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -149,8 +187,20 @@ table {
 }
 
 :focus-visible {
-  outline: 2px solid var(--teal);
+  outline: 2px solid var(--accent-teal);
   outline-offset: 2px;
+}
+
+/* Lucide SVG icons — inherit current colour, stay inline */
+[data-lucide], svg.lucide {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Screen reader only */
