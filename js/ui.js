@@ -51,20 +51,59 @@ const UI = (() => {
     return FUEL_LABELS[fuel_type] || fuel_type;
   }
 
-  /** Fuel type badge HTML */
+  /** Fuel type badge HTML — neutral badge-bg/badge-text */
   function fuelBadgeHTML(fuel_type) {
-    const cls = `badge--${fuel_type.toLowerCase()}`;
     const label = fuelLabel(fuel_type).toUpperCase();
     const iconNames = { gasoline: 'fuel', diesel: 'fuel', hybrid: 'zap', PHEV: 'plug', BEV: 'zap' };
     const iconName = iconNames[fuel_type] || 'fuel';
-    return `<span class="badge ${cls}"><i data-lucide="${iconName}" width="12" height="12" aria-hidden="true"></i> ${label}</span>`;
+    return `<span class="badge"><i data-lucide="${iconName}" width="12" height="12" aria-hidden="true"></i> ${label}</span>`;
   }
 
-  /** Body style badge HTML */
+  /** Body style badge HTML — neutral badge-bg/badge-text */
   function bodyBadgeHTML(body_style) {
-    const iconNames = { Car: 'car', SUV: 'car', Truck: 'truck' };
+    const iconNames = { Car: 'car', SUV: 'car', Truck: 'truck', Van: 'car' };
     const iconName = iconNames[body_style] || 'car';
-    return `<span class="badge badge--body"><i data-lucide="${iconName}" width="12" height="12" aria-hidden="true"></i> ${body_style.toUpperCase()}</span>`;
+    return `<span class="badge"><i data-lucide="${iconName}" width="12" height="12" aria-hidden="true"></i> ${body_style.toUpperCase()}</span>`;
+  }
+
+  /** Inline SVG body silhouettes (~80×36px, fill="currentColor") */
+  function bodySilhouette(body_style) {
+    const svgs = {
+      Car: `<svg class="body-silhouette" width="80" height="36" viewBox="0 0 80 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M8 26 C8 26 10 14 22 12 L32 9 C35 8 42 8 48 9 L58 12 C70 14 72 26 72 26 L8 26Z"/>
+        <circle cx="20" cy="26" r="5"/>
+        <circle cx="20" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="60" cy="26" r="5"/>
+        <circle cx="60" cy="26" r="2.5" fill="var(--bg-card)"/>
+      </svg>`,
+
+      SUV: `<svg class="body-silhouette" width="80" height="36" viewBox="0 0 80 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M8 26 L8 13 C8 13 10 9 22 9 L58 9 C70 9 72 13 72 13 L72 26 L8 26Z"/>
+        <rect x="10" y="9" width="60" height="2" rx="1"/>
+        <circle cx="20" cy="26" r="5"/>
+        <circle cx="20" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="60" cy="26" r="5"/>
+        <circle cx="60" cy="26" r="2.5" fill="var(--bg-card)"/>
+      </svg>`,
+
+      Truck: `<svg class="body-silhouette" width="80" height="36" viewBox="0 0 80 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="40" y="12" width="30" height="14" rx="1"/>
+        <path d="M8 26 L8 14 C8 14 10 10 28 10 L40 10 L40 26 L8 26Z"/>
+        <circle cx="18" cy="26" r="5"/>
+        <circle cx="18" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="62" cy="26" r="5"/>
+        <circle cx="62" cy="26" r="2.5" fill="var(--bg-card)"/>
+      </svg>`,
+
+      Van: `<svg class="body-silhouette" width="80" height="36" viewBox="0 0 80 36" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M8 26 L8 10 L64 10 C70 10 72 14 72 20 L72 26 L8 26Z"/>
+        <circle cx="20" cy="26" r="5"/>
+        <circle cx="20" cy="26" r="2.5" fill="var(--bg-card)"/>
+        <circle cx="62" cy="26" r="5"/>
+        <circle cx="62" cy="26" r="2.5" fill="var(--bg-card)"/>
+      </svg>`,
+    };
+    return svgs[body_style] || svgs.Car;
   }
 
   function _winterIconName(tier) {
@@ -72,21 +111,41 @@ const UI = (() => {
          : tier === 'fair' ? 'alert-triangle' : 'x-circle';
   }
 
-  /** Build a vehicle card HTML string */
-  function vehicleCardHTML(v, isSelected) {
+  /**
+   * Build a vehicle card HTML string.
+   * @param {object} v - Vehicle data object
+   * @param {boolean} isSelected - Whether vehicle is in compare set
+   * @param {number} index - Card position for staggered animation delay
+   */
+  function vehicleCardHTML(v, isSelected, index = 0) {
     const ws = WinterScore.calculate(v);
-    const fuelDisplay = v.fuel_type === 'BEV'
-      ? `${formatRange(v.ev_range_km)} range`
-      : formatFuel(v.fuel_combined_l100km);
+    const animDelay = Math.min(index * 0.05, 0.4);
+
+    const fuelStat = v.fuel_type === 'BEV'
+      ? { label: 'Range', value: formatRange(v.ev_range_km) }
+      : { label: 'Combined', value: formatFuel(v.fuel_combined_l100km) };
+
+    const specSubtitle = [
+      v.engine_litres ? `${v.engine_litres}L` : null,
+      v.cylinders ? `${v.cylinders}-cyl` : null,
+      v.motor_kw ? `${v.motor_kw} kW` : null,
+      v.transmission || null,
+    ].filter(Boolean).slice(0, 3).join(' · ') || v.trim || '';
 
     return `
-      <article class="vehicle-card${isSelected ? ' vehicle-card--selected' : ''}" data-id="${v.id}">
-        <div class="card__header">
-          <div class="card__title">
-            <div class="card__year">${v.year}</div>
-            <div class="card__name">${escapeHTML(v.make)} ${escapeHTML(v.model)}</div>
-            <div class="card__trim">${escapeHTML(v.trim)}</div>
-          </div>
+      <article class="vehicle-card${isSelected ? ' vehicle-card--selected' : ''}"
+        data-id="${v.id}"
+        style="animation-delay:${animDelay}s">
+
+        <!-- 1. Badge row -->
+        <div class="card__badge-row">
+          ${bodyBadgeHTML(v.body_style)}
+          ${fuelBadgeHTML(v.fuel_type)}
+        </div>
+
+        <!-- 2. Year + Compare row -->
+        <div class="card__year-row">
+          <div class="card__year">${v.year}</div>
           <label class="compare-checkbox-wrap" title="Add to compare">
             <input type="checkbox" class="compare-toggle"
               data-id="${v.id}"
@@ -97,33 +156,44 @@ const UI = (() => {
           </label>
         </div>
 
-        <div class="card__badges">
-          ${bodyBadgeHTML(v.body_style)}
-          ${fuelBadgeHTML(v.fuel_type)}
+        <!-- 3. Vehicle name -->
+        <div class="card__name">${escapeHTML(v.make)} ${escapeHTML(v.model)}</div>
+
+        <!-- 4. Spec subtitle -->
+        <div class="card__trim">${escapeHTML(specSubtitle)}</div>
+
+        <!-- 5. Silhouette + fuel tag -->
+        <div class="card__silhouette-row">
+          <div class="card__silhouette">${bodySilhouette(v.body_style)}</div>
+          <span class="card__fuel-tag">${escapeHTML(fuelLabel(v.fuel_type))}</span>
         </div>
 
+        <!-- 6. Stat grid 2×2 -->
         <div class="card__stats">
           <div class="card__stat">
-            <span class="card__stat-label">${v.fuel_type === 'BEV' ? 'Range' : 'Combined'}</span>
-            <span class="card__stat-value">${fuelDisplay}</span>
+            <span class="card__stat-label">${fuelStat.label}</span>
+            <span class="card__stat-value">${fuelStat.value}</span>
           </div>
           <div class="card__stat">
             <span class="card__stat-label">Drivetrain</span>
             <span class="card__stat-value">${escapeHTML(v.drivetrain)}</span>
           </div>
-          ${v.ev_range_cold_km ? `
-          <div class="card__stat">
-            <span class="card__stat-label">Cold Range (−20°C)</span>
-            <span class="card__stat-value">${v.ev_range_cold_km} km</span>
-          </div>` : ''}
           <div class="card__stat">
             <span class="card__stat-label">CO₂ Rating</span>
-            <span class="card__stat-value">${v.co2_rating}/10</span>
+            <span class="card__stat-value">${v.co2_rating != null ? `${v.co2_rating}/10` : '—'}</span>
+          </div>
+          <div class="card__stat">
+            <span class="card__stat-label">Clearance</span>
+            <span class="card__stat-value">${v.ground_clearance_mm ? `${v.ground_clearance_mm} mm` : '—'}</span>
           </div>
         </div>
 
+        <!-- 7. Divider -->
+        <hr class="card__divider" />
+
+        <!-- 8. Price + winter score -->
         <div class="card__footer">
-          <div>
+          <div class="card__price-block">
             <div class="card__msrp-label">Price (CAD)</div>
             <div class="card__msrp">${formatCAD(v.msrp_cad)}</div>
           </div>
@@ -131,6 +201,12 @@ const UI = (() => {
             <i data-lucide="${_winterIconName(ws.tier)}" width="12" height="12" aria-hidden="true"></i> ${ws.label.toUpperCase()}
           </span>
         </div>
+
+        <!-- 9. View Details button -->
+        <a href="vehicle.html?id=${v.id}" class="card__view-btn">
+          View Details <i data-lucide="arrow-right" width="14" height="14" aria-hidden="true"></i>
+        </a>
+
       </article>
     `;
   }
@@ -203,7 +279,7 @@ const UI = (() => {
 
   return {
     formatCAD, formatNumber, formatFuel, formatRange,
-    fuelLabel, fuelBadgeHTML, bodyBadgeHTML,
+    fuelLabel, fuelBadgeHTML, bodyBadgeHTML, bodySilhouette,
     vehicleCardHTML, escapeHTML, provinceOptionsHTML,
     setVisible, debounce, toCSV, downloadCSV
   };
