@@ -5,7 +5,8 @@
       "WebFetch(domain:api.github.com)",
       "Bash(git checkout *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(node -e \"const d=require\\('./js/data.js'\\); const v=NorthPlateData.vehicles[0]; console.log\\(JSON.stringify\\(Object.keys\\(v\\)\\)\\)\")"
     ]
   }
 }
