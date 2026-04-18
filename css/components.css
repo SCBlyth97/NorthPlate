@@ -177,8 +177,17 @@
   width: 80px;
   height: 36px;
   color: var(--text-muted);
-  opacity: 0.4;
+  opacity: 0.55;
   flex-shrink: 0;
+}
+
+html.dark .card__silhouette .body-silhouette {
+  opacity: 0.45;
+}
+
+/* SVG wheel hole fill — must be set via CSS for CSS variable to work in SVG */
+.body-silhouette-hole {
+  fill: var(--bg-card);
 }
 
 .card__fuel-tag {
@@ -278,19 +287,19 @@
   justify-content: center;
   gap: var(--space-2);
   width: 100%;
+  max-height: 44px;
   height: 44px;
   background: var(--accent-teal);
   color: var(--btn-text);
   border-radius: var(--radius);
   font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: var(--font-semibold);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: var(--font-medium);
+  letter-spacing: 0.06em;
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: background var(--transition-fast), opacity var(--transition-fast);
   margin-top: 2px;
 }
 
@@ -298,6 +307,14 @@
   background: var(--accent-teal-hover);
   text-decoration: none;
   color: var(--btn-text);
+}
+
+html.dark .card__view-btn {
+  opacity: 0.85;
+}
+
+html.dark .card__view-btn:hover {
+  opacity: 1;
 }
 
 /* Backwards-compat header classes */

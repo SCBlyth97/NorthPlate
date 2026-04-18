@@ -131,9 +131,12 @@ html.dark {
   --navy:    #1C1C1E;
   --score-excellent:    #6EE7D0;
   --score-excellent-bg: rgba(45,196,178,0.12);
-  --score-good-bg:      rgba(45,196,178,0.12);
-  --score-fair-bg:      rgba(255,214,10,0.12);
-  --score-poor-bg:      rgba(255,69,58,0.12);
+  --score-good:         #34D399;
+  --score-good-bg:      rgba(52,211,153,0.14);
+  --score-fair:         #FBBF24;
+  --score-fair-bg:      rgba(251,191,36,0.14);
+  --score-poor:         #FF6B63;
+  --score-poor-bg:      rgba(255,107,99,0.14);
 }
 
 /* ── Reset ───────────────────────────────────────────────────────────────── */
