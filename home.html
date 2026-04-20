@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NorthPlate | The Definitive Canadian Vehicle Intelligence Engine</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,ital,wght@6..72,0,200..800;6..72,1,200..800&amp;family=Public+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#ffb3ae",
+                        "surface": "#f8f9ff",
+                        "surface-container": "#e9eefa",
+                        "surface-dim": "#d5dae6",
+                        "tertiary-fixed-dim": "#8dcff5",
+                        "surface-container-highest": "#dde3ef",
+                        "primary-fixed-dim": "#ffb3ae",
+                        "on-secondary-container": "#772d2b",
+                        "on-primary-container": "#ffb9b4",
+                        "primary-fixed": "#ffdad7",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#dde3ef",
+                        "on-secondary-fixed": "#3e0406",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#00435d",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#b3272c",
+                        "on-secondary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "tertiary-container": "#005c7d",
+                        "primary-container": "#a61d24",
+                        "on-primary-fixed": "#410004",
+                        "outline-variant": "#e2bebc",
+                        "on-tertiary-fixed": "#001e2c",
+                        "outline": "#8d706e",
+                        "on-tertiary-container": "#91d3f9",
+                        "inverse-surface": "#2b313a",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#fd9892",
+                        "secondary": "#964642",
+                        "on-background": "#161c24",
+                        "on-surface-variant": "#5a413f",
+                        "on-primary-fixed-variant": "#910817",
+                        "secondary-fixed": "#ffdad7",
+                        "on-tertiary-fixed-variant": "#004c69",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#ebf1fd",
+                        "tertiary-fixed": "#c3e8ff",
+                        "inverse-primary": "#ffb3ae",
+                        "primary": "#820012",
+                        "surface-container-low": "#eff4ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#792f2d",
+                        "surface-container-high": "#e3e8f4",
+                        "on-surface": "#161c24",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader"],
+                        "body": ["Public Sans"],
+                        "label": ["Public Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .serif-tight {
+            letter-spacing: -0.02em;
+        }
+        .ghost-border {
+            border: 1px solid rgba(22, 28, 36, 0.15);
+        }
+    </style>
+<link rel="stylesheet" href="css/northplate-design.css"/>
+</head>
+<body class="bg-surface text-on-background font-body selection:bg-primary-fixed-dim">
+<!-- TopNavBar -->
+<nav class="bg-[#f8f9ff] dark:bg-[#161c24] flex justify-between items-center px-12 py-8 w-full max-w-screen-2xl mx-auto">
+<div class="font-newsreader text-2xl font-bold text-[#161c24] dark:text-white uppercase tracking-tighter">NorthPlate</div>
+<div class="hidden md:flex space-x-12">
+<a class="text-[#820012] dark:text-[#a61d24] border-b-2 border-[#820012] font-public-sans uppercase tracking-widest text-xs py-1" href="home.html">Home</a>
+<a class="text-[#161c24] dark:text-gray-400 font-public-sans uppercase tracking-widest text-xs hover:text-[#820012] transition-colors duration-300 py-1" href="about.html">About</a>
+<a class="text-[#161c24] dark:text-gray-400 font-public-sans uppercase tracking-widest text-xs hover:text-[#820012] transition-colors duration-300 py-1" href="about.html">Data Sources</a>
+<a class="text-[#161c24] dark:text-gray-400 font-public-sans uppercase tracking-widest text-xs hover:text-[#820012] transition-colors duration-300 py-1" href="about.html">Methodology</a>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative w-full h-[870px] flex items-center justify-center overflow-hidden bg-on-background">
+<div class="absolute inset-0 opacity-40">
+<img alt="" class="w-full h-full object-cover grayscale" data-alt="high-contrast editorial shot of a luxury vehicle silhouette in a dark, moody studio with sharp directional rim lighting and deep shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwzxhEx3l6-4SI3hCEzPfEny1Ydc06VZUwZ0EWBk3NhxDChCTCKAX-xoghz7c4ES-Do16J2AeuSP9-YO11Y3YvehhTwyQQBM61t-9_l7IPtdWW3JKfwy6AXPf3G7Cvy0TbsbhC09UTa7sx5ojC_J3yeGHvQh0-1YUYAKWXK5DVroCwEzF6MycLlAP8h_bYZPIixqlaJQ8dlFjAYk17HPHcJQvjKhq-hgndINl6r8vhZtKq2cFwJjdCeMiUpvP3BzRNGQxgoUie28k"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background via-transparent to-transparent"></div>
+<div class="relative z-10 w-full max-w-5xl px-8 text-center">
+<h1 class="font-headline text-5xl md:text-7xl text-surface serif-tight mb-12 leading-tight">
+                The definitive intelligence engine for every Canadian vehicle decision.
+            </h1>
+<!-- Hero Search Bar -->
+<div class="max-w-2xl mx-auto flex">
+<div class="relative flex-grow">
+<input class="w-full bg-surface-container-lowest border-none py-6 px-8 text-lg font-body focus:ring-0 rounded-none placeholder:text-on-surface/40" placeholder="Search by make or model..." type="text"/>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary px-10 flex items-center justify-center transition-colors duration-300 rounded-none">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 500;">search</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Feature Highlights -->
+<section class="py-32 px-12 bg-surface max-w-screen-2xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-12 ghost-border border-r-0 md:border-r flex flex-col justify-between h-[400px]">
+<div>
+<div class="text-primary mb-8">
+<span class="material-symbols-outlined text-4xl">ac_unit</span>
+</div>
+<h3 class="font-headline text-3xl mb-4 serif-tight">Winter Suitability Score</h3>
+<p class="text-on-surface/70 leading-relaxed font-body">
+                        Rates every vehicle on its ability to handle Canadian winters using traction data, ground clearance, and thermal insulation metrics.
+                    </p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low p-12 ghost-border border-r-0 md:border-r flex flex-col justify-between h-[400px]">
+<div>
+<div class="text-primary mb-8">
+<span class="material-symbols-outlined text-4xl">ev_station</span>
+</div>
+<h3 class="font-headline text-3xl mb-4 serif-tight">EV Range at -20°C</h3>
+<p class="text-on-surface/70 leading-relaxed font-body">
+                        Unvarnished laboratory data on cold-weather electric range, accounting for battery pre-conditioning and cabin heating loads.
+                    </p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-12 ghost-border flex flex-col justify-between h-[400px]">
+<div>
+<div class="text-primary mb-8">
+<span class="material-symbols-outlined text-4xl">payments</span>
+</div>
+<h3 class="font-headline text-3xl mb-4 serif-tight">5-Year Running Costs</h3>
+<p class="text-on-surface/70 leading-relaxed font-body">
+                        Comprehensive ownership cost breakdowns by Canadian province, including insurance premiums, fuel taxes, and maintenance schedules.
+                    </p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="w-full bg-primary py-24 flex flex-col items-center justify-center text-center">
+<h2 class="font-headline text-3xl md:text-5xl text-on-primary serif-tight mb-12 px-8">
+            Access the complete Canadian automotive registry.
+        </h2>
+<a href="index.html" class="bg-surface-container-lowest text-primary hover:bg-surface-container-highest px-16 py-6 text-sm font-label uppercase tracking-[0.2em] transition-all duration-300 font-bold border-none">
+            Browse 870+ Canadian Vehicles
+        </a>
+</section>
+<!-- Footer -->
+<footer class="bg-[#ffffff] dark:bg-[#0c1015] flex flex-col items-center py-16 px-12 w-full border-t border-[#161c24]/10">
+<div class="font-newsreader text-xl font-bold text-[#161c24] dark:text-white mb-4">NorthPlate</div>
+<div class="flex gap-8 mb-8">
+<a class="text-[#161c24]/60 dark:text-white/60 hover:text-[#820012] dark:hover:text-[#a61d24] transition-all font-public-sans text-[10px] uppercase tracking-[0.2em]" href="about.html">About</a>
+<a class="text-[#161c24]/60 dark:text-white/60 hover:text-[#820012] dark:hover:text-[#a61d24] transition-all font-public-sans text-[10px] uppercase tracking-[0.2em]" href="about.html">Data Sources</a>
+<a class="text-[#161c24]/60 dark:text-white/60 hover:text-[#820012] dark:hover:text-[#a61d24] transition-all font-public-sans text-[10px] uppercase tracking-[0.2em]" href="about.html">Methodology</a>
+</div>
+<div class="font-public-sans text-[10px] uppercase tracking-[0.2em] text-[#161c24]/60 dark:text-white/60 opacity-80 hover:opacity-100">
+            © 2024 NorthPlate. All rights reserved.
+        </div>
+</footer>
+</body></html>
