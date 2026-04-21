@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vehicle details — NorthPlate Canadian Vehicle Intelligence" />
+  <title>Vehicle Details — NorthPlate</title>
+  <link rel="stylesheet" href="../../shared/styles/base.css" />
+  <link rel="stylesheet" href="../../shared/styles/layout.css" />
+  <link rel="stylesheet" href="../../shared/styles/components.css" />
+  <link rel="stylesheet" href="../../shared/styles/northplate-design.css" />
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="../../../public/index.html" class="nav__brand" aria-label="NorthPlate home">
+      <div class="nav__logo" aria-hidden="true">NP</div>
+      <div>
+        <div class="nav__name">NorthPlate</div>
+        <div class="nav__tagline">Canadian Vehicle Intelligence</div>
+      </div>
+    </a>
+    <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false"
+      aria-controls="navLinks" aria-label="Toggle navigation menu">☰</button>
+    <ul class="nav__links" id="navLinks" role="list">
+      <li><a href="../browse/browse.html" class="nav__link"> Browse</a></li>
+      <li>
+        <a href="../compare/compare.html" class="nav__link" id="compareNavLink">
+          ⚖ Compare
+          <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
+        </a>
+      </li>
+      <li><a href="../cost/cost.html" class="nav__link"> Cost Analysis</a></li>
+      <li><a href="../tires/tires.html" class="nav__link"> Tires</a></li>
+      <li><a href="../../../public/about.html" class="nav__link">ℹ About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-full">
+
+  <!-- Loading state -->
+  <div id="vd-loading" class="vd-loading">
+    <span class="vd-loading__spinner" aria-hidden="true">⏳</span>
+    <p>Loading vehicle data…</p>
+  </div>
+
+  <!-- Error state -->
+  <div id="vd-error" style="display:none">
+    <div class="empty-state">
+      <div class="empty-state__icon" aria-hidden="true">🚫</div>
+      <h3>Vehicle not found</h3>
+      <p style="margin-bottom:var(--space-5)">
+        The requested vehicle ID doesn't exist in the 2026 dataset.
+      </p>
+      <a href="../browse/browse.html" class="btn btn--primary">← Back to Browse</a>
+    </div>
+  </div>
+
+  <!-- Vehicle detail — populated by JS -->
+  <div id="vd-content" style="display:none"></div>
+
+</div><!-- .page-full -->
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">NorthPlate</div>
+      <p class="footer__note">Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide.
+        All prices in CAD. Not affiliated with any manufacturer.</p>
+    </div>
+    <div class="footer__links">
+      <a href="../browse/browse.html">Browse</a>
+      <a href="../compare/compare.html">Compare</a>
+      <a href="../cost/cost.html">Cost Analysis</a>
+      <a href="../tires/tires.html">Tires</a>
+      <a href="../../../public/about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../../services/data.js"></script>
+<script src="../../services/winter.js"></script>
+<script src="../../services/fuel.js"></script>
+<script src="../../shared/utils/ui.js"></script>
+<script src="../../services/compare.js"></script>
+<script src="../../services/tco.js"></script>
+<script src="./vehicle.js"></script>
+</body>
+</html>

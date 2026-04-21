@@ -1,93 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Vehicle details — NorthPlate Canadian Vehicle Intelligence" />
-  <title>Vehicle Details — NorthPlate</title>
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/layout.css" />
-  <link rel="stylesheet" href="css/components.css" />
-<link rel="stylesheet" href="css/northplate-design.css">
-</head>
-<body>
-
-<!-- Navigation -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav__inner">
-    <a href="index.html" class="nav__brand" aria-label="NorthPlate home">
-      <div class="nav__logo" aria-hidden="true">NP</div>
-      <div>
-        <div class="nav__name">NorthPlate</div>
-        <div class="nav__tagline">Canadian Vehicle Intelligence</div>
-      </div>
-    </a>
-    <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false"
-      aria-controls="navLinks" aria-label="Toggle navigation menu">☰</button>
-    <ul class="nav__links" id="navLinks" role="list">
-      <li><a href="index.html" class="nav__link"> Browse</a></li>
-      <li>
-        <a href="compare.html" class="nav__link" id="compareNavLink">
-          ⚖ Compare
-          <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
-        </a>
-      </li>
-      <li><a href="cost.html" class="nav__link"> Cost Analysis</a></li>
-      <li><a href="tires.html" class="nav__link"> Tires</a></li>
-      <li><a href="about.html" class="nav__link">ℹ About</a></li>
-    </ul>
-  </div>
-</nav>
-
-<div class="page-full">
-
-  <!-- Loading state -->
-  <div id="vd-loading" class="vd-loading">
-    <span class="vd-loading__spinner" aria-hidden="true">⏳</span>
-    <p>Loading vehicle data…</p>
-  </div>
-
-  <!-- Error state -->
-  <div id="vd-error" style="display:none">
-    <div class="empty-state">
-      <div class="empty-state__icon" aria-hidden="true">🚫</div>
-      <h3>Vehicle not found</h3>
-      <p style="margin-bottom:var(--space-5)">
-        The requested vehicle ID doesn't exist in the 2026 dataset.
-      </p>
-      <a href="index.html" class="btn btn--primary">← Back to Browse</a>
-    </div>
-  </div>
-
-  <!-- Vehicle detail — populated by JS -->
-  <div id="vd-content" style="display:none"></div>
-
-</div><!-- .page-full -->
-
-<footer class="footer" role="contentinfo">
-  <div class="footer__inner">
-    <div>
-      <div class="footer__brand">NorthPlate</div>
-      <p class="footer__note">Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide.
-        All prices in CAD. Not affiliated with any manufacturer.</p>
-    </div>
-    <div class="footer__links">
-      <a href="index.html">Browse</a>
-      <a href="compare.html">Compare</a>
-      <a href="cost.html">Cost Analysis</a>
-      <a href="tires.html">Tires</a>
-      <a href="about.html">About</a>
-    </div>
-  </div>
-</footer>
-
-<script src="js/data.js"></script>
-<script src="js/winter.js"></script>
-<script src="js/fuel.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/compare.js"></script>
-<script src="js/tco.js"></script>
-<script>
 'use strict';
 
 // ── Nav mobile toggle ──────────────────────────────────────────────────────
@@ -302,7 +212,7 @@ function renderVehiclePage(v, enriched) {
   // ── Breadcrumb ──
   const breadcrumb = `
     <nav class="vd-breadcrumb" aria-label="Breadcrumb">
-      <a href="index.html">Browse</a>
+      <a href="../browse/browse.html">Browse</a>
       <span class="vd-breadcrumb__sep" aria-hidden="true">›</span>
       <span>${esc(v.make)}</span>
       <span class="vd-breadcrumb__sep" aria-hidden="true">›</span>
@@ -416,10 +326,10 @@ function renderVehiclePage(v, enriched) {
     <div class="vd-citations">
       <span class="vd-citations__label">Data sources:</span>
       <span>${sourceText}</span>
-      <a href="about.html">Methodology →</a>
+      <a href="../../../public/about.html">Methodology →</a>
     </div>`;
 
-  const backLink = `<a href="index.html" class="vd-back">← Back to Browse</a>`;
+  const backLink = `<a href="../browse/browse.html" class="vd-back">← Back to Browse</a>`;
 
   return `
     ${breadcrumb}
@@ -508,6 +418,3 @@ document.addEventListener('northplate:ready', function () {
     badge.style.display = n > 0 ? '' : 'none';
   }
 });
-</script>
-</body>
-</html>

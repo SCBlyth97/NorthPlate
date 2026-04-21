@@ -1,0 +1,10 @@
+body { background:#F7F8FA; }
+.hero-strip { background:#0D1F3C; border-bottom:none; }
+.hero-strip__headline { color:#fff; font-size:18px; font-weight:700; }
+.hero-strip__sub { color:rgba(255,255,255,0.6); }
+.hero-strip__pill { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.8); }
+.nav__link.active { border-bottom-color:#C8312A; }
+.card__view-btn { background:#C8312A; }
+.card__view-btn:hover { background:#a52520; }
+.btn--primary { background:#C8312A; border-color:#C8312A; color:#fff; }
+.btn--primary:hover { background:#a52520; border-color:#a52520; color:#fff; text-decoration:none; }
