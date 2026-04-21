@@ -3,7 +3,7 @@
  * Source: NRCan 2026 Fuel Consumption Guide (open.canada.ca)
  * 870 vehicles: ICE/hybrid/diesel (2026) + BEV 2026 + PHEV 2026
  *
- * Data is loaded at runtime from data/vehicles.csv.
+ * Data is loaded at runtime from src/data/vehicles.csv.
  * Once loaded, window.NorthPlateData is set and a 'northplate:ready'
  * CustomEvent is dispatched on document so pages can initialise.
  */
@@ -78,7 +78,7 @@
     return { vehicles, makes, bodyStyles, fuelTypes, drivetrains, minMsrp, maxMsrp };
   }
 
-  fetch('data/vehicles.csv')
+  fetch('../../data/vehicles.csv')
     .then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.text();

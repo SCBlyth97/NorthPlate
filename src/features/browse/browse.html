@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Vehicles — NorthPlate</title>
+  <link rel="stylesheet" href="../../shared/styles/base.css" />
+  <link rel="stylesheet" href="../../shared/styles/layout.css" />
+  <link rel="stylesheet" href="../../shared/styles/components.css" />
+  <link rel="stylesheet" href="./browse.css" />
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="../../../public/index.html" class="nav__brand" aria-label="NorthPlate home">
+      <div class="nav__logo" style="background:#C8312A">NP</div>
+      <div>
+        <div class="nav__name">NorthPlate</div>
+        <div class="nav__tagline">Canadian Vehicle Intelligence</div>
+      </div>
+    </a>
+    <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation">&#9776;</button>
+    <ul class="nav__links" id="navLinks" role="list">
+      <li><a href="./browse.html" class="nav__link active" aria-current="page">Browse</a></li>
+      <li><a href="../compare/compare.html" class="nav__link">Compare <span class="compare-badge" id="compareBadge" style="display:none">0</span></a></li>
+      <li><a href="../cost/cost.html" class="nav__link">Cost Analysis</a></li>
+      <li><a href="../tires/tires.html" class="nav__link">Tires</a></li>
+      <li><a href="../../../public/about.html" class="nav__link">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero-strip">
+  <div class="hero-strip__inner">
+    <div>
+      <div class="hero-strip__headline">870 Vehicles. Canadian Pricing. No Ads.</div>
+      <div class="hero-strip__sub">All data from NRCan 2026 Fuel Consumption Guide</div>
+    </div>
+    <div class="hero-strip__pills">
+      <span class="hero-strip__pill" id="heroCount">870 Vehicles</span>
+      <span class="hero-strip__pill">13 Provinces</span>
+      <span class="hero-strip__pill">No Ads</span>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrapper">
+
+  <aside class="sidebar" id="filterSidebar" aria-label="Filter vehicles">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <span style="font-size:11px;font-weight:700;color:#8A8A8F;text-transform:uppercase;letter-spacing:0.08em">Filters</span>
+      <button class="btn-reset" id="resetBtn">Reset</button>
+    </div>
+
+    <div class="filter-group">
+      <label class="filter-label" for="filterMake">Make</label>
+      <select class="filter-select" id="filterMake"><option value="">All Makes</option></select>
+    </div>
+
+    <div class="filter-group">
+      <fieldset style="border:none;padding:0;margin:0">
+        <legend class="filter-label">Fuel Type</legend>
+        <div class="filter-checkbox-group">
+          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="gasoline" /><span>Gasoline</span></label>
+          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="diesel" /><span>Diesel</span></label>
+          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="hybrid" /><span>Hybrid</span></label>
+          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="PHEV" /><span>Plug-in Hybrid</span></label>
+          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="BEV" /><span>Electric</span></label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">Price Range (CAD)</span>
+      <div class="price-range-inputs__row">
+        <div class="price-range-inputs__field">
+          <span class="price-range-inputs__prefix">Min</span>
+          <input type="number" class="price-input" id="filterMsrpMin" step="1000" min="0" aria-label="Minimum price" />
+        </div>
+        <span class="price-range-inputs__sep">—</span>
+        <div class="price-range-inputs__field">
+          <span class="price-range-inputs__prefix">Max</span>
+          <input type="number" class="price-input" id="filterMsrpMax" step="1000" min="0" aria-label="Maximum price" />
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content" aria-label="Vehicle results">
+    <button class="sidebar-toggle-btn" id="sidebarToggle" aria-expanded="false" aria-controls="filterSidebar" style="margin-bottom:16px">Filters</button>
+
+    <div class="results-bar">
+      <span class="results-count" id="resultsCount" aria-live="polite" aria-atomic="true">Loading...</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <label class="filter-label" for="sortSelect" style="margin:0;white-space:nowrap">Sort:</label>
+        <select class="filter-select" id="sortSelect" style="min-width:160px">
+          <option value="name_asc">Name A–Z</option>
+          <option value="price_asc">Price: Low to High</option>
+          <option value="price_desc">Price: High to Low</option>
+          <option value="fuel_asc">Best Fuel Economy</option>
+          <option value="winter_desc">Best Winter Score</option>
+          <option value="ev_range_desc">Longest EV Range</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="vehicle-grid" class="vehicle-grid" role="list" aria-label="Vehicle listings"></div>
+    <div id="emptyState" class="empty-state" style="display:none">
+      <h3>No vehicles match your filters</h3>
+      <button class="btn btn--secondary" id="resetBtn2" style="margin-top:16px">Reset Filters</button>
+    </div>
+  </main>
+</div>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">NorthPlate</div>
+      <p class="footer__note">Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide. All prices in CAD.</p>
+    </div>
+    <div class="footer__links">
+      <a href="./browse.html">Browse</a>
+      <a href="../compare/compare.html">Compare</a>
+      <a href="../cost/cost.html">Cost Analysis</a>
+      <a href="../tires/tires.html">Tires</a>
+      <a href="../../../public/about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../../services/data.js"></script>
+<script src="../../services/winter.js"></script>
+<script src="../../services/fuel.js"></script>
+<script src="../../shared/utils/ui.js"></script>
+<script src="../../services/compare.js"></script>
+<script src="../../shared/utils/filters.js"></script>
+<script src="./browse.js"></script>
+</body>
+</html>
