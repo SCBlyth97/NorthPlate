@@ -6,11 +6,53 @@
   <base href="/NorthPlate/">
   <meta name="description" content="NorthPlate methodology, data sources, scoring systems, and project roadmap. Free Canadian vehicle intelligence updated for 2026." />
   <title>About — NorthPlate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="public/shared/styles/base.css" />
   <link rel="stylesheet" href="public/shared/styles/layout.css" />
   <link rel="stylesheet" href="public/shared/styles/components.css" />
-  <link rel="stylesheet" href="public/shared/styles/northplate-design.css" />
   <style>
+    /* ── Heritage Performance theme — mirrors Browse page ──────────────── */
+    :root {
+      --font-sans:         'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif:        'Noto Serif', Georgia, 'Times New Roman', serif;
+      --bg-primary:        #f5f3f3;
+      --bg-surface:        #efeded;
+      --bg-card:           #ffffff;
+      --bg-sidebar:        #efeded;
+      --text-primary:      #1b1c1c;
+      --text-secondary:    #5a403c;
+      --text-muted:        #8e706b;
+      --border:            #e0d8d6;
+      --nav-bg:            #610000;
+      --accent-teal:       #8b0000;
+      --accent-teal-hover: #4a0000;
+      --accent-red:        #8b0000;
+      --btn-text:          #ffffff;
+      --badge-bg:          rgba(97, 0, 0, 0.06);
+      --badge-text:        #5a403c;
+      --shadow:            none;
+      --shadow-sm:         none;
+      --shadow-md:         none;
+    }
+
+    body {
+      background: #fbf9f8;
+      font-family: 'Work Sans', -apple-system, sans-serif;
+    }
+
+    /* Nav */
+    .nav__logo        { background: #8b0000; }
+    .nav__link.active { border-bottom-color: #e9c349; color: #fff; }
+
+    /* Hero strip */
+    .hero-strip           { background: #1b1c1c; border-bottom: 1px solid #2e2b2b; }
+    .hero-strip__headline { color: #fbf9f8; font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
+    .hero-strip__sub      { color: rgba(251,249,248,0.5); font-size: 12px; }
+    .hero-strip__pill     { background: rgba(251,249,248,0.07); border-color: rgba(251,249,248,0.12); color: rgba(251,249,248,0.7); font-size: 11px; }
+
+    /* Footer */
+    .footer { background: #1b1c1c; }
+
     /* ── About page layout ─────────────────────────────────────────────── */
 
     .about-intro {
