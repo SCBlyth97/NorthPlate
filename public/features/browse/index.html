@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="/NorthPlate/">
   <title>Browse Vehicles — NorthPlate</title>
-  <link rel="stylesheet" href="/shared/styles/base.css" />
-  <link rel="stylesheet" href="/shared/styles/layout.css" />
-  <link rel="stylesheet" href="/shared/styles/components.css" />
-  <link rel="stylesheet" href="/features/browse/browse.css" />
+  <link rel="stylesheet" href="public/shared/styles/base.css" />
+  <link rel="stylesheet" href="public/shared/styles/layout.css" />
+  <link rel="stylesheet" href="public/shared/styles/components.css" />
+  <link rel="stylesheet" href="public/features/browse/browse.css" />
 </head>
 <body>
 
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
-    <a href="/" class="nav__brand" aria-label="NorthPlate home">
+    <a href="." class="nav__brand" aria-label="NorthPlate home">
       <div class="nav__logo" style="background:#C8312A">NP</div>
       <div>
         <div class="nav__name">NorthPlate</div>
@@ -22,11 +23,11 @@
     </a>
     <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation">&#9776;</button>
     <ul class="nav__links" id="navLinks" role="list">
-      <li><a href="/features/browse/" class="nav__link active" aria-current="page">Browse</a></li>
-      <li><a href="/features/compare/" class="nav__link">Compare <span class="compare-badge" id="compareBadge" style="display:none">0</span></a></li>
-      <li><a href="/features/cost/" class="nav__link">Cost Analysis</a></li>
-      <li><a href="/features/tires/" class="nav__link">Tires</a></li>
-      <li><a href="/about.html" class="nav__link">About</a></li>
+      <li><a href="public/features/browse/" class="nav__link active" aria-current="page">Browse</a></li>
+      <li><a href="public/features/compare/" class="nav__link">Compare <span class="compare-badge" id="compareBadge" style="display:none">0</span></a></li>
+      <li><a href="public/features/cost/" class="nav__link">Cost Analysis</a></li>
+      <li><a href="public/features/tires/" class="nav__link">Tires</a></li>
+      <li><a href="public/about.html" class="nav__link">About</a></li>
     </ul>
   </div>
 </nav>
@@ -120,21 +121,21 @@
       <p class="footer__note">Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide. All prices in CAD.</p>
     </div>
     <div class="footer__links">
-      <a href="/features/browse/">Browse</a>
-      <a href="/features/compare/">Compare</a>
-      <a href="/features/cost/">Cost Analysis</a>
-      <a href="/features/tires/">Tires</a>
-      <a href="/about.html">About</a>
+      <a href="public/features/browse/">Browse</a>
+      <a href="public/features/compare/">Compare</a>
+      <a href="public/features/cost/">Cost Analysis</a>
+      <a href="public/features/tires/">Tires</a>
+      <a href="public/about.html">About</a>
     </div>
   </div>
 </footer>
 
-<script src="/services/data.js"></script>
-<script src="/services/winter.js"></script>
-<script src="/services/fuel.js"></script>
-<script src="/shared/utils/ui.js"></script>
-<script src="/services/compare.js"></script>
-<script src="/shared/utils/filters.js"></script>
-<script src="/features/browse/browse.js"></script>
+<script src="public/services/data.js"></script>
+<script src="public/services/winter.js"></script>
+<script src="public/services/fuel.js"></script>
+<script src="public/shared/utils/ui.js"></script>
+<script src="public/services/compare.js"></script>
+<script src="public/shared/utils/filters.js"></script>
+<script src="public/features/browse/browse.js"></script>
 </body>
 </html>

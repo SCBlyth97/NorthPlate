@@ -78,7 +78,7 @@
     return { vehicles, makes, bodyStyles, fuelTypes, drivetrains, minMsrp, maxMsrp };
   }
 
-  fetch('/data/vehicles.csv')
+  fetch('/NorthPlate/public/data/vehicles.csv')
     .then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.text();
