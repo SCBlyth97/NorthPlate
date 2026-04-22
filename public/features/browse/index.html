@@ -273,6 +273,7 @@
     <div class="footer__links">
       <a href="/NorthPlate/">Home</a>
       <a href="/NorthPlate/public/features/browse/">Browser</a>
+      <a href="/NorthPlate/public/features/community/">Community</a>
       <a href="/NorthPlate/public/features/tires/">Tires</a>
       <a href="/NorthPlate/public/about.html">About</a>
     </div>
@@ -286,84 +287,5 @@
 <script src="public/services/compare.js"></script>
 <script src="public/shared/utils/filters.js"></script>
 <script src="public/features/browse/browse.js"></script>
-<script>
-/* Featured & highlights sections — separate from browse.js to avoid coupling */
-(function () {
-  'use strict';
-
-  function wireCompareToggles(container) {
-    container.querySelectorAll('.compare-toggle').forEach(function (cb) {
-      cb.addEventListener('change', function () {
-        var id = parseInt(this.dataset.id, 10);
-        if (this.checked) {
-          if (!Compare.addId(id)) {
-            this.checked = false;
-            alert('Max ' + Compare.MAX_COMPARE + ' vehicles can be compared at once.');
-          }
-        } else {
-          Compare.removeId(id);
-        }
-        var badge = document.getElementById('compareBadge');
-        var n = Compare.count();
-        badge.textContent = n;
-        badge.style.display = n > 0 ? '' : 'none';
-      });
-    });
-  }
-
-  document.addEventListener('northplate:ready', function () {
-    var vehicles = NorthPlateData.vehicles;
-    var selectedIds = Compare.getIds();
-
-    /* Featured — F-150 (188) and Civic (256) are the two most-sold nameplates */
-    var featuredGrid = document.getElementById('featuredGrid');
-    if (featuredGrid) {
-      var FEATURED_IDS = [188, 256];
-      var featured = FEATURED_IDS
-        .map(function (id) { return vehicles.find(function (v) { return v.id === id; }); })
-        .filter(Boolean);
-      featuredGrid.innerHTML = featured.map(function (v, i) {
-        return '<div role="listitem">' + UI.vehicleCardHTML(v, selectedIds.indexOf(v.id) !== -1, i) + '</div>';
-      }).join('');
-      wireCompareToggles(featuredGrid);
-    }
-
-    /* Highlights — best winter score, longest EV range, best price-to-access */
-    var highlightsGrid = document.getElementById('highlightsGrid');
-    if (highlightsGrid) {
-      var byWinter = vehicles.slice().sort(function (a, b) {
-        return WinterScore.calculate(b).score - WinterScore.calculate(a).score;
-      });
-      var byEV = vehicles
-        .filter(function (v) { return v.ev_range_km > 0; })
-        .sort(function (a, b) { return b.ev_range_km - a.ev_range_km; });
-      var byValue = vehicles
-        .filter(function (v) { return v.msrp_cad > 0; })
-        .sort(function (a, b) { return a.msrp_cad - b.msrp_cad; });
-
-      var seen = {};
-      var highlights = [];
-      [byWinter[0], byEV[0], byValue[0]].forEach(function (v) {
-        if (v && !seen[v.id]) { seen[v.id] = true; highlights.push(v); }
-      });
-
-      highlightsGrid.innerHTML = highlights.map(function (v, i) {
-        return '<div role="listitem">' + UI.vehicleCardHTML(v, selectedIds.indexOf(v.id) !== -1, i) + '</div>';
-      }).join('');
-      wireCompareToggles(highlightsGrid);
-    }
-
-    /* Apply Filters button — triggers browse.js render() via its change listener */
-    var applyBtn = document.getElementById('applyBtn');
-    if (applyBtn) {
-      applyBtn.addEventListener('click', function () {
-        document.getElementById('filterMake').dispatchEvent(new Event('change'));
-        var grid = document.getElementById('vehicle-grid');
-        if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-  });
-}());
-</script>
 </body>
 </html>
