@@ -15,8 +15,8 @@
 
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
-    <a href="." class="nav__brand" aria-label="NorthPlate home">
-      <div class="nav__logo" aria-hidden="true">NP</div>
+    <a href="/NorthPlate/" class="nav__brand" aria-label="NorthPlate home">
+      <div class="nav__logo">NP</div>
       <div>
         <div class="nav__name">NorthPlate</div>
         <div class="nav__tagline">Canadian Vehicle Intelligence</div>
@@ -24,19 +24,32 @@
     </a>
     <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation">☰</button>
     <ul class="nav__links" id="navLinks" role="list">
-      <li><a href="public/features/browse/" class="nav__link"> Browse</a></li>
+      <li><a href="/NorthPlate/" class="nav__link">Home</a></li>
       <li>
-        <a href="public/features/compare/" class="nav__link">
-          ⚖ Compare
-          <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
+        <a href="/NorthPlate/public/features/browse/" class="nav__link">
+          Browser
+        <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
         </a>
       </li>
-      <li><a href="public/features/cost/" class="nav__link"> Cost Analysis</a></li>
-      <li><a href="public/features/tires/" class="nav__link active" aria-current="page"> Tires</a></li>
-      <li><a href="public/about.html" class="nav__link">ℹ About</a></li>
+      <li><a href="/NorthPlate/public/features/community/" class="nav__link">Community</a></li>
+      <li><a href="/NorthPlate/public/features/tires/" class="nav__link active" aria-current="page">Tires</a></li>
+      <li><a href="/NorthPlate/public/about.html" class="nav__link">About</a></li>
     </ul>
   </div>
 </nav>
+<div class="hero-strip">
+  <div class="hero-strip__inner">
+    <div>
+      <div class="hero-strip__headline">870 Vehicles. Canadian Pricing. No Ads.</div>
+      <div class="hero-strip__sub">All data from NRCan 2026 Fuel Consumption Guide</div>
+    </div>
+    <div class="hero-strip__pills">
+      <span class="hero-strip__pill">870 Vehicles</span>
+      <span class="hero-strip__pill">13 Provinces</span>
+      <span class="hero-strip__pill">No Cost to Access</span>
+    </div>
+  </div>
+</div>
 
 <div class="page-full">
 
@@ -71,11 +84,12 @@
       <div class="footer__brand">NorthPlate</div>
       <p class="footer__note">Tire prices are representative Canadian retail estimates (CAD, before tax, installed). Always confirm current pricing with your retailer. Updated Q1 2026.</p>
     </div>
-    <div class="footer__links">
-      <a href="public/features/browse/">Browse</a>
-      <a href="public/features/compare/">Compare</a>
-      <a href="public/features/cost/">Cost Analysis</a>
-      <a href="public/about.html">About</a>
+        <div class="footer__links">
+      <a href="/NorthPlate/">Home</a>
+      <a href="/NorthPlate/public/features/browse/">Browser</a>
+      <a href="/NorthPlate/public/features/community/">Community</a>
+      <a href="/NorthPlate/public/features/tires/">Tires</a>
+      <a href="/NorthPlate/public/about.html">About</a>
     </div>
   </div>
 </footer>
