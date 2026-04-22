@@ -96,7 +96,7 @@ const Compare = (() => {
   }
 
   function renderTable(vehicles) {
-    if (!vehicles.length) return '<p class="text-muted">No vehicles selected. Go to <a href="../browse/browse.html">Browse</a> and toggle Compare on vehicles.</p>';
+    if (!vehicles.length) return '<p class="text-muted">No vehicles selected. Go to <a href="/features/browse/">Browse</a> and toggle Compare on vehicles.</p>';
 
     const esc = UI.escapeHTML;
 
