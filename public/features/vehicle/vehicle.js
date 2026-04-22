@@ -212,7 +212,7 @@ function renderVehiclePage(v, enriched) {
   // ── Breadcrumb ──
   const breadcrumb = `
     <nav class="vd-breadcrumb" aria-label="Breadcrumb">
-      <a href="../browse/browse.html">Browse</a>
+      <a href="/features/browse/">Browse</a>
       <span class="vd-breadcrumb__sep" aria-hidden="true">›</span>
       <span>${esc(v.make)}</span>
       <span class="vd-breadcrumb__sep" aria-hidden="true">›</span>
@@ -326,10 +326,10 @@ function renderVehiclePage(v, enriched) {
     <div class="vd-citations">
       <span class="vd-citations__label">Data sources:</span>
       <span>${sourceText}</span>
-      <a href="../../../public/about.html">Methodology →</a>
+      <a href="/about.html">Methodology →</a>
     </div>`;
 
-  const backLink = `<a href="../browse/browse.html" class="vd-back">← Back to Browse</a>`;
+  const backLink = `<a href="/features/browse/" class="vd-back">← Back to Browse</a>`;
 
   return `
     ${breadcrumb}

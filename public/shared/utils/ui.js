@@ -209,7 +209,7 @@ const UI = (() => {
         </div>
 
         <!-- 9. View Details button -->
-        <a href="../vehicle/vehicle.html?id=${v.id}" class="card__view-btn">
+        <a href="/features/vehicle/?id=${v.id}" class="card__view-btn">
           View Details →
         </a>
 
