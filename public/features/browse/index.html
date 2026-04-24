@@ -6,286 +6,207 @@
   <base href="/NorthPlate/">
   <meta name="description" content="Browse 870+ Canadian vehicles — NorthPlate: fuel economy, pricing, winter scores, and more." />
   <title>Browse Vehicles — NorthPlate</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="public/shared/styles/tokens.css" />
+  <link rel="stylesheet" href="public/shared/styles/primitives.css" />
+  <link rel="stylesheet" href="public/shared/components/nav.css" />
   <link rel="stylesheet" href="public/shared/styles/base.css" />
   <link rel="stylesheet" href="public/shared/styles/layout.css" />
   <link rel="stylesheet" href="public/shared/styles/components.css" />
   <link rel="stylesheet" href="public/features/browse/browse.css" />
-  <style>
-    /* ── Heritage Performance theme ─────────────────────────────────────────
-       Overrides go after all linked sheets so cascade wins without !important.
-       ────────────────────────────────────────────────────────────────────── */
-    :root {
-      --font-sans:        'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --bg-primary:       #f5f3f3;
-      --bg-surface:       #efeded;
-      --bg-card:          #ffffff;
-      --bg-sidebar:       #efeded;
-      --text-primary:     #1b1c1c;
-      --text-secondary:   #5a403c;
-      --text-muted:       #8e706b;
-      --border:           #e0d8d6;
-      --nav-bg:           #610000;
-      --accent-teal:      #8b0000;
-      --accent-teal-hover:#4a0000;
-      --btn-text:         #ffffff;
-      --badge-bg:         rgba(97,0,0,0.06);
-      --badge-text:       #5a403c;
-    }
-
-    body { background: #fbf9f8; font-family: 'Work Sans', -apple-system, sans-serif; }
-
-    /* Nav */
-    .nav__logo        { background: #8b0000; }
-    .nav__link.active { border-bottom-color: #e9c349; color: #fff; }
-
-    /* Hero strip */
-    .hero-strip             { background: #1b1c1c; border-bottom: 1px solid #2e2b2b; }
-    .hero-strip__headline   { color: #fbf9f8; font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
-    .hero-strip__sub        { color: rgba(251,249,248,0.5); font-size: 12px; }
-    .hero-strip__pill       { background: rgba(251,249,248,0.07); border-color: rgba(251,249,248,0.12); color: rgba(251,249,248,0.7); font-size: 11px; }
-
-    /* Sidebar */
-    .sidebar                              { background: #f0edec; border-right-color: #e0d8d6; }
-    .filter-select                        { background: #fff; border-color: #ddd5d2; }
-    .filter-select:focus                  { border-color: #610000; outline-color: #610000; }
-    .filter-checkbox-item input           { accent-color: #610000; }
-    .price-input                          { background: #fff; border-color: #ddd5d2; }
-    .price-input:focus                    { border-color: #610000; outline-color: #610000; }
-    .btn-reset                            { border-color: #d5c9c6; color: #8e706b; }
-    .btn-reset:hover                      { border-color: #8e706b; color: #1b1c1c; }
-
-    /* Cards — tonal depth over shadows */
-    .vehicle-card               { border-color: #e8dfdd; box-shadow: none; }
-    .vehicle-card:hover         { box-shadow: 0 4px 16px rgba(97,0,0,0.07); border-color: #c9b3ae; transform: translateY(-2px); }
-    .vehicle-card--selected     { border-color: #8b0000; box-shadow: 0 0 0 2px rgba(139,0,0,0.15); }
-    .card__name                 { font-family: 'Noto Serif', Georgia, serif; font-size: 17px; letter-spacing: -0.01em; }
-    .card__view-btn             { background: #610000; }
-    .card__view-btn:hover       { background: #4a0000; color: #fff; }
-
-    /* Section layout */
-    .browse-section {
-      margin-bottom: 40px;
-    }
-
-    .browse-section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #e0d8d6;
-    }
-
-    .browse-section-title {
-      font-family: 'Noto Serif', Georgia, serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: #1b1c1c;
-      letter-spacing: -0.02em;
-      line-height: 1;
-    }
-
-    .browse-section-sub {
-      font-size: 11px;
-      color: #8e706b;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-family: 'Work Sans', sans-serif;
-      font-weight: 600;
-    }
-
-    /* Apply Filters button */
-    #applyBtn {
-      width: 100%;
-      margin-top: 20px;
-      background: #610000;
-      color: #ffffff;
-      border: none;
-      border-radius: 4px;
-      padding: 11px 16px;
-      font-family: 'Work Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      min-height: 40px;
-      transition: background 150ms ease;
-    }
-    #applyBtn:hover { background: #4a0000; }
-
-    /* Footer */
-    .footer { background: #1b1c1c; }
-  </style>
 </head>
 <body>
 
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav__inner">
-    <a href="/NorthPlate/" class="nav__brand" aria-label="NorthPlate home">
-      <div class="nav__logo">NP</div>
-      <div>
-        <div class="nav__name">NorthPlate</div>
-        <div class="nav__tagline">Canadian Vehicle Intelligence</div>
-      </div>
-    </a>
-    <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation">&#9776;</button>
-    <ul class="nav__links" id="navLinks" role="list">
-      <li><a href="/NorthPlate/" class="nav__link">Home</a></li>
-      <li>
-        <a href="/NorthPlate/public/features/browse/" class="nav__link active" aria-current="page">
-          Browser
-          <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
-        </a>
-      </li>
-      <li><a href="/NorthPlate/public/features/community/" class="nav__link">Community</a></li>
-      <li><a href="/NorthPlate/public/features/tires/" class="nav__link">Tires</a></li>
-      <li><a href="/NorthPlate/public/about.html" class="nav__link">About</a></li>
-    </ul>
-  </div>
-</nav>
+  <a href="#main-content" style="
+    position:absolute;left:var(--space-4);top:var(--space-4);z-index:9999;
+    padding:var(--space-2) var(--space-4);background:var(--color-accent);
+    color:var(--color-btn-text);font-family:var(--font-sans);font-size:var(--text-small);
+    border-radius:var(--radius-md);transform:translateY(-200%);transition:transform var(--transition-fast);
+  " onfocus="this.style.transform='translateY(0)'" onblur="this.style.transform='translateY(-200%)'">
+    Skip to main content
+  </a>
 
-<div class="hero-strip">
-  <div class="hero-strip__inner">
-    <div>
-      <div class="hero-strip__headline">870 Vehicles. Canadian Pricing. No Ads.</div>
-      <div class="hero-strip__sub">All data from NRCan 2026 Fuel Consumption Guide</div>
-    </div>
-    <div class="hero-strip__pills">
-      <span class="hero-strip__pill" id="heroCount">870 Vehicles</span>
-      <span class="hero-strip__pill">13 Provinces</span>
-      <span class="hero-strip__pill">No Cost to Access</span>
-    </div>
-  </div>
-</div>
-
-<div class="page-wrapper">
-
-  <!-- ── Sidebar filters ──────────────────────────────────────────────────── -->
-  <aside class="sidebar" id="filterSidebar" aria-label="Filter vehicles">
-
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-      <span style="font-family:'Noto Serif',Georgia,serif;font-size:16px;font-weight:700;color:#1b1c1c;letter-spacing:-0.01em">Filters</span>
-      <button class="btn-reset" id="resetBtn">Reset</button>
-    </div>
-
-    <div class="filter-group">
-      <label class="filter-label" for="filterMake">Make</label>
-      <select class="filter-select" id="filterMake">
-        <option value="">All Makes</option>
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <fieldset style="border:none;padding:0;margin:0">
-        <legend class="filter-label">Fuel Type</legend>
-        <div class="filter-checkbox-group">
-          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="gasoline" /><span>Gasoline</span></label>
-          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="diesel"   /><span>Diesel</span></label>
-          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="hybrid"   /><span>Hybrid</span></label>
-          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="PHEV"     /><span>Plug-in Hybrid</span></label>
-          <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="BEV"      /><span>Electric</span></label>
+  <!-- NAV -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="site-nav__inner container">
+      <a href="/NorthPlate/" class="site-nav__brand" aria-label="NorthPlate home">
+        <div class="site-nav__mark" aria-hidden="true">NP</div>
+        <div>
+          <div class="site-nav__name">NorthPlate</div>
+          <div class="site-nav__tagline">Canadian Vehicle Intelligence</div>
         </div>
-      </fieldset>
+      </a>
+      <button class="site-nav__toggle" id="siteNavToggle" aria-expanded="false" aria-controls="siteNavLinks" aria-label="Open navigation menu">☰</button>
+      <ul class="site-nav__links" id="siteNavLinks" role="list">
+        <li><a href="/NorthPlate/" class="site-nav__link">Home</a></li>
+        <li><a href="/NorthPlate/public/features/browse/" class="site-nav__link" aria-current="page">Browser</a></li>
+        <li><a href="/NorthPlate/public/features/community/" class="site-nav__link">Community</a></li>
+        <li><a href="/NorthPlate/public/features/tires/" class="site-nav__link">Tires</a></li>
+        <li><a href="/NorthPlate/public/about.html" class="site-nav__link">About</a></li>
+      </ul>
     </div>
+  </nav>
 
-    <div class="filter-group">
-      <span class="filter-label">Price Range (CAD)</span>
-      <div class="price-range-inputs__row">
-        <div class="price-range-inputs__field">
-          <span class="price-range-inputs__prefix">Min</span>
-          <input type="number" class="price-input" id="filterMsrpMin" step="1000" min="0" aria-label="Minimum price" />
-        </div>
-        <span class="price-range-inputs__sep">—</span>
-        <div class="price-range-inputs__field">
-          <span class="price-range-inputs__prefix">Max</span>
-          <input type="number" class="price-input" id="filterMsrpMax" step="1000" min="0" aria-label="Maximum price" />
-        </div>
-      </div>
+  <!-- HERO -->
+  <header class="page-hero section--sm" aria-label="Page introduction">
+    <div class="container">
+      <p>870 Vehicles. Canadian Pricing. No Ads.</p>
+      <p>All data from NRCan 2026 Fuel Consumption Guide</p>
     </div>
+  </header>
 
-    <button id="applyBtn" aria-label="Apply current filters">Apply Filters</button>
+  <!-- MAIN -->
+  <main id="main-content">
 
-  </aside>
+    <section class="section" aria-label="Vehicle browser">
+      <div class="container">
 
-  <!-- ── Main content ─────────────────────────────────────────────────────── -->
-  <main class="main-content" aria-label="Vehicle results">
+        <div class="page-wrapper">
 
-    <button class="sidebar-toggle-btn" id="sidebarToggle"
-      aria-expanded="false" aria-controls="filterSidebar"
-      style="margin-bottom:20px">Filters</button>
+          <!-- Sidebar filters -->
+          <aside class="sidebar" id="filterSidebar" aria-label="Filter vehicles">
 
-    <!-- Featured: Canada's two best-selling nameplates -->
-    <section class="browse-section" aria-labelledby="featuredHeading">
-      <div class="browse-section-header">
-        <span class="browse-section-title" id="featuredHeading">Featured Vehicles</span>
-        <span class="browse-section-sub">Canada's Best Sellers</span>
-      </div>
-      <div class="featured-grid" id="featuredGrid" role="list"></div>
-    </section>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+              <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Filters</span>
+              <button class="btn-reset" id="resetBtn">Reset</button>
+            </div>
 
-    <!-- Highlights: top performer in three categories -->
-    <section class="browse-section" aria-labelledby="highlightsHeading">
-      <div class="browse-section-header">
-        <span class="browse-section-title" id="highlightsHeading">Notable Picks</span>
-        <span class="browse-section-sub">Top Performers</span>
-      </div>
-      <div class="featured-grid featured-grid--3" id="highlightsGrid" role="list"></div>
-    </section>
+            <div class="filter-group">
+              <label class="filter-label" for="filterMake">Make</label>
+              <select class="filter-select" id="filterMake">
+                <option value="">All Makes</option>
+              </select>
+            </div>
 
-    <!-- Full catalogue grid -->
-    <section>
-      <div class="results-bar">
-        <div style="display:flex;align-items:baseline;gap:12px">
-          <span class="browse-section-title" style="font-size:18px">All Vehicles</span>
-          <span class="results-count" id="resultsCount" aria-live="polite" aria-atomic="true">Loading…</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <label class="filter-label" for="sortSelect" style="margin:0;white-space:nowrap">Sort:</label>
-          <select class="filter-select" id="sortSelect" style="min-width:160px">
-            <option value="name_asc">Name A–Z</option>
-            <option value="price_asc">Price: Low to High</option>
-            <option value="price_desc">Price: High to Low</option>
-            <option value="fuel_asc">Best Fuel Economy</option>
-            <option value="winter_desc">Best Winter Score</option>
-            <option value="ev_range_desc">Longest EV Range</option>
-          </select>
-        </div>
-      </div>
+            <div class="filter-group">
+              <fieldset style="border:none;padding:0;margin:0">
+                <legend class="filter-label">Fuel Type</legend>
+                <div class="filter-checkbox-group">
+                  <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="gasoline" /><span>Gasoline</span></label>
+                  <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="diesel"   /><span>Diesel</span></label>
+                  <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="hybrid"   /><span>Hybrid</span></label>
+                  <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="PHEV"     /><span>Plug-in Hybrid</span></label>
+                  <label class="filter-checkbox-item"><input type="checkbox" name="fuelType" value="BEV"      /><span>Electric</span></label>
+                </div>
+              </fieldset>
+            </div>
 
-      <div id="vehicle-grid" class="vehicle-grid" role="list" aria-label="Vehicle listings"></div>
-      <div id="emptyState" class="empty-state" style="display:none">
-        <h3>No vehicles match your filters</h3>
-        <button class="btn btn--secondary" id="resetBtn2" style="margin-top:16px">Reset Filters</button>
-      </div>
+            <div class="filter-group">
+              <span class="filter-label">Price Range (CAD)</span>
+              <div class="price-range-inputs__row">
+                <div class="price-range-inputs__field">
+                  <span class="price-range-inputs__prefix">Min</span>
+                  <input type="number" class="price-input" id="filterMsrpMin" step="1000" min="0" aria-label="Minimum price" />
+                </div>
+                <span class="price-range-inputs__sep">—</span>
+                <div class="price-range-inputs__field">
+                  <span class="price-range-inputs__prefix">Max</span>
+                  <input type="number" class="price-input" id="filterMsrpMax" step="1000" min="0" aria-label="Maximum price" />
+                </div>
+              </div>
+            </div>
+
+            <button id="applyBtn" class="btn btn--primary" style="width:100%;margin-top:20px" aria-label="Apply current filters">Apply Filters</button>
+
+          </aside>
+
+          <!-- Results -->
+          <div class="main-content">
+
+            <button class="sidebar-toggle-btn" id="sidebarToggle"
+              aria-expanded="false" aria-controls="filterSidebar"
+              style="margin-bottom:20px">Filters</button>
+
+            <!-- Featured: Canada's two best-selling nameplates -->
+            <section class="browse-section" aria-labelledby="featuredHeading">
+              <div class="browse-section-header">
+                <span class="browse-section-title" id="featuredHeading">Featured Vehicles</span>
+                <span class="browse-section-sub">Canada's Best Sellers</span>
+              </div>
+              <div class="featured-grid" id="featuredGrid" role="list"></div>
+            </section>
+
+            <!-- Highlights: top performer in three categories -->
+            <section class="browse-section" aria-labelledby="highlightsHeading">
+              <div class="browse-section-header">
+                <span class="browse-section-title" id="highlightsHeading">Notable Picks</span>
+                <span class="browse-section-sub">Top Performers</span>
+              </div>
+              <div class="featured-grid featured-grid--3" id="highlightsGrid" role="list"></div>
+            </section>
+
+            <!-- Full catalogue grid -->
+            <section aria-labelledby="allVehiclesHeading">
+              <div class="results-bar">
+                <div style="display:flex;align-items:baseline;gap:12px">
+                  <span class="browse-section-title" id="allVehiclesHeading" style="font-size:18px">All Vehicles</span>
+                  <span class="results-count" id="resultsCount" aria-live="polite" aria-atomic="true">Loading…</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <label class="filter-label" for="sortSelect" style="margin:0;white-space:nowrap">Sort:</label>
+                  <select class="filter-select" id="sortSelect" style="min-width:160px">
+                    <option value="name_asc">Name A–Z</option>
+                    <option value="price_asc">Price: Low to High</option>
+                    <option value="price_desc">Price: High to Low</option>
+                    <option value="fuel_asc">Best Fuel Economy</option>
+                    <option value="winter_desc">Best Winter Score</option>
+                    <option value="ev_range_desc">Longest EV Range</option>
+                  </select>
+                </div>
+              </div>
+              <div id="vehicle-grid" class="vehicle-grid" role="list" aria-label="Vehicle listings"></div>
+              <div id="emptyState" class="empty-state" style="display:none">
+                <h3>No vehicles match your filters</h3>
+                <button class="btn btn--secondary" id="resetBtn2" style="margin-top:16px">Reset Filters</button>
+              </div>
+            </section>
+
+          </div><!-- /.main-content -->
+
+        </div><!-- /.page-wrapper -->
+
+      </div><!-- /.container -->
     </section>
 
   </main>
-</div>
 
-<footer class="footer" role="contentinfo">
-  <div class="footer__inner">
-    <div>
-      <div class="footer__brand">NorthPlate</div>
-      <p class="footer__note">Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide. All prices in CAD.</p>
+  <!-- FOOTER -->
+  <footer class="site-footer section--sm" role="contentinfo">
+    <div class="container">
+      <div>NorthPlate</div>
+      <p>Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide. All prices in CAD.</p>
+      <nav aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/NorthPlate/">Home</a></li>
+          <li><a href="/NorthPlate/public/features/browse/">Browser</a></li>
+          <li><a href="/NorthPlate/public/features/community/">Community</a></li>
+          <li><a href="/NorthPlate/public/features/tires/">Tires</a></li>
+          <li><a href="/NorthPlate/public/about.html">About</a></li>
+        </ul>
+      </nav>
     </div>
-    <div class="footer__links">
-      <a href="/NorthPlate/">Home</a>
-      <a href="/NorthPlate/public/features/browse/">Browser</a>
-      <a href="/NorthPlate/public/features/community/">Community</a>
-      <a href="/NorthPlate/public/features/tires/">Tires</a>
-      <a href="/NorthPlate/public/about.html">About</a>
-    </div>
-  </div>
-</footer>
+  </footer>
 
-<script src="public/services/data.js"></script>
-<script src="public/services/winter.js"></script>
-<script src="public/services/fuel.js"></script>
-<script src="public/shared/utils/ui.js"></script>
-<script src="public/services/compare.js"></script>
-<script src="public/shared/utils/filters.js"></script>
-<script src="public/features/browse/browse.js"></script>
+  <script>
+  (function () {
+    var toggle = document.getElementById('siteNavToggle');
+    var links  = document.getElementById('siteNavLinks');
+    if (!toggle || !links) return;
+    toggle.addEventListener('click', function () {
+      var open = links.getAttribute('data-open') === 'true';
+      links.setAttribute('data-open', String(!open));
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.setAttribute('aria-label', open ? 'Open navigation menu' : 'Close navigation menu');
+    });
+  }());
+  </script>
+
+  <script src="public/services/data.js"></script>
+  <script src="public/services/winter.js"></script>
+  <script src="public/services/fuel.js"></script>
+  <script src="public/shared/utils/ui.js"></script>
+  <script src="public/services/compare.js"></script>
+  <script src="public/shared/utils/filters.js"></script>
+  <script src="public/features/browse/browse.js"></script>
+
 </body>
 </html>
