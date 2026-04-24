@@ -1,0 +1,171 @@
+/* ============================================================
+   NorthPlate — Design Tokens
+   Single source of truth. No component styles. No reset rules.
+   Referenced by base.css, layout.css, and components.css.
+   ============================================================ */
+
+:root {
+
+  /* ── Spacing ────────────────────────────────────────────────
+     Base unit: 4px. All spacing is a multiple of this unit.
+  ────────────────────────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+
+  /* ── Typography — Font Families ────────────────────────────── */
+  --font-sans:    'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'DM Mono', 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+  --font-display: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+
+  /* ── Typography — Size Scale ────────────────────────────────
+     Ratio: ~1.25 (major third). Base = 15px.
+     small  →  13px  (0.87×)
+     body   →  15px  (1×)
+     h3     →  20px  (1.33×)
+     h2     →  24px  (1.6×)
+     h1     →  32px  (2.13×)
+  ────────────────────────────────────────────────────────── */
+  --text-xs:    11px;   /* labels, captions, overlines       */
+  --text-small: 13px;   /* secondary text, helper copy       */
+  --text-body:  15px;   /* default body copy                 */
+  --text-lg:    17px;   /* lead text, card titles            */
+  --text-h3:    20px;   /* section sub-headings              */
+  --text-h2:    24px;   /* section headings                  */
+  --text-h1:    32px;   /* page-level headings               */
+
+  /* ── Typography — Weight ───────────────────────────────────── */
+  --weight-normal:   400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* ── Typography — Line Height ──────────────────────────────── */
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+
+  /* ── Color Palette — Light Mode ────────────────────────────── */
+
+  /* Backgrounds */
+  --color-bg-primary:  #EEEEF0;   /* page background              */
+  --color-bg-surface:  #E5E5E8;   /* sidebar, inset panels        */
+  --color-bg-card:     #FFFFFF;   /* cards, modals, dropdowns     */
+
+  /* Text */
+  --color-text-primary:   #1A1A1A;   /* headings, strong copy     */
+  --color-text-secondary: #5A5A5F;   /* body copy, descriptions   */
+  --color-text-muted:     #8A8A8F;   /* labels, placeholders      */
+
+  /* Border */
+  --color-border: #D0D0D5;
+
+  /* Accent — primary interactive colour */
+  --color-accent:       #1A7A6E;
+  --color-accent-hover: #155F56;
+
+  /* Accent — destructive / warning */
+  --color-danger: #C8312A;
+  --color-amber:  #D4820A;
+
+  /* Navigation */
+  --color-nav: #0D1F3C;
+
+  /* Button text (contrast on accent backgrounds) */
+  --color-btn-text: #FFFFFF;
+
+  /* Badge defaults */
+  --color-badge-bg:   rgba(0, 0, 0, 0.06);
+  --color-badge-text: #3A3A3F;
+
+  /* Score tiers (shared across badges, bars, cards) */
+  --color-score-excellent:    #0D4A3E;
+  --color-score-excellent-bg: rgba(13, 74, 62, 0.08);
+  --color-score-good:         #1A7A6E;
+  --color-score-good-bg:      rgba(26, 122, 110, 0.10);
+  --color-score-fair:         #B86A00;
+  --color-score-fair-bg:      rgba(212, 130, 10, 0.10);
+  --color-score-poor:         #C8312A;
+  --color-score-poor-bg:      rgba(200, 49, 42, 0.10);
+
+  /* Fuel type indicators */
+  --color-fuel-gasoline: #6B7280;
+  --color-fuel-diesel:   #374151;
+  --color-fuel-hybrid:   #059669;
+  --color-fuel-phev:     #0284C7;
+  --color-fuel-bev:      #7C3AED;
+
+
+  /* ── Border Radius ──────────────────────────────────────────── */
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-full: 9999px;
+
+
+  /* ── Shadows ────────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+
+
+  /* ── Motion ─────────────────────────────────────────────────── */
+  --transition-fast: 150ms ease;
+  --transition:      200ms ease;
+  --transition-slow: 300ms ease;
+
+
+  /* ── Layout ─────────────────────────────────────────────────── */
+  --container-max:  1200px;
+  --nav-height:     60px;
+  --sidebar-width:  260px;
+}
+
+
+/* ── Dark Mode Overrides ─────────────────────────────────────── */
+html.dark {
+  --color-bg-primary:  #2C2C2E;
+  --color-bg-surface:  #3A3A3C;
+  --color-bg-card:     #3A3A3C;
+
+  --color-text-primary:   #F2F2F7;
+  --color-text-secondary: #AEAEB2;
+  --color-text-muted:     #6C6C70;
+
+  --color-border: #48484A;
+
+  --color-accent:       #2DC4B2;
+  --color-accent-hover: #25A99A;
+
+  --color-danger: #FF453A;
+  --color-amber:  #FFD60A;
+
+  --color-nav: #1C1C1E;
+
+  --color-btn-text: #1A1A1A;
+
+  --color-badge-bg:   rgba(255, 255, 255, 0.08);
+  --color-badge-text: #AEAEB2;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.20);
+  --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.30);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.40), 0 1px 3px rgba(0, 0, 0, 0.25);
+
+  --color-score-excellent:    #6EE7D0;
+  --color-score-excellent-bg: rgba(45, 196, 178, 0.12);
+  --color-score-good:         #34D399;
+  --color-score-good-bg:      rgba(52, 211, 153, 0.14);
+  --color-score-fair:         #FBBF24;
+  --color-score-fair-bg:      rgba(251, 191, 36, 0.14);
+  --color-score-poor:         #FF6B63;
+  --color-score-poor-bg:      rgba(255, 107, 99, 0.14);
+}
