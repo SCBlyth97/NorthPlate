@@ -132,20 +132,20 @@
       gap: var(--space-3);
     }
     .about-what li {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--space-3);
+      position: relative;
+      padding-left: calc(6px + var(--space-3));
       font-size: var(--text-sm);
       color: var(--text-secondary);
       line-height: var(--leading-snug);
     }
     .about-what li::before {
       content: '';
+      position: absolute;
+      left: 0;
+      top: 5px;
       width: 6px;
       height: 6px;
       background: var(--accent-red);
-      flex-shrink: 0;
-      margin-top: 5px;
     }
     .about-what__scope {
       margin-top: var(--space-5);
