@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="/NorthPlate/" />
+
+  <!--
+    PAGE META — update per page:
+      description: 1–2 sentence summary for search engines
+      title:       "Page Name — NorthPlate"
+  -->
+  <meta name="description" content="" />
+  <title> — NorthPlate</title>
+
+  <!--
+    DESIGN SYSTEM LOAD ORDER — do not reorder.
+      1. tokens.css   — custom properties only, no rendered output
+      2. primitives.css — .container, .section, .stack, .grid
+      3. nav.css      — .site-nav component
+      4. Page sheet   — page-specific styles only, loaded last
+  -->
+  <link rel="stylesheet" href="public/shared/styles/tokens.css" />
+  <link rel="stylesheet" href="public/shared/styles/primitives.css" />
+  <link rel="stylesheet" href="public/shared/components/nav.css" />
+  <!-- <link rel="stylesheet" href="public/features/[page]/[page].css" /> -->
+</head>
+<body>
+
+  <!-- ============================================================
+       SKIP LINK — accessibility, always first in body
+  ============================================================ -->
+  <a href="#main-content" style="
+    position: absolute;
+    left: var(--space-4);
+    top: var(--space-4);
+    z-index: 9999;
+    padding: var(--space-2) var(--space-4);
+    background: var(--color-accent);
+    color: var(--color-btn-text);
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    border-radius: var(--radius-md);
+    transform: translateY(-200%);
+    transition: transform var(--transition-fast);
+  " onfocus="this.style.transform='translateY(0)'" onblur="this.style.transform='translateY(-200%)'">
+    Skip to main content
+  </a>
+
+
+  <!-- ============================================================
+       NAVIGATION — identical on all pages.
+       Set aria-current="page" on the matching .site-nav__link.
+  ============================================================ -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="site-nav__inner container">
+
+      <a href="/NorthPlate/" class="site-nav__brand" aria-label="NorthPlate home">
+        <div class="site-nav__mark" aria-hidden="true">NP</div>
+        <div>
+          <div class="site-nav__name">NorthPlate</div>
+          <div class="site-nav__tagline">Canadian Vehicle Intelligence</div>
+        </div>
+      </a>
+
+      <button
+        class="site-nav__toggle"
+        id="siteNavToggle"
+        aria-expanded="false"
+        aria-controls="siteNavLinks"
+        aria-label="Open navigation menu"
+      >☰</button>
+
+      <ul class="site-nav__links" id="siteNavLinks" role="list">
+        <li><a href="/NorthPlate/"                           class="site-nav__link">Home</a></li>
+        <li><a href="/NorthPlate/public/features/browse/"    class="site-nav__link">Browser</a></li>
+        <li><a href="/NorthPlate/public/features/community/" class="site-nav__link">Community</a></li>
+        <li><a href="/NorthPlate/public/features/tires/"     class="site-nav__link">Tires</a></li>
+        <li><a href="/NorthPlate/public/about.html"          class="site-nav__link">About</a></li>
+      </ul>
+
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO — page-level introduction strip.
+       Visual styling (background, colour, typography) deferred
+       to the hero component (Phase 3). Structural slot only.
+
+       Replace placeholder text with real page heading + subtitle.
+  ============================================================ -->
+  <header class="page-hero section--sm" aria-label="Page introduction">
+    <div class="container">
+      <!-- Page heading -->
+      <h1><!-- Page Title --></h1>
+      <!-- One-sentence subtitle explaining the page's purpose -->
+      <p><!-- Page subtitle --></p>
+    </div>
+  </header>
+
+
+  <!-- ============================================================
+       MAIN CONTENT
+       Three section slots. Remove or repeat as the page requires.
+       Each section is full-width; .container constrains content.
+
+       aria-labelledby: point to the h2 inside each section.
+  ============================================================ -->
+  <main id="main-content">
+
+    <!-- SECTION 1 ─ Primary content
+         Examples: vehicle grid, article body, form, data table -->
+    <section class="section" aria-labelledby="s1-heading">
+      <div class="container">
+        <h2 id="s1-heading"><!-- Section 1 heading --></h2>
+        <!-- Content -->
+      </div>
+    </section>
+
+    <!-- SECTION 2 ─ Secondary content
+         Examples: filters, related links, featured cards -->
+    <section class="section" aria-labelledby="s2-heading">
+      <div class="container">
+        <h2 id="s2-heading"><!-- Section 2 heading --></h2>
+        <!-- Content -->
+      </div>
+    </section>
+
+    <!-- SECTION 3 ─ Supporting content
+         Examples: methodology note, data sources, CTA -->
+    <section class="section" aria-labelledby="s3-heading">
+      <div class="container">
+        <h2 id="s3-heading"><!-- Section 3 heading --></h2>
+        <!-- Content -->
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       FOOTER PLACEHOLDER
+       Visual styling deferred to the footer component (Phase 3).
+       Brand copy and links are identical on all pages.
+  ============================================================ -->
+  <footer class="site-footer section--sm" role="contentinfo">
+    <div class="container">
+      <!-- Footer brand -->
+      <div>NorthPlate</div>
+      <!-- Footer note: update data attribution per page if needed -->
+      <p>Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide. All prices in CAD.</p>
+      <!-- Footer nav — identical on all pages -->
+      <nav aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/NorthPlate/">Home</a></li>
+          <li><a href="/NorthPlate/public/features/browse/">Browser</a></li>
+          <li><a href="/NorthPlate/public/features/community/">Community</a></li>
+          <li><a href="/NorthPlate/public/features/tires/">Tires</a></li>
+          <li><a href="/NorthPlate/public/about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       SCRIPTS
+       Nav toggle — shared, no page logic.
+       Add page-specific <script> tags after this block.
+  ============================================================ -->
+  <script>
+  (function () {
+    var toggle = document.getElementById('siteNavToggle');
+    var links  = document.getElementById('siteNavLinks');
+    if (!toggle || !links) return;
+    toggle.addEventListener('click', function () {
+      var open = links.getAttribute('data-open') === 'true';
+      links.setAttribute('data-open', String(!open));
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.setAttribute('aria-label', open ? 'Open navigation menu' : 'Close navigation menu');
+    });
+  }());
+  </script>
+
+  <!-- <script src="public/features/[page]/[page].js"></script> -->
+
+</body>
+</html>
