@@ -6,6 +6,9 @@
   <base href="/NorthPlate/">
   <meta name="description" content="NorthPlate Community — Coming Soon. A space for Canadian vehicle owners to share experiences, ratings, and advice." />
   <title>Community — NorthPlate</title>
+  <link rel="stylesheet" href="public/shared/styles/tokens.css" />
+  <link rel="stylesheet" href="public/shared/styles/primitives.css" />
+  <link rel="stylesheet" href="public/shared/components/nav.css" />
   <link rel="stylesheet" href="public/shared/styles/base.css" />
   <link rel="stylesheet" href="public/shared/styles/layout.css" />
   <link rel="stylesheet" href="public/shared/styles/components.css" />
@@ -13,104 +16,119 @@
 </head>
 <body>
 
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav__inner">
-    <a href="/NorthPlate/" class="nav__brand" aria-label="NorthPlate home">
-      <div class="nav__logo">NP</div>
-      <div>
-        <div class="nav__name">NorthPlate</div>
-        <div class="nav__tagline">Canadian Vehicle Intelligence</div>
+  <a href="#main-content" style="
+    position:absolute;left:var(--space-4);top:var(--space-4);z-index:9999;
+    padding:var(--space-2) var(--space-4);background:var(--color-accent);
+    color:var(--color-btn-text);font-family:var(--font-sans);font-size:var(--text-small);
+    border-radius:var(--radius-md);transform:translateY(-200%);transition:transform var(--transition-fast);
+  " onfocus="this.style.transform='translateY(0)'" onblur="this.style.transform='translateY(-200%)'">
+    Skip to main content
+  </a>
+
+  <!-- NAV -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="site-nav__inner container">
+      <a href="/NorthPlate/" class="site-nav__brand" aria-label="NorthPlate home">
+        <div class="site-nav__mark" aria-hidden="true">NP</div>
+        <div>
+          <div class="site-nav__name">NorthPlate</div>
+          <div class="site-nav__tagline">Canadian Vehicle Intelligence</div>
+        </div>
+      </a>
+      <button class="site-nav__toggle" id="siteNavToggle" aria-expanded="false" aria-controls="siteNavLinks" aria-label="Open navigation menu">☰</button>
+      <ul class="site-nav__links" id="siteNavLinks" role="list">
+        <li><a href="/NorthPlate/" class="site-nav__link">Home</a></li>
+        <li><a href="/NorthPlate/public/features/browse/" class="site-nav__link">Browser</a></li>
+        <li><a href="/NorthPlate/public/features/community/" class="site-nav__link" aria-current="page">Community</a></li>
+        <li><a href="/NorthPlate/public/features/tires/" class="site-nav__link">Tires</a></li>
+        <li><a href="/NorthPlate/public/about.html" class="site-nav__link">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="page-hero section--sm" aria-label="Page introduction">
+    <div class="container">
+      <p>870 Vehicles. Canadian Pricing. No Ads.</p>
+      <p>All data from NRCan 2026 Fuel Consumption Guide</p>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content">
+
+    <!-- Section 1: Placeholder content -->
+    <section class="section" aria-labelledby="community-heading">
+      <div class="container">
+
+        <div class="page-header">
+          <h1 id="community-heading">Community</h1>
+          <p>A space for Canadian vehicle owners — coming soon.</p>
+        </div>
+
+        <div style="text-align:center;padding:var(--space-16) var(--space-6)">
+          <div style="font-size:56px;margin-bottom:var(--space-5)" aria-hidden="true">🍁</div>
+          <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-3)">Coming Soon</h2>
+          <p style="font-size:var(--text-base);color:var(--text-secondary);max-width:480px;margin:0 auto var(--space-6)">
+            The NorthPlate Community will be a place for Canadian vehicle owners to share real-world experiences, seasonal tips, and ownership ratings — province by province.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-4);margin-bottom:var(--space-8)">
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);max-width:220px">
+              <div style="font-size:24px;margin-bottom:var(--space-2)" aria-hidden="true">⭐</div>
+              <div style="font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-1)">Owner Reviews</div>
+              <div style="font-size:var(--text-sm);color:var(--text-secondary)">Real ratings from Canadian drivers across all 13 provinces</div>
+            </div>
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);max-width:220px">
+              <div style="font-size:24px;margin-bottom:var(--space-2)" aria-hidden="true">❄</div>
+              <div style="font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-1)">Winter Reports</div>
+              <div style="font-size:var(--text-sm);color:var(--text-secondary)">Seasonal performance data submitted by owners in real conditions</div>
+            </div>
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);max-width:220px">
+              <div style="font-size:24px;margin-bottom:var(--space-2)" aria-hidden="true">🔧</div>
+              <div style="font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-1)">Maintenance Tips</div>
+              <div style="font-size:var(--text-sm);color:var(--text-secondary)">Community-sourced advice on Canadian climate maintenance</div>
+            </div>
+          </div>
+          <a href="/NorthPlate/public/features/browse/" class="btn btn--primary" style="display:inline-flex">
+            Browse Vehicles in the Meantime
+          </a>
+        </div>
+
       </div>
-    </a>
-    <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation">☰</button>
-    <ul class="nav__links" id="navLinks" role="list">
-      <li><a href="/NorthPlate/" class="nav__link">Home</a></li>
-      <li>
-        <a href="/NorthPlate/public/features/browse/" class="nav__link">
-          Browser
-          <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
-        </a>
-      </li>
-      <li><a href="/NorthPlate/public/features/community/" class="nav__link active" aria-current="page">Community</a></li>
-      <li><a href="/NorthPlate/public/features/tires/" class="nav__link">Tires</a></li>
-      <li><a href="/NorthPlate/public/about.html" class="nav__link">About</a></li>
-    </ul>
-  </div>
-</nav>
+    </section>
 
-<div class="hero-strip">
-  <div class="hero-strip__inner">
-    <div>
-      <div class="hero-strip__headline">870 Vehicles. Canadian Pricing. No Ads.</div>
-      <div class="hero-strip__sub">All data from NRCan 2026 Fuel Consumption Guide</div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer section--sm" role="contentinfo">
+    <div class="container">
+      <div>NorthPlate</div>
+      <p>Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide. All prices in CAD.</p>
+      <nav aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/NorthPlate/">Home</a></li>
+          <li><a href="/NorthPlate/public/features/browse/">Browser</a></li>
+          <li><a href="/NorthPlate/public/features/community/">Community</a></li>
+          <li><a href="/NorthPlate/public/features/tires/">Tires</a></li>
+          <li><a href="/NorthPlate/public/about.html">About</a></li>
+        </ul>
+      </nav>
     </div>
-    <div class="hero-strip__pills">
-      <span class="hero-strip__pill">870 Vehicles</span>
-      <span class="hero-strip__pill">13 Provinces</span>
-      <span class="hero-strip__pill">No Cost to Access</span>
-    </div>
-  </div>
-</div>
+  </footer>
 
-<div class="page-full">
+  <script>
+  (function () {
+    var toggle = document.getElementById('siteNavToggle');
+    var links  = document.getElementById('siteNavLinks');
+    if (!toggle || !links) return;
+    toggle.addEventListener('click', function () {
+      var open = links.getAttribute('data-open') === 'true';
+      links.setAttribute('data-open', String(!open));
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.setAttribute('aria-label', open ? 'Open navigation menu' : 'Close navigation menu');
+    });
+  }());
+  </script>
 
-  <div class="page-header">
-    <h1>Community</h1>
-    <p>A space for Canadian vehicle owners — coming soon.</p>
-  </div>
-
-  <div style="text-align:center;padding:var(--space-16) var(--space-6)">
-    <div style="font-size:56px;margin-bottom:var(--space-5)" aria-hidden="true">🍁</div>
-    <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-3)">Coming Soon</h2>
-    <p style="font-size:var(--text-base);color:var(--text-secondary);max-width:480px;margin:0 auto var(--space-6)">
-      The NorthPlate Community will be a place for Canadian vehicle owners to share real-world experiences, seasonal tips, and ownership ratings — province by province.
-    </p>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-4);margin-bottom:var(--space-8)">
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);max-width:220px">
-        <div style="font-size:24px;margin-bottom:var(--space-2)" aria-hidden="true">⭐</div>
-        <div style="font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-1)">Owner Reviews</div>
-        <div style="font-size:var(--text-sm);color:var(--text-secondary)">Real ratings from Canadian drivers across all 13 provinces</div>
-      </div>
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);max-width:220px">
-        <div style="font-size:24px;margin-bottom:var(--space-2)" aria-hidden="true">❄</div>
-        <div style="font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-1)">Winter Reports</div>
-        <div style="font-size:var(--text-sm);color:var(--text-secondary)">Seasonal performance data submitted by owners in real conditions</div>
-      </div>
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-5) var(--space-6);max-width:220px">
-        <div style="font-size:24px;margin-bottom:var(--space-2)" aria-hidden="true">🔧</div>
-        <div style="font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-1)">Maintenance Tips</div>
-        <div style="font-size:var(--text-sm);color:var(--text-secondary)">Community-sourced advice on Canadian climate maintenance</div>
-      </div>
-    </div>
-    <a href="/NorthPlate/public/features/browse/" class="btn btn--primary" style="display:inline-flex">
-      Browse Vehicles in the Meantime
-    </a>
-  </div>
-
-</div>
-
-<footer class="footer" role="contentinfo">
-  <div class="footer__inner">
-    <div>
-      <div class="footer__brand">NorthPlate</div>
-      <p class="footer__note">Free Canadian vehicle intelligence. Data from NRCan 2026 Fuel Consumption Guide. All prices in CAD.</p>
-    </div>
-    <div class="footer__links">
-      <a href="/NorthPlate/">Home</a>
-      <a href="/NorthPlate/public/features/browse/">Browser</a>
-      <a href="/NorthPlate/public/features/community/">Community</a>
-      <a href="/NorthPlate/public/features/tires/">Tires</a>
-      <a href="/NorthPlate/public/about.html">About</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-document.getElementById('navToggle').addEventListener('click', function () {
-  var links = document.getElementById('navLinks');
-  var open = links.classList.toggle('open');
-  this.setAttribute('aria-expanded', String(open));
-});
-</script>
 </body>
 </html>

@@ -6,6 +6,9 @@
   <base href="/NorthPlate/">
   <meta name="description" content="NorthPlate Tire Catalogue — 38 tires across winter, all-weather, all-season, and summer categories with Canadian pricing and replacement cost estimates." />
   <title>Tire Catalogue — NorthPlate</title>
+  <link rel="stylesheet" href="public/shared/styles/tokens.css" />
+  <link rel="stylesheet" href="public/shared/styles/primitives.css" />
+  <link rel="stylesheet" href="public/shared/components/nav.css" />
   <link rel="stylesheet" href="public/shared/styles/base.css" />
   <link rel="stylesheet" href="public/shared/styles/layout.css" />
   <link rel="stylesheet" href="public/shared/styles/components.css" />
@@ -13,90 +16,112 @@
 </head>
 <body>
 
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav__inner">
-    <a href="/NorthPlate/" class="nav__brand" aria-label="NorthPlate home">
-      <div class="nav__logo">NP</div>
-      <div>
-        <div class="nav__name">NorthPlate</div>
-        <div class="nav__tagline">Canadian Vehicle Intelligence</div>
+  <a href="#main-content" style="
+    position:absolute;left:var(--space-4);top:var(--space-4);z-index:9999;
+    padding:var(--space-2) var(--space-4);background:var(--color-accent);
+    color:var(--color-btn-text);font-family:var(--font-sans);font-size:var(--text-small);
+    border-radius:var(--radius-md);transform:translateY(-200%);transition:transform var(--transition-fast);
+  " onfocus="this.style.transform='translateY(0)'" onblur="this.style.transform='translateY(-200%)'">
+    Skip to main content
+  </a>
+
+  <!-- NAV -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="site-nav__inner container">
+      <a href="/NorthPlate/" class="site-nav__brand" aria-label="NorthPlate home">
+        <div class="site-nav__mark" aria-hidden="true">NP</div>
+        <div>
+          <div class="site-nav__name">NorthPlate</div>
+          <div class="site-nav__tagline">Canadian Vehicle Intelligence</div>
+        </div>
+      </a>
+      <button class="site-nav__toggle" id="siteNavToggle" aria-expanded="false" aria-controls="siteNavLinks" aria-label="Open navigation menu">☰</button>
+      <ul class="site-nav__links" id="siteNavLinks" role="list">
+        <li><a href="/NorthPlate/" class="site-nav__link">Home</a></li>
+        <li><a href="/NorthPlate/public/features/browse/" class="site-nav__link">Browser</a></li>
+        <li><a href="/NorthPlate/public/features/community/" class="site-nav__link">Community</a></li>
+        <li><a href="/NorthPlate/public/features/tires/" class="site-nav__link" aria-current="page">Tires</a></li>
+        <li><a href="/NorthPlate/public/about.html" class="site-nav__link">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="page-hero section--sm" aria-label="Page introduction">
+    <div class="container">
+      <p>870 Vehicles. Canadian Pricing. No Ads.</p>
+      <p>All data from NRCan 2026 Fuel Consumption Guide</p>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content">
+
+    <!-- Section 1: Filter bar + catalogue -->
+    <section class="section" aria-labelledby="tires-heading">
+      <div class="container">
+
+        <div class="page-header">
+          <h1 id="tires-heading">Tire Catalogue</h1>
+          <p>38 tires across winter, all-weather, all-season, and summer categories — Canadian pricing, updated Q1 2026. Costs are estimated per tire before tax and installation.</p>
+        </div>
+
+        <div class="tires-filter-bar">
+          <div class="tires-filter-bar__inner">
+            <span class="filter-label" style="margin:0">Category:</span>
+            <div class="tires-filter-tabs" id="tireTabs" role="tablist" aria-label="Filter tires by category">
+              <button class="tire-tab tire-tab--active" data-type="" role="tab" aria-selected="true">All</button>
+              <button class="tire-tab" data-type="winter" role="tab" aria-selected="false">❄ Winter</button>
+              <button class="tire-tab" data-type="all-weather" role="tab" aria-selected="false">🌦 All-Weather</button>
+              <button class="tire-tab" data-type="all-season" role="tab" aria-selected="false">☀ All-Season</button>
+              <button class="tire-tab" data-type="summer" role="tab" aria-selected="false">🏁 Summer</button>
+            </div>
+          </div>
+          <div class="tires-count" id="tiresCount" aria-live="polite">38 tires</div>
+        </div>
+
+        <div class="tire-grid" id="tireGrid" role="list" aria-label="Tire catalogue"></div>
+
       </div>
-    </a>
-    <button class="nav__mobile-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation">☰</button>
-    <ul class="nav__links" id="navLinks" role="list">
-      <li><a href="/NorthPlate/" class="nav__link">Home</a></li>
-      <li>
-        <a href="/NorthPlate/public/features/browse/" class="nav__link">
-          Browser
-        <span class="compare-badge" id="compareBadge" aria-label="vehicles in compare" style="display:none">0</span>
-        </a>
-      </li>
-      <li><a href="/NorthPlate/public/features/community/" class="nav__link">Community</a></li>
-      <li><a href="/NorthPlate/public/features/tires/" class="nav__link active" aria-current="page">Tires</a></li>
-      <li><a href="/NorthPlate/public/about.html" class="nav__link">About</a></li>
-    </ul>
-  </div>
-</nav>
-<div class="hero-strip">
-  <div class="hero-strip__inner">
-    <div>
-      <div class="hero-strip__headline">870 Vehicles. Canadian Pricing. No Ads.</div>
-      <div class="hero-strip__sub">All data from NRCan 2026 Fuel Consumption Guide</div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer section--sm" role="contentinfo">
+    <div class="container">
+      <div>NorthPlate</div>
+      <p>Tire prices are representative Canadian retail estimates (CAD, before tax, installed). Always confirm current pricing with your retailer. Updated Q1 2026.</p>
+      <nav aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/NorthPlate/">Home</a></li>
+          <li><a href="/NorthPlate/public/features/browse/">Browser</a></li>
+          <li><a href="/NorthPlate/public/features/community/">Community</a></li>
+          <li><a href="/NorthPlate/public/features/tires/">Tires</a></li>
+          <li><a href="/NorthPlate/public/about.html">About</a></li>
+        </ul>
+      </nav>
     </div>
-    <div class="hero-strip__pills">
-      <span class="hero-strip__pill">870 Vehicles</span>
-      <span class="hero-strip__pill">13 Provinces</span>
-      <span class="hero-strip__pill">No Cost to Access</span>
-    </div>
-  </div>
-</div>
+  </footer>
 
-<div class="page-full">
+  <script>
+  (function () {
+    var toggle = document.getElementById('siteNavToggle');
+    var links  = document.getElementById('siteNavLinks');
+    if (!toggle || !links) return;
+    toggle.addEventListener('click', function () {
+      var open = links.getAttribute('data-open') === 'true';
+      links.setAttribute('data-open', String(!open));
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.setAttribute('aria-label', open ? 'Open navigation menu' : 'Close navigation menu');
+    });
+  }());
+  </script>
 
-  <div class="page-header">
-    <h1>Tire Catalogue</h1>
-    <p>38 tires across winter, all-weather, all-season, and summer categories — Canadian pricing, updated Q1 2026. Costs are estimated per tire before tax and installation.</p>
-  </div>
+  <script src="public/services/tires.js"></script>
+  <script src="public/services/data.js"></script>
+  <script src="public/services/compare.js"></script>
+  <script src="public/features/tires/tires.js"></script>
 
-  <!-- Filter bar -->
-  <div class="tires-filter-bar">
-    <div class="tires-filter-bar__inner">
-      <span class="filter-label" style="margin:0">Category:</span>
-      <div class="tires-filter-tabs" id="tireTabs" role="tablist" aria-label="Filter tires by category">
-        <button class="tire-tab tire-tab--active" data-type="" role="tab" aria-selected="true">All</button>
-        <button class="tire-tab" data-type="winter" role="tab" aria-selected="false">❄ Winter</button>
-        <button class="tire-tab" data-type="all-weather" role="tab" aria-selected="false">🌦 All-Weather</button>
-        <button class="tire-tab" data-type="all-season" role="tab" aria-selected="false">☀ All-Season</button>
-        <button class="tire-tab" data-type="summer" role="tab" aria-selected="false">🏁 Summer</button>
-      </div>
-    </div>
-    <div class="tires-count" id="tiresCount" aria-live="polite">38 tires</div>
-  </div>
-
-  <!-- Tire grid -->
-  <div class="tire-grid" id="tireGrid" role="list" aria-label="Tire catalogue"></div>
-
-</div>
-
-<footer class="footer" role="contentinfo">
-  <div class="footer__inner">
-    <div>
-      <div class="footer__brand">NorthPlate</div>
-      <p class="footer__note">Tire prices are representative Canadian retail estimates (CAD, before tax, installed). Always confirm current pricing with your retailer. Updated Q1 2026.</p>
-    </div>
-        <div class="footer__links">
-      <a href="/NorthPlate/">Home</a>
-      <a href="/NorthPlate/public/features/browse/">Browser</a>
-      <a href="/NorthPlate/public/features/community/">Community</a>
-      <a href="/NorthPlate/public/features/tires/">Tires</a>
-      <a href="/NorthPlate/public/about.html">About</a>
-    </div>
-  </div>
-</footer>
-
-<script src="public/services/tires.js"></script>
-<script src="public/services/data.js"></script>
-<script src="public/services/compare.js"></script>
-<script src="public/features/tires/tires.js"></script>
 </body>
 </html>
