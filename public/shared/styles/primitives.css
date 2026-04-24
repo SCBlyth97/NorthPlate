@@ -1,0 +1,118 @@
+/* ============================================================
+   NorthPlate — Layout Primitives
+   Phase 2. Structural utilities only.
+   All values sourced from tokens.css. No new tokens.
+   No component styles. No visual decoration.
+   ============================================================ */
+
+
+/* ── Container ──────────────────────────────────────────────────
+   Centered max-width wrapper with horizontal gutter.
+   Compose with .section or use standalone on any block.
+──────────────────────────────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.container--narrow {
+  max-width: 680px;
+}
+
+
+/* ── Section ────────────────────────────────────────────────────
+   Vertical rhythm unit. Controls block-level breathing room
+   between page sections. No visual styling.
+──────────────────────────────────────────────────────────────── */
+
+.section {
+  padding-block: var(--space-12);
+}
+
+.section--sm {
+  padding-block: var(--space-6);
+}
+
+.section--lg {
+  padding-block: var(--space-16);
+}
+
+
+/* ── Stack ──────────────────────────────────────────────────────
+   Flex column. Uniform vertical gap between any direct children.
+   Default gap: --space-4 (16px).
+──────────────────────────────────────────────────────────────── */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stack--xs { gap: var(--space-1); }
+.stack--sm { gap: var(--space-2); }
+.stack--md { gap: var(--space-6); }
+.stack--lg { gap: var(--space-8); }
+.stack--xl { gap: var(--space-12); }
+
+
+/* ── Grid ───────────────────────────────────────────────────────
+   CSS grid with fixed or fluid column layouts.
+   Default gap: --space-6 (24px).
+──────────────────────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Fixed columns */
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Fluid columns — fills available space, min 260px per column */
+.grid--auto { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+
+/* Gap overrides */
+.grid--gap-sm { gap: var(--space-4); }
+.grid--gap-lg { gap: var(--space-8); }
+
+
+/* ── Responsive ─────────────────────────────────────────────────
+   Breakpoints are structural thresholds, not design tokens.
+──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .container {
+    padding-inline: var(--space-4);
+  }
+
+  .section--lg {
+    padding-block: var(--space-12);
+  }
+
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding-block: var(--space-8);
+  }
+
+  .section--sm {
+    padding-block: var(--space-4);
+  }
+
+  .grid--2,
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: 1fr;
+  }
+}

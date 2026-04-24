@@ -1,0 +1,57 @@
+<!--
+  NorthPlate — Site Navigation
+  Drop this block at the top of every page <body>.
+
+  Dependencies (load before this component):
+    tokens.css
+    primitives.css
+    nav.css
+
+  Active link: set aria-current="page" on the matching .site-nav__link.
+  Base path:   adjust href values if the page is in a subdirectory.
+-->
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="site-nav__inner container">
+
+    <a href="/NorthPlate/" class="site-nav__brand" aria-label="NorthPlate home">
+      <div class="site-nav__mark" aria-hidden="true">NP</div>
+      <div>
+        <div class="site-nav__name">NorthPlate</div>
+        <div class="site-nav__tagline">Canadian Vehicle Intelligence</div>
+      </div>
+    </a>
+
+    <button
+      class="site-nav__toggle"
+      id="siteNavToggle"
+      aria-expanded="false"
+      aria-controls="siteNavLinks"
+      aria-label="Open navigation menu"
+    >☰</button>
+
+    <ul class="site-nav__links" id="siteNavLinks" role="list">
+      <li><a href="/NorthPlate/"                          class="site-nav__link">Home</a></li>
+      <li><a href="/NorthPlate/public/features/browse/"   class="site-nav__link">Browser</a></li>
+      <li><a href="/NorthPlate/public/features/community/" class="site-nav__link">Community</a></li>
+      <li><a href="/NorthPlate/public/features/tires/"    class="site-nav__link">Tires</a></li>
+      <li><a href="/NorthPlate/public/about.html"         class="site-nav__link">About</a></li>
+    </ul>
+
+  </div>
+</nav>
+
+<script>
+(function () {
+  var toggle = document.getElementById('siteNavToggle');
+  var links  = document.getElementById('siteNavLinks');
+  if (!toggle || !links) return;
+
+  toggle.addEventListener('click', function () {
+    var open = links.getAttribute('data-open') === 'true';
+    links.setAttribute('data-open', String(!open));
+    toggle.setAttribute('aria-expanded', String(!open));
+    toggle.setAttribute('aria-label', open ? 'Open navigation menu' : 'Close navigation menu');
+  });
+}());
+</script>
